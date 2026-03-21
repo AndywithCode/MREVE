@@ -1,0 +1,3106 @@
+cveID,product,version
+CVE-2020-28374,Debian Linux,9
+CVE-2020-28374,Debian Linux,10
+CVE-2020-28374,Fedora,32
+CVE-2020-28374,Fedora,33
+CVE-2020-35965,Debian Linux,9
+CVE-2020-35965,Debian Linux,10
+CVE-2020-36158,Fedora,33
+CVE-2011-0990,Moonlight,2
+CVE-2011-0990,Moonlight,2.3.0
+CVE-2011-0990,Moonlight,2.4
+CVE-2011-0990,Moonlight,2.31
+CVE-2011-0990,Moonlight,3
+CVE-2011-0990,Moonlight,3.99
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38
+CVE-2011-1078,Linux Kernel,2.6.38.1
+CVE-2011-1078,Linux Kernel,2.6.38.2
+CVE-2011-1078,Linux Kernel,2.6.38.3
+CVE-2011-1078,Linux Kernel,2.6.38.4
+CVE-2011-1078,Linux Kernel,2.6.38.5
+CVE-2011-1078,Linux Kernel,2.6.38.6
+CVE-2011-1078,Linux Kernel,2.6.38.7
+CVE-2011-2517,Enterprise Linux,5
+CVE-2011-2517,Enterprise Linux Desktop,5
+CVE-2011-2517,Enterprise Linux Server,5
+CVE-2011-2517,Enterprise Linux Workstation,5
+CVE-2011-3211,Bcfg2,0.3.1
+CVE-2011-3211,Bcfg2,0.4
+CVE-2011-3211,Bcfg2,0.5
+CVE-2011-3211,Bcfg2,0.6
+CVE-2011-3211,Bcfg2,0.6.1
+CVE-2011-3211,Bcfg2,0.6.3
+CVE-2011-3211,Bcfg2,0.6.4
+CVE-2011-3211,Bcfg2,0.6.5
+CVE-2011-3211,Bcfg2,0.6.6
+CVE-2011-3211,Bcfg2,0.6.7
+CVE-2011-3211,Bcfg2,0.6.8
+CVE-2011-3211,Bcfg2,0.6.9
+CVE-2011-3211,Bcfg2,0.6.10
+CVE-2011-3211,Bcfg2,0.7.0
+CVE-2011-3211,Bcfg2,0.7.1
+CVE-2011-3211,Bcfg2,0.7.2
+CVE-2011-3211,Bcfg2,0.7.3
+CVE-2011-3211,Bcfg2,0.7.4
+CVE-2011-3211,Bcfg2,0.8.0
+CVE-2011-3211,Bcfg2,0.8.1
+CVE-2011-3211,Bcfg2,0.8.2
+CVE-2011-3211,Bcfg2,0.8.3
+CVE-2011-3211,Bcfg2,0.8.4
+CVE-2011-3211,Bcfg2,0.8.5
+CVE-2011-3211,Bcfg2,0.8.6.1
+CVE-2011-3211,Bcfg2,0.8.7
+CVE-2011-3211,Bcfg2,0.8.7.1
+CVE-2011-3211,Bcfg2,0.8.7.2
+CVE-2011-3211,Bcfg2,0.9.0
+CVE-2011-3211,Bcfg2,0.9.1d
+CVE-2011-3211,Bcfg2,0.9.2
+CVE-2011-3211,Bcfg2,0.9.3
+CVE-2011-3211,Bcfg2,0.9.4
+CVE-2011-3211,Bcfg2,0.9.5
+CVE-2011-3211,Bcfg2,0.9.5.1
+CVE-2011-3211,Bcfg2,0.9.5.2
+CVE-2011-3211,Bcfg2,0.9.5.3
+CVE-2011-3211,Bcfg2,0.9.5.5
+CVE-2011-3211,Bcfg2,0.9.5.7
+CVE-2011-3211,Bcfg2,0.9.6
+CVE-2011-3211,Bcfg2,1
+CVE-2011-3211,Bcfg2,1
+CVE-2011-3211,Bcfg2,1
+CVE-2011-3211,Bcfg2,1.0.0
+CVE-2011-3211,Bcfg2,1.0.1
+CVE-2011-3211,Bcfg2,1.1.0
+CVE-2011-3211,Bcfg2,1.1.1
+CVE-2011-3211,Bcfg2,1.2
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38
+CVE-2011-4913,Linux Kernel,2.6.38.1
+CVE-2011-4913,Linux Kernel,2.6.38.2
+CVE-2011-4913,Linux Kernel,2.6.38.3
+CVE-2011-4913,Linux Kernel,2.6.38.4
+CVE-2011-4913,Linux Kernel,2.6.38.5
+CVE-2011-4913,Linux Kernel,2.6.38.6
+CVE-2011-4913,Linux Kernel,2.6.38.7
+CVE-2011-4913,Suse Linux Enterprise Server,10
+CVE-2012-0787,Augeas,0.0.1
+CVE-2012-0787,Augeas,0.0.2
+CVE-2012-0787,Augeas,0.0.3
+CVE-2012-0787,Augeas,0.0.4
+CVE-2012-0787,Augeas,0.0.5
+CVE-2012-0787,Augeas,0.0.6
+CVE-2012-0787,Augeas,0.0.7
+CVE-2012-0787,Augeas,0.0.8
+CVE-2012-0787,Augeas,0.1.0
+CVE-2012-0787,Augeas,0.1.1
+CVE-2012-0787,Augeas,0.2.0
+CVE-2012-0787,Augeas,0.2.1
+CVE-2012-0787,Augeas,0.2.2
+CVE-2012-0787,Augeas,0.3.0
+CVE-2012-0787,Augeas,0.3.1
+CVE-2012-0787,Augeas,0.3.2
+CVE-2012-0787,Augeas,0.3.3
+CVE-2012-0787,Augeas,0.3.4
+CVE-2012-0787,Augeas,0.3.5
+CVE-2012-0787,Augeas,0.3.6
+CVE-2012-0787,Augeas,0.4.0
+CVE-2012-0787,Augeas,0.4.1
+CVE-2012-0787,Augeas,0.4.2
+CVE-2012-0787,Augeas,0.5.0
+CVE-2012-0787,Augeas,0.5.1
+CVE-2012-0787,Augeas,0.5.2
+CVE-2012-0787,Augeas,0.5.3
+CVE-2012-0787,Augeas,0.6.0
+CVE-2012-0787,Augeas,0.7.0
+CVE-2012-0787,Augeas,0.7.1
+CVE-2012-0787,Augeas,0.7.2
+CVE-2012-0787,Augeas,0.7.3
+CVE-2012-0787,Augeas,0.7.4
+CVE-2012-0787,Augeas,0.8.0
+CVE-2012-0787,Augeas,0.8.1
+CVE-2012-0787,Augeas,0.9.0
+CVE-2012-0787,Enterprise Linux,6
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3
+CVE-2012-0957,Linux Kernel,3.0.1
+CVE-2012-0957,Linux Kernel,3.0.2
+CVE-2012-0957,Linux Kernel,3.0.3
+CVE-2012-0957,Linux Kernel,3.0.4
+CVE-2012-0957,Linux Kernel,3.0.5
+CVE-2012-0957,Linux Kernel,3.0.6
+CVE-2012-0957,Linux Kernel,3.0.7
+CVE-2012-0957,Linux Kernel,3.0.8
+CVE-2012-0957,Linux Kernel,3.0.9
+CVE-2012-0957,Linux Kernel,3.0.10
+CVE-2012-0957,Linux Kernel,3.0.11
+CVE-2012-0957,Linux Kernel,3.0.12
+CVE-2012-0957,Linux Kernel,3.0.13
+CVE-2012-0957,Linux Kernel,3.0.14
+CVE-2012-0957,Linux Kernel,3.0.15
+CVE-2012-0957,Linux Kernel,3.0.16
+CVE-2012-0957,Linux Kernel,3.0.17
+CVE-2012-0957,Linux Kernel,3.0.18
+CVE-2012-0957,Linux Kernel,3.0.19
+CVE-2012-0957,Linux Kernel,3.0.20
+CVE-2012-0957,Linux Kernel,3.0.21
+CVE-2012-0957,Linux Kernel,3.0.22
+CVE-2012-0957,Linux Kernel,3.0.23
+CVE-2012-0957,Linux Kernel,3.0.24
+CVE-2012-0957,Linux Kernel,3.0.25
+CVE-2012-0957,Linux Kernel,3.0.26
+CVE-2012-0957,Linux Kernel,3.0.27
+CVE-2012-0957,Linux Kernel,3.0.28
+CVE-2012-0957,Linux Kernel,3.0.29
+CVE-2012-0957,Linux Kernel,3.0.30
+CVE-2012-0957,Linux Kernel,3.0.31
+CVE-2012-0957,Linux Kernel,3.0.32
+CVE-2012-0957,Linux Kernel,3.0.33
+CVE-2012-0957,Linux Kernel,3.0.34
+CVE-2012-0957,Linux Kernel,3.0.35
+CVE-2012-0957,Linux Kernel,3.0.36
+CVE-2012-0957,Linux Kernel,3.0.37
+CVE-2012-0957,Linux Kernel,3.0.38
+CVE-2012-0957,Linux Kernel,3.0.39
+CVE-2012-0957,Linux Kernel,3.0.40
+CVE-2012-0957,Linux Kernel,3.0.41
+CVE-2012-0957,Linux Kernel,3.0.42
+CVE-2012-0957,Linux Kernel,3.0.43
+CVE-2012-0957,Linux Kernel,3.0.44
+CVE-2012-0957,Linux Kernel,3.1
+CVE-2012-0957,Linux Kernel,3.1
+CVE-2012-0957,Linux Kernel,3.1
+CVE-2012-0957,Linux Kernel,3.1
+CVE-2012-0957,Linux Kernel,3.1
+CVE-2012-0957,Linux Kernel,3.1.1
+CVE-2012-0957,Linux Kernel,3.1.2
+CVE-2012-0957,Linux Kernel,3.1.3
+CVE-2012-0957,Linux Kernel,3.1.4
+CVE-2012-0957,Linux Kernel,3.1.5
+CVE-2012-0957,Linux Kernel,3.1.6
+CVE-2012-0957,Linux Kernel,3.1.7
+CVE-2012-0957,Linux Kernel,3.1.8
+CVE-2012-0957,Linux Kernel,3.1.9
+CVE-2012-0957,Linux Kernel,3.1.10
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2
+CVE-2012-0957,Linux Kernel,3.2.1
+CVE-2012-0957,Linux Kernel,3.2.1
+CVE-2012-0957,Linux Kernel,3.2.2
+CVE-2012-0957,Linux Kernel,3.2.3
+CVE-2012-0957,Linux Kernel,3.2.4
+CVE-2012-0957,Linux Kernel,3.2.5
+CVE-2012-0957,Linux Kernel,3.2.6
+CVE-2012-0957,Linux Kernel,3.2.7
+CVE-2012-0957,Linux Kernel,3.2.8
+CVE-2012-0957,Linux Kernel,3.2.9
+CVE-2012-0957,Linux Kernel,3.2.10
+CVE-2012-0957,Linux Kernel,3.2.11
+CVE-2012-0957,Linux Kernel,3.2.12
+CVE-2012-0957,Linux Kernel,3.2.13
+CVE-2012-0957,Linux Kernel,3.2.14
+CVE-2012-0957,Linux Kernel,3.2.15
+CVE-2012-0957,Linux Kernel,3.2.16
+CVE-2012-0957,Linux Kernel,3.2.17
+CVE-2012-0957,Linux Kernel,3.2.18
+CVE-2012-0957,Linux Kernel,3.2.19
+CVE-2012-0957,Linux Kernel,3.2.20
+CVE-2012-0957,Linux Kernel,3.2.21
+CVE-2012-0957,Linux Kernel,3.2.22
+CVE-2012-0957,Linux Kernel,3.2.23
+CVE-2012-0957,Linux Kernel,3.2.24
+CVE-2012-0957,Linux Kernel,3.2.25
+CVE-2012-0957,Linux Kernel,3.2.26
+CVE-2012-0957,Linux Kernel,3.2.27
+CVE-2012-0957,Linux Kernel,3.2.28
+CVE-2012-0957,Linux Kernel,3.2.29
+CVE-2012-0957,Linux Kernel,3.2.30
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3
+CVE-2012-0957,Linux Kernel,3.3.1
+CVE-2012-0957,Linux Kernel,3.3.2
+CVE-2012-0957,Linux Kernel,3.3.3
+CVE-2012-0957,Linux Kernel,3.3.4
+CVE-2012-0957,Linux Kernel,3.3.5
+CVE-2012-0957,Linux Kernel,3.3.6
+CVE-2012-0957,Linux Kernel,3.3.7
+CVE-2012-0957,Linux Kernel,3.3.8
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4
+CVE-2012-0957,Linux Kernel,3.4.1
+CVE-2012-0957,Linux Kernel,3.4.1
+CVE-2012-0957,Linux Kernel,3.4.2
+CVE-2012-0957,Linux Kernel,3.4.2
+CVE-2012-0957,Linux Kernel,3.4.3
+CVE-2012-0957,Linux Kernel,3.4.3
+CVE-2012-0957,Linux Kernel,3.4.4
+CVE-2012-0957,Linux Kernel,3.4.4
+CVE-2012-0957,Linux Kernel,3.4.5
+CVE-2012-0957,Linux Kernel,3.4.5
+CVE-2012-0957,Linux Kernel,3.4.10
+CVE-2012-0957,Linux Kernel,3.4.11
+CVE-2012-0957,Linux Kernel,3.4.12
+CVE-2012-0957,Linux Kernel,3.4.13
+CVE-2012-0957,Linux Kernel,3.4.14
+CVE-2012-3364,Linux Kernel,3.4
+CVE-2012-3364,Linux Kernel,3.4.1
+CVE-2012-3364,Linux Kernel,3.4.2
+CVE-2012-3364,Linux Kernel,3.4.3
+CVE-2012-3366,Bcfg2,1.2.0
+CVE-2012-3366,Bcfg2,1.2.0
+CVE-2012-3430,Linux Kernel,3.0.1
+CVE-2012-3430,Linux Kernel,3.0.2
+CVE-2012-3430,Linux Kernel,3.0.3
+CVE-2012-3430,Linux Kernel,3.0.4
+CVE-2012-3430,Linux Kernel,3.0.5
+CVE-2012-3430,Linux Kernel,3.0.6
+CVE-2012-3430,Linux Kernel,3.0.7
+CVE-2012-3430,Linux Kernel,3.0.8
+CVE-2012-3430,Linux Kernel,3.0.9
+CVE-2012-3430,Linux Kernel,3.0.10
+CVE-2012-3430,Linux Kernel,3.0.11
+CVE-2012-3430,Linux Kernel,3.0.12
+CVE-2012-3430,Linux Kernel,3.0.13
+CVE-2012-3430,Linux Kernel,3.0.14
+CVE-2012-3430,Linux Kernel,3.0.15
+CVE-2012-3430,Linux Kernel,3.0.16
+CVE-2012-3430,Linux Kernel,3.0.17
+CVE-2012-3430,Linux Kernel,3.0.18
+CVE-2012-3430,Linux Kernel,3.0.19
+CVE-2012-3430,Linux Kernel,3.0.20
+CVE-2012-3430,Linux Kernel,3.0.21
+CVE-2012-3430,Linux Kernel,3.0.22
+CVE-2012-3430,Linux Kernel,3.0.23
+CVE-2012-3430,Linux Kernel,3.0.24
+CVE-2012-3430,Linux Kernel,3.0.25
+CVE-2012-3430,Linux Kernel,3.0.26
+CVE-2012-3430,Linux Kernel,3.0.27
+CVE-2012-3430,Linux Kernel,3.0.28
+CVE-2012-3430,Linux Kernel,3.0.29
+CVE-2012-3430,Linux Kernel,3.0.30
+CVE-2012-3430,Linux Kernel,3.0.31
+CVE-2012-3430,Linux Kernel,3.0.32
+CVE-2012-3430,Linux Kernel,3.0.33
+CVE-2012-3430,Linux Kernel,3.0.34
+CVE-2012-3430,Linux Kernel,3.0.35
+CVE-2012-3430,Linux Kernel,3.0.36
+CVE-2012-3430,Linux Kernel,3.0.37
+CVE-2012-3430,Linux Kernel,3.0.38
+CVE-2012-3430,Linux Kernel,3.0.39
+CVE-2012-3430,Linux Kernel,3.0.40
+CVE-2012-3430,Linux Kernel,3.0.41
+CVE-2012-3430,Linux Kernel,3.0.42
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3
+CVE-2012-4530,Linux Kernel,3.0.1
+CVE-2012-4530,Linux Kernel,3.0.2
+CVE-2012-4530,Linux Kernel,3.0.3
+CVE-2012-4530,Linux Kernel,3.0.4
+CVE-2012-4530,Linux Kernel,3.0.5
+CVE-2012-4530,Linux Kernel,3.0.6
+CVE-2012-4530,Linux Kernel,3.0.7
+CVE-2012-4530,Linux Kernel,3.0.8
+CVE-2012-4530,Linux Kernel,3.0.9
+CVE-2012-4530,Linux Kernel,3.0.10
+CVE-2012-4530,Linux Kernel,3.0.11
+CVE-2012-4530,Linux Kernel,3.0.12
+CVE-2012-4530,Linux Kernel,3.0.13
+CVE-2012-4530,Linux Kernel,3.0.14
+CVE-2012-4530,Linux Kernel,3.0.15
+CVE-2012-4530,Linux Kernel,3.0.16
+CVE-2012-4530,Linux Kernel,3.0.17
+CVE-2012-4530,Linux Kernel,3.0.18
+CVE-2012-4530,Linux Kernel,3.0.19
+CVE-2012-4530,Linux Kernel,3.0.20
+CVE-2012-4530,Linux Kernel,3.0.21
+CVE-2012-4530,Linux Kernel,3.0.22
+CVE-2012-4530,Linux Kernel,3.0.23
+CVE-2012-4530,Linux Kernel,3.0.24
+CVE-2012-4530,Linux Kernel,3.0.25
+CVE-2012-4530,Linux Kernel,3.0.26
+CVE-2012-4530,Linux Kernel,3.0.27
+CVE-2012-4530,Linux Kernel,3.0.28
+CVE-2012-4530,Linux Kernel,3.0.29
+CVE-2012-4530,Linux Kernel,3.0.30
+CVE-2012-4530,Linux Kernel,3.0.31
+CVE-2012-4530,Linux Kernel,3.0.32
+CVE-2012-4530,Linux Kernel,3.0.33
+CVE-2012-4530,Linux Kernel,3.0.34
+CVE-2012-4530,Linux Kernel,3.0.35
+CVE-2012-4530,Linux Kernel,3.0.36
+CVE-2012-4530,Linux Kernel,3.0.37
+CVE-2012-4530,Linux Kernel,3.0.38
+CVE-2012-4530,Linux Kernel,3.0.39
+CVE-2012-4530,Linux Kernel,3.0.40
+CVE-2012-4530,Linux Kernel,3.0.41
+CVE-2012-4530,Linux Kernel,3.0.42
+CVE-2012-4530,Linux Kernel,3.0.43
+CVE-2012-4530,Linux Kernel,3.0.44
+CVE-2012-4530,Linux Kernel,3.1
+CVE-2012-4530,Linux Kernel,3.1
+CVE-2012-4530,Linux Kernel,3.1
+CVE-2012-4530,Linux Kernel,3.1
+CVE-2012-4530,Linux Kernel,3.1
+CVE-2012-4530,Linux Kernel,3.1.1
+CVE-2012-4530,Linux Kernel,3.1.2
+CVE-2012-4530,Linux Kernel,3.1.3
+CVE-2012-4530,Linux Kernel,3.1.4
+CVE-2012-4530,Linux Kernel,3.1.5
+CVE-2012-4530,Linux Kernel,3.1.6
+CVE-2012-4530,Linux Kernel,3.1.7
+CVE-2012-4530,Linux Kernel,3.1.8
+CVE-2012-4530,Linux Kernel,3.1.9
+CVE-2012-4530,Linux Kernel,3.1.10
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2
+CVE-2012-4530,Linux Kernel,3.2.1
+CVE-2012-4530,Linux Kernel,3.2.2
+CVE-2012-4530,Linux Kernel,3.2.3
+CVE-2012-4530,Linux Kernel,3.2.4
+CVE-2012-4530,Linux Kernel,3.2.5
+CVE-2012-4530,Linux Kernel,3.2.6
+CVE-2012-4530,Linux Kernel,3.2.7
+CVE-2012-4530,Linux Kernel,3.2.8
+CVE-2012-4530,Linux Kernel,3.2.9
+CVE-2012-4530,Linux Kernel,3.2.10
+CVE-2012-4530,Linux Kernel,3.2.11
+CVE-2012-4530,Linux Kernel,3.2.12
+CVE-2012-4530,Linux Kernel,3.2.13
+CVE-2012-4530,Linux Kernel,3.2.14
+CVE-2012-4530,Linux Kernel,3.2.15
+CVE-2012-4530,Linux Kernel,3.2.16
+CVE-2012-4530,Linux Kernel,3.2.17
+CVE-2012-4530,Linux Kernel,3.2.18
+CVE-2012-4530,Linux Kernel,3.2.19
+CVE-2012-4530,Linux Kernel,3.2.20
+CVE-2012-4530,Linux Kernel,3.2.21
+CVE-2012-4530,Linux Kernel,3.2.22
+CVE-2012-4530,Linux Kernel,3.2.23
+CVE-2012-4530,Linux Kernel,3.2.24
+CVE-2012-4530,Linux Kernel,3.2.25
+CVE-2012-4530,Linux Kernel,3.2.26
+CVE-2012-4530,Linux Kernel,3.2.27
+CVE-2012-4530,Linux Kernel,3.2.28
+CVE-2012-4530,Linux Kernel,3.2.29
+CVE-2012-4530,Linux Kernel,3.2.30
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3
+CVE-2012-4530,Linux Kernel,3.3.1
+CVE-2012-4530,Linux Kernel,3.3.2
+CVE-2012-4530,Linux Kernel,3.3.3
+CVE-2012-4530,Linux Kernel,3.3.4
+CVE-2012-4530,Linux Kernel,3.3.5
+CVE-2012-4530,Linux Kernel,3.3.6
+CVE-2012-4530,Linux Kernel,3.3.7
+CVE-2012-4530,Linux Kernel,3.3.8
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4
+CVE-2012-4530,Linux Kernel,3.4.1
+CVE-2012-4530,Linux Kernel,3.4.2
+CVE-2012-4530,Linux Kernel,3.4.3
+CVE-2012-4530,Linux Kernel,3.4.4
+CVE-2012-4530,Linux Kernel,3.4.5
+CVE-2012-4530,Linux Kernel,3.4.6
+CVE-2012-4530,Linux Kernel,3.4.7
+CVE-2012-4530,Linux Kernel,3.4.8
+CVE-2012-4530,Linux Kernel,3.4.9
+CVE-2012-4530,Linux Kernel,3.4.10
+CVE-2012-4530,Linux Kernel,3.4.11
+CVE-2012-4530,Linux Kernel,3.4.12
+CVE-2012-4530,Linux Kernel,3.4.13
+CVE-2012-4530,Linux Kernel,3.4.14
+CVE-2012-4530,Linux Kernel,3.4.15
+CVE-2012-4530,Linux Kernel,3.4.16
+CVE-2012-4530,Linux Kernel,3.4.17
+CVE-2012-4530,Linux Kernel,3.4.18
+CVE-2012-4530,Linux Kernel,3.4.19
+CVE-2012-4530,Linux Kernel,3.4.20
+CVE-2012-4530,Linux Kernel,3.4.21
+CVE-2012-4530,Linux Kernel,3.4.22
+CVE-2012-4530,Linux Kernel,3.4.23
+CVE-2012-4530,Linux Kernel,3.4.24
+CVE-2012-4530,Linux Kernel,3.5.1
+CVE-2012-4530,Linux Kernel,3.5.2
+CVE-2012-4530,Linux Kernel,3.5.3
+CVE-2012-4530,Linux Kernel,3.5.4
+CVE-2012-4530,Linux Kernel,3.5.5
+CVE-2012-4530,Linux Kernel,3.5.6
+CVE-2012-4530,Linux Kernel,3.5.7
+CVE-2012-4530,Linux Kernel,3.6
+CVE-2012-4530,Linux Kernel,3.6.1
+CVE-2012-4530,Linux Kernel,3.6.2
+CVE-2012-4530,Linux Kernel,3.6.3
+CVE-2012-4530,Linux Kernel,3.6.4
+CVE-2012-4530,Linux Kernel,3.6.5
+CVE-2012-4530,Linux Kernel,3.6.6
+CVE-2012-4530,Linux Kernel,3.6.7
+CVE-2012-4530,Linux Kernel,3.6.8
+CVE-2012-4530,Linux Kernel,3.7
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3
+CVE-2012-5532,Linux Kernel,3.0.1
+CVE-2012-5532,Linux Kernel,3.0.2
+CVE-2012-5532,Linux Kernel,3.0.3
+CVE-2012-5532,Linux Kernel,3.0.4
+CVE-2012-5532,Linux Kernel,3.0.5
+CVE-2012-5532,Linux Kernel,3.0.6
+CVE-2012-5532,Linux Kernel,3.0.7
+CVE-2012-5532,Linux Kernel,3.0.8
+CVE-2012-5532,Linux Kernel,3.0.9
+CVE-2012-5532,Linux Kernel,3.0.10
+CVE-2012-5532,Linux Kernel,3.0.11
+CVE-2012-5532,Linux Kernel,3.0.12
+CVE-2012-5532,Linux Kernel,3.0.13
+CVE-2012-5532,Linux Kernel,3.0.14
+CVE-2012-5532,Linux Kernel,3.0.15
+CVE-2012-5532,Linux Kernel,3.0.16
+CVE-2012-5532,Linux Kernel,3.0.17
+CVE-2012-5532,Linux Kernel,3.0.18
+CVE-2012-5532,Linux Kernel,3.0.19
+CVE-2012-5532,Linux Kernel,3.0.20
+CVE-2012-5532,Linux Kernel,3.0.21
+CVE-2012-5532,Linux Kernel,3.0.22
+CVE-2012-5532,Linux Kernel,3.0.23
+CVE-2012-5532,Linux Kernel,3.0.24
+CVE-2012-5532,Linux Kernel,3.0.25
+CVE-2012-5532,Linux Kernel,3.0.26
+CVE-2012-5532,Linux Kernel,3.0.27
+CVE-2012-5532,Linux Kernel,3.0.28
+CVE-2012-5532,Linux Kernel,3.0.29
+CVE-2012-5532,Linux Kernel,3.0.30
+CVE-2012-5532,Linux Kernel,3.0.31
+CVE-2012-5532,Linux Kernel,3.0.32
+CVE-2012-5532,Linux Kernel,3.0.33
+CVE-2012-5532,Linux Kernel,3.0.34
+CVE-2012-5532,Linux Kernel,3.0.35
+CVE-2012-5532,Linux Kernel,3.0.36
+CVE-2012-5532,Linux Kernel,3.0.37
+CVE-2012-5532,Linux Kernel,3.0.38
+CVE-2012-5532,Linux Kernel,3.0.39
+CVE-2012-5532,Linux Kernel,3.0.40
+CVE-2012-5532,Linux Kernel,3.0.41
+CVE-2012-5532,Linux Kernel,3.0.42
+CVE-2012-5532,Linux Kernel,3.0.43
+CVE-2012-5532,Linux Kernel,3.0.44
+CVE-2012-5532,Linux Kernel,3.1
+CVE-2012-5532,Linux Kernel,3.1
+CVE-2012-5532,Linux Kernel,3.1
+CVE-2012-5532,Linux Kernel,3.1
+CVE-2012-5532,Linux Kernel,3.1
+CVE-2012-5532,Linux Kernel,3.1.1
+CVE-2012-5532,Linux Kernel,3.1.2
+CVE-2012-5532,Linux Kernel,3.1.3
+CVE-2012-5532,Linux Kernel,3.1.4
+CVE-2012-5532,Linux Kernel,3.1.5
+CVE-2012-5532,Linux Kernel,3.1.6
+CVE-2012-5532,Linux Kernel,3.1.7
+CVE-2012-5532,Linux Kernel,3.1.8
+CVE-2012-5532,Linux Kernel,3.1.9
+CVE-2012-5532,Linux Kernel,3.1.10
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3
+CVE-2012-5532,Linux Kernel,3.3.1
+CVE-2012-5532,Linux Kernel,3.3.2
+CVE-2012-5532,Linux Kernel,3.3.3
+CVE-2012-5532,Linux Kernel,3.3.4
+CVE-2012-5532,Linux Kernel,3.3.5
+CVE-2012-5532,Linux Kernel,3.3.6
+CVE-2012-5532,Linux Kernel,3.3.7
+CVE-2012-5532,Linux Kernel,3.3.8
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4
+CVE-2012-5532,Linux Kernel,3.4.1
+CVE-2012-5532,Linux Kernel,3.4.2
+CVE-2012-5532,Linux Kernel,3.4.3
+CVE-2012-5532,Linux Kernel,3.4.4
+CVE-2012-5532,Linux Kernel,3.4.5
+CVE-2012-5532,Linux Kernel,3.4.10
+CVE-2012-5532,Linux Kernel,3.4.11
+CVE-2012-5532,Linux Kernel,3.4.12
+CVE-2012-5532,Linux Kernel,3.4.13
+CVE-2012-5532,Linux Kernel,3.4.14
+CVE-2012-5532,Linux Kernel,3.4.15
+CVE-2012-5532,Linux Kernel,3.4.16
+CVE-2012-5532,Linux Kernel,3.4.17
+CVE-2012-5532,Linux Kernel,3.4.18
+CVE-2012-5532,Linux Kernel,3.4.19
+CVE-2012-5532,Linux Kernel,3.4.20
+CVE-2012-5532,Linux Kernel,3.4.21
+CVE-2012-5532,Linux Kernel,3.4.22
+CVE-2012-5532,Linux Kernel,3.4.23
+CVE-2012-5532,Linux Kernel,3.4.24
+CVE-2012-5532,Linux Kernel,3.5.1
+CVE-2012-5532,Linux Kernel,3.5.2
+CVE-2012-5532,Linux Kernel,3.5.3
+CVE-2012-5532,Linux Kernel,3.5.4
+CVE-2012-5532,Linux Kernel,3.5.5
+CVE-2012-5532,Linux Kernel,3.5.6
+CVE-2012-5532,Linux Kernel,3.5.7
+CVE-2012-5532,Linux Kernel,3.6
+CVE-2012-5532,Linux Kernel,3.6.1
+CVE-2012-5532,Linux Kernel,3.6.2
+CVE-2012-5532,Linux Kernel,3.6.3
+CVE-2012-5532,Linux Kernel,3.6.4
+CVE-2012-5532,Linux Kernel,3.6.5
+CVE-2012-5532,Linux Kernel,3.6.6
+CVE-2012-5532,Linux Kernel,3.6.7
+CVE-2012-5532,Linux Kernel,3.6.8
+CVE-2012-5532,Linux Kernel,3.6.9
+CVE-2012-5532,Linux Kernel,3.6.10
+CVE-2012-5532,Linux Kernel,3.6.11
+CVE-2012-5532,Linux Kernel,3.7
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3
+CVE-2012-6538,Linux Kernel,3.0.1
+CVE-2012-6538,Linux Kernel,3.0.2
+CVE-2012-6538,Linux Kernel,3.0.3
+CVE-2012-6538,Linux Kernel,3.0.4
+CVE-2012-6538,Linux Kernel,3.0.5
+CVE-2012-6538,Linux Kernel,3.0.6
+CVE-2012-6538,Linux Kernel,3.0.7
+CVE-2012-6538,Linux Kernel,3.0.8
+CVE-2012-6538,Linux Kernel,3.0.9
+CVE-2012-6538,Linux Kernel,3.0.10
+CVE-2012-6538,Linux Kernel,3.0.11
+CVE-2012-6538,Linux Kernel,3.0.12
+CVE-2012-6538,Linux Kernel,3.0.13
+CVE-2012-6538,Linux Kernel,3.0.14
+CVE-2012-6538,Linux Kernel,3.0.15
+CVE-2012-6538,Linux Kernel,3.0.16
+CVE-2012-6538,Linux Kernel,3.0.17
+CVE-2012-6538,Linux Kernel,3.0.18
+CVE-2012-6538,Linux Kernel,3.0.19
+CVE-2012-6538,Linux Kernel,3.0.20
+CVE-2012-6538,Linux Kernel,3.0.21
+CVE-2012-6538,Linux Kernel,3.0.22
+CVE-2012-6538,Linux Kernel,3.0.23
+CVE-2012-6538,Linux Kernel,3.0.24
+CVE-2012-6538,Linux Kernel,3.0.25
+CVE-2012-6538,Linux Kernel,3.0.26
+CVE-2012-6538,Linux Kernel,3.0.27
+CVE-2012-6538,Linux Kernel,3.0.28
+CVE-2012-6538,Linux Kernel,3.0.29
+CVE-2012-6538,Linux Kernel,3.0.30
+CVE-2012-6538,Linux Kernel,3.0.31
+CVE-2012-6538,Linux Kernel,3.0.32
+CVE-2012-6538,Linux Kernel,3.0.33
+CVE-2012-6538,Linux Kernel,3.0.34
+CVE-2012-6538,Linux Kernel,3.0.35
+CVE-2012-6538,Linux Kernel,3.0.36
+CVE-2012-6538,Linux Kernel,3.0.37
+CVE-2012-6538,Linux Kernel,3.0.38
+CVE-2012-6538,Linux Kernel,3.0.39
+CVE-2012-6538,Linux Kernel,3.0.40
+CVE-2012-6538,Linux Kernel,3.0.41
+CVE-2012-6538,Linux Kernel,3.0.42
+CVE-2012-6538,Linux Kernel,3.0.43
+CVE-2012-6538,Linux Kernel,3.0.44
+CVE-2012-6538,Linux Kernel,3.0.45
+CVE-2012-6538,Linux Kernel,3.0.46
+CVE-2012-6538,Linux Kernel,3.0.47
+CVE-2012-6538,Linux Kernel,3.0.48
+CVE-2012-6538,Linux Kernel,3.0.49
+CVE-2012-6538,Linux Kernel,3.0.50
+CVE-2012-6538,Linux Kernel,3.0.51
+CVE-2012-6538,Linux Kernel,3.0.52
+CVE-2012-6538,Linux Kernel,3.0.53
+CVE-2012-6538,Linux Kernel,3.0.54
+CVE-2012-6538,Linux Kernel,3.0.55
+CVE-2012-6538,Linux Kernel,3.0.56
+CVE-2012-6538,Linux Kernel,3.0.57
+CVE-2012-6538,Linux Kernel,3.0.58
+CVE-2012-6538,Linux Kernel,3.0.59
+CVE-2012-6538,Linux Kernel,3.0.60
+CVE-2012-6538,Linux Kernel,3.0.61
+CVE-2012-6538,Linux Kernel,3.0.62
+CVE-2012-6538,Linux Kernel,3.0.63
+CVE-2012-6538,Linux Kernel,3.0.64
+CVE-2012-6538,Linux Kernel,3.0.65
+CVE-2012-6538,Linux Kernel,3.0.66
+CVE-2012-6538,Linux Kernel,3.0.67
+CVE-2012-6538,Linux Kernel,3.0.68
+CVE-2012-6538,Linux Kernel,3.1
+CVE-2012-6538,Linux Kernel,3.1
+CVE-2012-6538,Linux Kernel,3.1
+CVE-2012-6538,Linux Kernel,3.1
+CVE-2012-6538,Linux Kernel,3.1
+CVE-2012-6538,Linux Kernel,3.1.1
+CVE-2012-6538,Linux Kernel,3.1.2
+CVE-2012-6538,Linux Kernel,3.1.3
+CVE-2012-6538,Linux Kernel,3.1.4
+CVE-2012-6538,Linux Kernel,3.1.5
+CVE-2012-6538,Linux Kernel,3.1.6
+CVE-2012-6538,Linux Kernel,3.1.7
+CVE-2012-6538,Linux Kernel,3.1.8
+CVE-2012-6538,Linux Kernel,3.1.9
+CVE-2012-6538,Linux Kernel,3.1.10
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2
+CVE-2012-6538,Linux Kernel,3.2.1
+CVE-2012-6538,Linux Kernel,3.2.2
+CVE-2012-6538,Linux Kernel,3.2.3
+CVE-2012-6538,Linux Kernel,3.2.4
+CVE-2012-6538,Linux Kernel,3.2.5
+CVE-2012-6538,Linux Kernel,3.2.6
+CVE-2012-6538,Linux Kernel,3.2.7
+CVE-2012-6538,Linux Kernel,3.2.8
+CVE-2012-6538,Linux Kernel,3.2.9
+CVE-2012-6538,Linux Kernel,3.2.10
+CVE-2012-6538,Linux Kernel,3.2.11
+CVE-2012-6538,Linux Kernel,3.2.12
+CVE-2012-6538,Linux Kernel,3.2.13
+CVE-2012-6538,Linux Kernel,3.2.14
+CVE-2012-6538,Linux Kernel,3.2.15
+CVE-2012-6538,Linux Kernel,3.2.16
+CVE-2012-6538,Linux Kernel,3.2.17
+CVE-2012-6538,Linux Kernel,3.2.18
+CVE-2012-6538,Linux Kernel,3.2.19
+CVE-2012-6538,Linux Kernel,3.2.20
+CVE-2012-6538,Linux Kernel,3.2.21
+CVE-2012-6538,Linux Kernel,3.2.22
+CVE-2012-6538,Linux Kernel,3.2.23
+CVE-2012-6538,Linux Kernel,3.2.24
+CVE-2012-6538,Linux Kernel,3.2.25
+CVE-2012-6538,Linux Kernel,3.2.26
+CVE-2012-6538,Linux Kernel,3.2.27
+CVE-2012-6538,Linux Kernel,3.2.28
+CVE-2012-6538,Linux Kernel,3.2.29
+CVE-2012-6538,Linux Kernel,3.2.30
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3
+CVE-2012-6538,Linux Kernel,3.3.1
+CVE-2012-6538,Linux Kernel,3.3.2
+CVE-2012-6538,Linux Kernel,3.3.3
+CVE-2012-6538,Linux Kernel,3.3.4
+CVE-2012-6538,Linux Kernel,3.3.5
+CVE-2012-6538,Linux Kernel,3.3.6
+CVE-2012-6538,Linux Kernel,3.3.7
+CVE-2012-6538,Linux Kernel,3.3.8
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4
+CVE-2012-6538,Linux Kernel,3.4.1
+CVE-2012-6538,Linux Kernel,3.4.2
+CVE-2012-6538,Linux Kernel,3.4.3
+CVE-2012-6538,Linux Kernel,3.4.4
+CVE-2012-6538,Linux Kernel,3.4.5
+CVE-2012-6538,Linux Kernel,3.4.6
+CVE-2012-6538,Linux Kernel,3.4.7
+CVE-2012-6538,Linux Kernel,3.4.8
+CVE-2012-6538,Linux Kernel,3.4.9
+CVE-2012-6538,Linux Kernel,3.4.10
+CVE-2012-6538,Linux Kernel,3.4.11
+CVE-2012-6538,Linux Kernel,3.4.12
+CVE-2012-6538,Linux Kernel,3.4.13
+CVE-2012-6538,Linux Kernel,3.4.14
+CVE-2012-6538,Linux Kernel,3.4.15
+CVE-2012-6538,Linux Kernel,3.4.16
+CVE-2012-6538,Linux Kernel,3.4.17
+CVE-2012-6538,Linux Kernel,3.4.18
+CVE-2012-6538,Linux Kernel,3.4.19
+CVE-2012-6538,Linux Kernel,3.4.20
+CVE-2012-6538,Linux Kernel,3.4.21
+CVE-2012-6538,Linux Kernel,3.4.22
+CVE-2012-6538,Linux Kernel,3.4.23
+CVE-2012-6538,Linux Kernel,3.4.24
+CVE-2012-6538,Linux Kernel,3.4.25
+CVE-2012-6538,Linux Kernel,3.4.26
+CVE-2012-6538,Linux Kernel,3.4.27
+CVE-2012-6538,Linux Kernel,3.4.28
+CVE-2012-6538,Linux Kernel,3.4.29
+CVE-2012-6538,Linux Kernel,3.4.30
+CVE-2012-6538,Linux Kernel,3.4.31
+CVE-2012-6538,Linux Kernel,3.4.32
+CVE-2012-6538,Linux Kernel,3.5.1
+CVE-2012-6538,Linux Kernel,3.5.2
+CVE-2012-6538,Linux Kernel,3.5.3
+CVE-2012-6538,Linux Kernel,3.5.4
+CVE-2012-6538,Linux Kernel,3.5.5
+CVE-2012-6538,Linux Kernel,3.5.6
+CVE-2012-6538,Enterprise Linux,6
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3
+CVE-2012-6542,Linux Kernel,3.0.1
+CVE-2012-6542,Linux Kernel,3.0.2
+CVE-2012-6542,Linux Kernel,3.0.3
+CVE-2012-6542,Linux Kernel,3.0.4
+CVE-2012-6542,Linux Kernel,3.0.5
+CVE-2012-6542,Linux Kernel,3.0.6
+CVE-2012-6542,Linux Kernel,3.0.7
+CVE-2012-6542,Linux Kernel,3.0.8
+CVE-2012-6542,Linux Kernel,3.0.9
+CVE-2012-6542,Linux Kernel,3.0.10
+CVE-2012-6542,Linux Kernel,3.0.11
+CVE-2012-6542,Linux Kernel,3.0.12
+CVE-2012-6542,Linux Kernel,3.0.13
+CVE-2012-6542,Linux Kernel,3.0.14
+CVE-2012-6542,Linux Kernel,3.0.15
+CVE-2012-6542,Linux Kernel,3.0.16
+CVE-2012-6542,Linux Kernel,3.0.17
+CVE-2012-6542,Linux Kernel,3.0.18
+CVE-2012-6542,Linux Kernel,3.0.19
+CVE-2012-6542,Linux Kernel,3.0.20
+CVE-2012-6542,Linux Kernel,3.0.21
+CVE-2012-6542,Linux Kernel,3.0.22
+CVE-2012-6542,Linux Kernel,3.0.23
+CVE-2012-6542,Linux Kernel,3.0.24
+CVE-2012-6542,Linux Kernel,3.0.25
+CVE-2012-6542,Linux Kernel,3.0.26
+CVE-2012-6542,Linux Kernel,3.0.27
+CVE-2012-6542,Linux Kernel,3.0.28
+CVE-2012-6542,Linux Kernel,3.0.29
+CVE-2012-6542,Linux Kernel,3.0.30
+CVE-2012-6542,Linux Kernel,3.0.31
+CVE-2012-6542,Linux Kernel,3.0.32
+CVE-2012-6542,Linux Kernel,3.0.33
+CVE-2012-6542,Linux Kernel,3.0.34
+CVE-2012-6542,Linux Kernel,3.0.35
+CVE-2012-6542,Linux Kernel,3.0.36
+CVE-2012-6542,Linux Kernel,3.0.37
+CVE-2012-6542,Linux Kernel,3.0.38
+CVE-2012-6542,Linux Kernel,3.0.39
+CVE-2012-6542,Linux Kernel,3.0.40
+CVE-2012-6542,Linux Kernel,3.0.41
+CVE-2012-6542,Linux Kernel,3.0.42
+CVE-2012-6542,Linux Kernel,3.0.43
+CVE-2012-6542,Linux Kernel,3.0.44
+CVE-2012-6542,Linux Kernel,3.0.45
+CVE-2012-6542,Linux Kernel,3.0.46
+CVE-2012-6542,Linux Kernel,3.0.47
+CVE-2012-6542,Linux Kernel,3.0.48
+CVE-2012-6542,Linux Kernel,3.0.49
+CVE-2012-6542,Linux Kernel,3.0.50
+CVE-2012-6542,Linux Kernel,3.0.51
+CVE-2012-6542,Linux Kernel,3.0.52
+CVE-2012-6542,Linux Kernel,3.0.53
+CVE-2012-6542,Linux Kernel,3.0.54
+CVE-2012-6542,Linux Kernel,3.0.55
+CVE-2012-6542,Linux Kernel,3.0.56
+CVE-2012-6542,Linux Kernel,3.0.57
+CVE-2012-6542,Linux Kernel,3.0.58
+CVE-2012-6542,Linux Kernel,3.0.59
+CVE-2012-6542,Linux Kernel,3.0.60
+CVE-2012-6542,Linux Kernel,3.0.61
+CVE-2012-6542,Linux Kernel,3.0.62
+CVE-2012-6542,Linux Kernel,3.0.63
+CVE-2012-6542,Linux Kernel,3.0.64
+CVE-2012-6542,Linux Kernel,3.0.65
+CVE-2012-6542,Linux Kernel,3.0.66
+CVE-2012-6542,Linux Kernel,3.0.67
+CVE-2012-6542,Linux Kernel,3.0.68
+CVE-2012-6542,Linux Kernel,3.1
+CVE-2012-6542,Linux Kernel,3.1
+CVE-2012-6542,Linux Kernel,3.1
+CVE-2012-6542,Linux Kernel,3.1
+CVE-2012-6542,Linux Kernel,3.1
+CVE-2012-6542,Linux Kernel,3.1.1
+CVE-2012-6542,Linux Kernel,3.1.2
+CVE-2012-6542,Linux Kernel,3.1.3
+CVE-2012-6542,Linux Kernel,3.1.4
+CVE-2012-6542,Linux Kernel,3.1.5
+CVE-2012-6542,Linux Kernel,3.1.6
+CVE-2012-6542,Linux Kernel,3.1.7
+CVE-2012-6542,Linux Kernel,3.1.8
+CVE-2012-6542,Linux Kernel,3.1.9
+CVE-2012-6542,Linux Kernel,3.1.10
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2
+CVE-2012-6542,Linux Kernel,3.2.1
+CVE-2012-6542,Linux Kernel,3.2.2
+CVE-2012-6542,Linux Kernel,3.2.3
+CVE-2012-6542,Linux Kernel,3.2.4
+CVE-2012-6542,Linux Kernel,3.2.5
+CVE-2012-6542,Linux Kernel,3.2.6
+CVE-2012-6542,Linux Kernel,3.2.7
+CVE-2012-6542,Linux Kernel,3.2.8
+CVE-2012-6542,Linux Kernel,3.2.9
+CVE-2012-6542,Linux Kernel,3.2.10
+CVE-2012-6542,Linux Kernel,3.2.11
+CVE-2012-6542,Linux Kernel,3.2.12
+CVE-2012-6542,Linux Kernel,3.2.13
+CVE-2012-6542,Linux Kernel,3.2.14
+CVE-2012-6542,Linux Kernel,3.2.15
+CVE-2012-6542,Linux Kernel,3.2.16
+CVE-2012-6542,Linux Kernel,3.2.17
+CVE-2012-6542,Linux Kernel,3.2.18
+CVE-2012-6542,Linux Kernel,3.2.19
+CVE-2012-6542,Linux Kernel,3.2.20
+CVE-2012-6542,Linux Kernel,3.2.21
+CVE-2012-6542,Linux Kernel,3.2.22
+CVE-2012-6542,Linux Kernel,3.2.23
+CVE-2012-6542,Linux Kernel,3.2.24
+CVE-2012-6542,Linux Kernel,3.2.25
+CVE-2012-6542,Linux Kernel,3.2.26
+CVE-2012-6542,Linux Kernel,3.2.27
+CVE-2012-6542,Linux Kernel,3.2.28
+CVE-2012-6542,Linux Kernel,3.2.29
+CVE-2012-6542,Linux Kernel,3.2.30
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3
+CVE-2012-6542,Linux Kernel,3.3.1
+CVE-2012-6542,Linux Kernel,3.3.2
+CVE-2012-6542,Linux Kernel,3.3.3
+CVE-2012-6542,Linux Kernel,3.3.4
+CVE-2012-6542,Linux Kernel,3.3.5
+CVE-2012-6542,Linux Kernel,3.3.6
+CVE-2012-6542,Linux Kernel,3.3.7
+CVE-2012-6542,Linux Kernel,3.3.8
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4
+CVE-2012-6542,Linux Kernel,3.4.1
+CVE-2012-6542,Linux Kernel,3.4.2
+CVE-2012-6542,Linux Kernel,3.4.3
+CVE-2012-6542,Linux Kernel,3.4.4
+CVE-2012-6542,Linux Kernel,3.4.5
+CVE-2012-6542,Linux Kernel,3.4.6
+CVE-2012-6542,Linux Kernel,3.4.7
+CVE-2012-6542,Linux Kernel,3.4.8
+CVE-2012-6542,Linux Kernel,3.4.9
+CVE-2012-6542,Linux Kernel,3.4.10
+CVE-2012-6542,Linux Kernel,3.4.11
+CVE-2012-6542,Linux Kernel,3.4.12
+CVE-2012-6542,Linux Kernel,3.4.13
+CVE-2012-6542,Linux Kernel,3.4.14
+CVE-2012-6542,Linux Kernel,3.4.15
+CVE-2012-6542,Linux Kernel,3.4.16
+CVE-2012-6542,Linux Kernel,3.4.17
+CVE-2012-6542,Linux Kernel,3.4.18
+CVE-2012-6542,Linux Kernel,3.4.19
+CVE-2012-6542,Linux Kernel,3.4.20
+CVE-2012-6542,Linux Kernel,3.4.21
+CVE-2012-6542,Linux Kernel,3.4.22
+CVE-2012-6542,Linux Kernel,3.4.23
+CVE-2012-6542,Linux Kernel,3.4.24
+CVE-2012-6542,Linux Kernel,3.4.25
+CVE-2012-6542,Linux Kernel,3.4.26
+CVE-2012-6542,Linux Kernel,3.4.27
+CVE-2012-6542,Linux Kernel,3.4.28
+CVE-2012-6542,Linux Kernel,3.4.29
+CVE-2012-6542,Linux Kernel,3.4.30
+CVE-2012-6542,Linux Kernel,3.4.31
+CVE-2012-6542,Linux Kernel,3.4.32
+CVE-2012-6542,Linux Kernel,3.5.1
+CVE-2012-6542,Linux Kernel,3.5.2
+CVE-2012-6542,Linux Kernel,3.5.3
+CVE-2012-6542,Linux Kernel,3.5.4
+CVE-2012-6542,Linux Kernel,3.5.5
+CVE-2012-6542,Linux Kernel,3.5.6
+CVE-2012-6542,Enterprise Linux,5
+CVE-2012-6542,Enterprise Linux,6
+CVE-2012-6697,Debian Linux,7
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3
+CVE-2013-0349,Linux Kernel,3.0.1
+CVE-2013-0349,Linux Kernel,3.0.2
+CVE-2013-0349,Linux Kernel,3.0.3
+CVE-2013-0349,Linux Kernel,3.0.4
+CVE-2013-0349,Linux Kernel,3.0.5
+CVE-2013-0349,Linux Kernel,3.0.6
+CVE-2013-0349,Linux Kernel,3.0.7
+CVE-2013-0349,Linux Kernel,3.0.8
+CVE-2013-0349,Linux Kernel,3.0.9
+CVE-2013-0349,Linux Kernel,3.0.10
+CVE-2013-0349,Linux Kernel,3.0.11
+CVE-2013-0349,Linux Kernel,3.0.12
+CVE-2013-0349,Linux Kernel,3.0.13
+CVE-2013-0349,Linux Kernel,3.0.14
+CVE-2013-0349,Linux Kernel,3.0.15
+CVE-2013-0349,Linux Kernel,3.0.16
+CVE-2013-0349,Linux Kernel,3.0.17
+CVE-2013-0349,Linux Kernel,3.0.18
+CVE-2013-0349,Linux Kernel,3.0.19
+CVE-2013-0349,Linux Kernel,3.0.20
+CVE-2013-0349,Linux Kernel,3.0.21
+CVE-2013-0349,Linux Kernel,3.0.22
+CVE-2013-0349,Linux Kernel,3.0.23
+CVE-2013-0349,Linux Kernel,3.0.24
+CVE-2013-0349,Linux Kernel,3.0.25
+CVE-2013-0349,Linux Kernel,3.0.26
+CVE-2013-0349,Linux Kernel,3.0.27
+CVE-2013-0349,Linux Kernel,3.0.28
+CVE-2013-0349,Linux Kernel,3.0.29
+CVE-2013-0349,Linux Kernel,3.0.30
+CVE-2013-0349,Linux Kernel,3.0.31
+CVE-2013-0349,Linux Kernel,3.0.32
+CVE-2013-0349,Linux Kernel,3.0.33
+CVE-2013-0349,Linux Kernel,3.0.34
+CVE-2013-0349,Linux Kernel,3.0.35
+CVE-2013-0349,Linux Kernel,3.0.36
+CVE-2013-0349,Linux Kernel,3.0.37
+CVE-2013-0349,Linux Kernel,3.0.38
+CVE-2013-0349,Linux Kernel,3.0.39
+CVE-2013-0349,Linux Kernel,3.0.40
+CVE-2013-0349,Linux Kernel,3.0.41
+CVE-2013-0349,Linux Kernel,3.0.42
+CVE-2013-0349,Linux Kernel,3.0.43
+CVE-2013-0349,Linux Kernel,3.0.44
+CVE-2013-0349,Linux Kernel,3.1
+CVE-2013-0349,Linux Kernel,3.1
+CVE-2013-0349,Linux Kernel,3.1
+CVE-2013-0349,Linux Kernel,3.1
+CVE-2013-0349,Linux Kernel,3.1
+CVE-2013-0349,Linux Kernel,3.1.1
+CVE-2013-0349,Linux Kernel,3.1.2
+CVE-2013-0349,Linux Kernel,3.1.3
+CVE-2013-0349,Linux Kernel,3.1.4
+CVE-2013-0349,Linux Kernel,3.1.5
+CVE-2013-0349,Linux Kernel,3.1.6
+CVE-2013-0349,Linux Kernel,3.1.7
+CVE-2013-0349,Linux Kernel,3.1.8
+CVE-2013-0349,Linux Kernel,3.1.9
+CVE-2013-0349,Linux Kernel,3.1.10
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2
+CVE-2013-0349,Linux Kernel,3.2.1
+CVE-2013-0349,Linux Kernel,3.2.2
+CVE-2013-0349,Linux Kernel,3.2.3
+CVE-2013-0349,Linux Kernel,3.2.4
+CVE-2013-0349,Linux Kernel,3.2.5
+CVE-2013-0349,Linux Kernel,3.2.6
+CVE-2013-0349,Linux Kernel,3.2.7
+CVE-2013-0349,Linux Kernel,3.2.8
+CVE-2013-0349,Linux Kernel,3.2.9
+CVE-2013-0349,Linux Kernel,3.2.10
+CVE-2013-0349,Linux Kernel,3.2.11
+CVE-2013-0349,Linux Kernel,3.2.12
+CVE-2013-0349,Linux Kernel,3.2.13
+CVE-2013-0349,Linux Kernel,3.2.14
+CVE-2013-0349,Linux Kernel,3.2.15
+CVE-2013-0349,Linux Kernel,3.2.16
+CVE-2013-0349,Linux Kernel,3.2.17
+CVE-2013-0349,Linux Kernel,3.2.18
+CVE-2013-0349,Linux Kernel,3.2.19
+CVE-2013-0349,Linux Kernel,3.2.20
+CVE-2013-0349,Linux Kernel,3.2.21
+CVE-2013-0349,Linux Kernel,3.2.22
+CVE-2013-0349,Linux Kernel,3.2.23
+CVE-2013-0349,Linux Kernel,3.2.24
+CVE-2013-0349,Linux Kernel,3.2.25
+CVE-2013-0349,Linux Kernel,3.2.26
+CVE-2013-0349,Linux Kernel,3.2.27
+CVE-2013-0349,Linux Kernel,3.2.28
+CVE-2013-0349,Linux Kernel,3.2.29
+CVE-2013-0349,Linux Kernel,3.2.30
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3
+CVE-2013-0349,Linux Kernel,3.3.1
+CVE-2013-0349,Linux Kernel,3.3.2
+CVE-2013-0349,Linux Kernel,3.3.3
+CVE-2013-0349,Linux Kernel,3.3.4
+CVE-2013-0349,Linux Kernel,3.3.5
+CVE-2013-0349,Linux Kernel,3.3.6
+CVE-2013-0349,Linux Kernel,3.3.7
+CVE-2013-0349,Linux Kernel,3.3.8
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4
+CVE-2013-0349,Linux Kernel,3.4.1
+CVE-2013-0349,Linux Kernel,3.4.2
+CVE-2013-0349,Linux Kernel,3.4.3
+CVE-2013-0349,Linux Kernel,3.4.4
+CVE-2013-0349,Linux Kernel,3.4.5
+CVE-2013-0349,Linux Kernel,3.4.6
+CVE-2013-0349,Linux Kernel,3.4.7
+CVE-2013-0349,Linux Kernel,3.4.8
+CVE-2013-0349,Linux Kernel,3.4.9
+CVE-2013-0349,Linux Kernel,3.4.10
+CVE-2013-0349,Linux Kernel,3.4.11
+CVE-2013-0349,Linux Kernel,3.4.12
+CVE-2013-0349,Linux Kernel,3.4.13
+CVE-2013-0349,Linux Kernel,3.4.14
+CVE-2013-0349,Linux Kernel,3.4.15
+CVE-2013-0349,Linux Kernel,3.4.16
+CVE-2013-0349,Linux Kernel,3.4.17
+CVE-2013-0349,Linux Kernel,3.4.18
+CVE-2013-0349,Linux Kernel,3.4.19
+CVE-2013-0349,Linux Kernel,3.4.20
+CVE-2013-0349,Linux Kernel,3.4.21
+CVE-2013-0349,Linux Kernel,3.4.22
+CVE-2013-0349,Linux Kernel,3.4.23
+CVE-2013-0349,Linux Kernel,3.4.24
+CVE-2013-0349,Linux Kernel,3.5.1
+CVE-2013-0349,Linux Kernel,3.5.2
+CVE-2013-0349,Linux Kernel,3.5.3
+CVE-2013-0349,Linux Kernel,3.5.4
+CVE-2013-0349,Linux Kernel,3.5.5
+CVE-2013-0349,Linux Kernel,3.5.6
+CVE-2013-0349,Linux Kernel,3.5.7
+CVE-2013-0349,Linux Kernel,3.6
+CVE-2013-0349,Linux Kernel,3.6.1
+CVE-2013-0349,Linux Kernel,3.6.2
+CVE-2013-0349,Linux Kernel,3.6.3
+CVE-2013-0349,Linux Kernel,3.6.4
+CVE-2013-0349,Linux Kernel,3.6.5
+CVE-2013-0349,Linux Kernel,3.6.6
+CVE-2013-0349,Linux Kernel,3.6.7
+CVE-2013-0349,Linux Kernel,3.6.8
+CVE-2013-0349,Linux Kernel,3.6.9
+CVE-2013-0349,Linux Kernel,3.6.10
+CVE-2013-0349,Linux Kernel,3.6.11
+CVE-2013-0349,Linux Kernel,3.7
+CVE-2013-0349,Linux Kernel,3.7.1
+CVE-2013-0349,Linux Kernel,3.7.2
+CVE-2013-0349,Linux Kernel,3.7.3
+CVE-2013-0349,Linux Kernel,3.7.4
+CVE-2013-1929,Linux Kernel,3.8.0
+CVE-2013-1929,Linux Kernel,3.8.1
+CVE-2013-1929,Linux Kernel,3.8.2
+CVE-2013-1929,Linux Kernel,3.8.3
+CVE-2013-1929,Linux Kernel,3.8.4
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9
+CVE-2013-2850,Linux Kernel,3.9.0
+CVE-2013-2850,Linux Kernel,3.9.1
+CVE-2013-2850,Linux Kernel,3.9.2
+CVE-2013-2850,Linux Kernel,3.9.3
+CVE-2013-4249,Django,1.5
+CVE-2013-4249,Django,1.5
+CVE-2013-4249,Django,1.5
+CVE-2013-4249,Django,1.5.1
+CVE-2013-4249,Django,1.6
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3
+CVE-2013-4350,Linux Kernel,3.0.1
+CVE-2013-4350,Linux Kernel,3.0.2
+CVE-2013-4350,Linux Kernel,3.0.3
+CVE-2013-4350,Linux Kernel,3.0.4
+CVE-2013-4350,Linux Kernel,3.0.5
+CVE-2013-4350,Linux Kernel,3.0.6
+CVE-2013-4350,Linux Kernel,3.0.7
+CVE-2013-4350,Linux Kernel,3.0.8
+CVE-2013-4350,Linux Kernel,3.0.9
+CVE-2013-4350,Linux Kernel,3.0.10
+CVE-2013-4350,Linux Kernel,3.0.11
+CVE-2013-4350,Linux Kernel,3.0.12
+CVE-2013-4350,Linux Kernel,3.0.13
+CVE-2013-4350,Linux Kernel,3.0.14
+CVE-2013-4350,Linux Kernel,3.0.15
+CVE-2013-4350,Linux Kernel,3.0.16
+CVE-2013-4350,Linux Kernel,3.0.17
+CVE-2013-4350,Linux Kernel,3.0.18
+CVE-2013-4350,Linux Kernel,3.0.19
+CVE-2013-4350,Linux Kernel,3.0.20
+CVE-2013-4350,Linux Kernel,3.0.21
+CVE-2013-4350,Linux Kernel,3.0.22
+CVE-2013-4350,Linux Kernel,3.0.23
+CVE-2013-4350,Linux Kernel,3.0.24
+CVE-2013-4350,Linux Kernel,3.0.25
+CVE-2013-4350,Linux Kernel,3.0.26
+CVE-2013-4350,Linux Kernel,3.0.27
+CVE-2013-4350,Linux Kernel,3.0.28
+CVE-2013-4350,Linux Kernel,3.0.29
+CVE-2013-4350,Linux Kernel,3.0.30
+CVE-2013-4350,Linux Kernel,3.0.31
+CVE-2013-4350,Linux Kernel,3.0.32
+CVE-2013-4350,Linux Kernel,3.0.33
+CVE-2013-4350,Linux Kernel,3.0.34
+CVE-2013-4350,Linux Kernel,3.0.35
+CVE-2013-4350,Linux Kernel,3.0.36
+CVE-2013-4350,Linux Kernel,3.0.37
+CVE-2013-4350,Linux Kernel,3.0.38
+CVE-2013-4350,Linux Kernel,3.0.39
+CVE-2013-4350,Linux Kernel,3.0.40
+CVE-2013-4350,Linux Kernel,3.0.41
+CVE-2013-4350,Linux Kernel,3.0.42
+CVE-2013-4350,Linux Kernel,3.0.43
+CVE-2013-4350,Linux Kernel,3.0.44
+CVE-2013-4350,Linux Kernel,3.0.45
+CVE-2013-4350,Linux Kernel,3.0.46
+CVE-2013-4350,Linux Kernel,3.0.47
+CVE-2013-4350,Linux Kernel,3.0.48
+CVE-2013-4350,Linux Kernel,3.0.49
+CVE-2013-4350,Linux Kernel,3.0.50
+CVE-2013-4350,Linux Kernel,3.0.51
+CVE-2013-4350,Linux Kernel,3.0.52
+CVE-2013-4350,Linux Kernel,3.0.53
+CVE-2013-4350,Linux Kernel,3.0.54
+CVE-2013-4350,Linux Kernel,3.0.55
+CVE-2013-4350,Linux Kernel,3.0.56
+CVE-2013-4350,Linux Kernel,3.0.57
+CVE-2013-4350,Linux Kernel,3.0.58
+CVE-2013-4350,Linux Kernel,3.0.59
+CVE-2013-4350,Linux Kernel,3.0.60
+CVE-2013-4350,Linux Kernel,3.0.61
+CVE-2013-4350,Linux Kernel,3.0.62
+CVE-2013-4350,Linux Kernel,3.0.63
+CVE-2013-4350,Linux Kernel,3.0.64
+CVE-2013-4350,Linux Kernel,3.0.65
+CVE-2013-4350,Linux Kernel,3.0.66
+CVE-2013-4350,Linux Kernel,3.0.67
+CVE-2013-4350,Linux Kernel,3.0.68
+CVE-2013-4350,Linux Kernel,3.1
+CVE-2013-4350,Linux Kernel,3.1
+CVE-2013-4350,Linux Kernel,3.1
+CVE-2013-4350,Linux Kernel,3.1
+CVE-2013-4350,Linux Kernel,3.1
+CVE-2013-4350,Linux Kernel,3.1.1
+CVE-2013-4350,Linux Kernel,3.1.2
+CVE-2013-4350,Linux Kernel,3.1.3
+CVE-2013-4350,Linux Kernel,3.1.4
+CVE-2013-4350,Linux Kernel,3.1.5
+CVE-2013-4350,Linux Kernel,3.1.6
+CVE-2013-4350,Linux Kernel,3.1.7
+CVE-2013-4350,Linux Kernel,3.1.8
+CVE-2013-4350,Linux Kernel,3.1.9
+CVE-2013-4350,Linux Kernel,3.1.10
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2
+CVE-2013-4350,Linux Kernel,3.2.1
+CVE-2013-4350,Linux Kernel,3.2.2
+CVE-2013-4350,Linux Kernel,3.2.3
+CVE-2013-4350,Linux Kernel,3.2.4
+CVE-2013-4350,Linux Kernel,3.2.5
+CVE-2013-4350,Linux Kernel,3.2.6
+CVE-2013-4350,Linux Kernel,3.2.7
+CVE-2013-4350,Linux Kernel,3.2.8
+CVE-2013-4350,Linux Kernel,3.2.9
+CVE-2013-4350,Linux Kernel,3.2.10
+CVE-2013-4350,Linux Kernel,3.2.11
+CVE-2013-4350,Linux Kernel,3.2.12
+CVE-2013-4350,Linux Kernel,3.2.13
+CVE-2013-4350,Linux Kernel,3.2.14
+CVE-2013-4350,Linux Kernel,3.2.15
+CVE-2013-4350,Linux Kernel,3.2.16
+CVE-2013-4350,Linux Kernel,3.2.17
+CVE-2013-4350,Linux Kernel,3.2.18
+CVE-2013-4350,Linux Kernel,3.2.19
+CVE-2013-4350,Linux Kernel,3.2.20
+CVE-2013-4350,Linux Kernel,3.2.21
+CVE-2013-4350,Linux Kernel,3.2.22
+CVE-2013-4350,Linux Kernel,3.2.23
+CVE-2013-4350,Linux Kernel,3.2.24
+CVE-2013-4350,Linux Kernel,3.2.25
+CVE-2013-4350,Linux Kernel,3.2.26
+CVE-2013-4350,Linux Kernel,3.2.27
+CVE-2013-4350,Linux Kernel,3.2.28
+CVE-2013-4350,Linux Kernel,3.2.29
+CVE-2013-4350,Linux Kernel,3.2.30
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3
+CVE-2013-4350,Linux Kernel,3.3.1
+CVE-2013-4350,Linux Kernel,3.3.2
+CVE-2013-4350,Linux Kernel,3.3.3
+CVE-2013-4350,Linux Kernel,3.3.4
+CVE-2013-4350,Linux Kernel,3.3.5
+CVE-2013-4350,Linux Kernel,3.3.6
+CVE-2013-4350,Linux Kernel,3.3.7
+CVE-2013-4350,Linux Kernel,3.3.8
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4
+CVE-2013-4350,Linux Kernel,3.4.1
+CVE-2013-4350,Linux Kernel,3.4.2
+CVE-2013-4350,Linux Kernel,3.4.3
+CVE-2013-4350,Linux Kernel,3.4.4
+CVE-2013-4350,Linux Kernel,3.4.5
+CVE-2013-4350,Linux Kernel,3.4.6
+CVE-2013-4350,Linux Kernel,3.4.7
+CVE-2013-4350,Linux Kernel,3.4.8
+CVE-2013-4350,Linux Kernel,3.4.10
+CVE-2013-4350,Linux Kernel,3.4.11
+CVE-2013-4350,Linux Kernel,3.4.12
+CVE-2013-4350,Linux Kernel,3.4.13
+CVE-2013-4350,Linux Kernel,3.4.14
+CVE-2013-4350,Linux Kernel,3.4.15
+CVE-2013-4350,Linux Kernel,3.4.16
+CVE-2013-4350,Linux Kernel,3.4.17
+CVE-2013-4350,Linux Kernel,3.4.18
+CVE-2013-4350,Linux Kernel,3.4.19
+CVE-2013-4350,Linux Kernel,3.4.20
+CVE-2013-4350,Linux Kernel,3.4.21
+CVE-2013-4350,Linux Kernel,3.4.22
+CVE-2013-4350,Linux Kernel,3.4.23
+CVE-2013-4350,Linux Kernel,3.4.24
+CVE-2013-4350,Linux Kernel,3.4.25
+CVE-2013-4350,Linux Kernel,3.4.26
+CVE-2013-4350,Linux Kernel,3.4.27
+CVE-2013-4350,Linux Kernel,3.4.28
+CVE-2013-4350,Linux Kernel,3.4.29
+CVE-2013-4350,Linux Kernel,3.4.30
+CVE-2013-4350,Linux Kernel,3.4.31
+CVE-2013-4350,Linux Kernel,3.4.32
+CVE-2013-4350,Linux Kernel,3.5.1
+CVE-2013-4350,Linux Kernel,3.5.2
+CVE-2013-4350,Linux Kernel,3.5.3
+CVE-2013-4350,Linux Kernel,3.5.4
+CVE-2013-4350,Linux Kernel,3.5.5
+CVE-2013-4350,Linux Kernel,3.5.6
+CVE-2013-4350,Linux Kernel,3.5.7
+CVE-2013-4350,Linux Kernel,3.6
+CVE-2013-4350,Linux Kernel,3.6.1
+CVE-2013-4350,Linux Kernel,3.6.2
+CVE-2013-4350,Linux Kernel,3.6.3
+CVE-2013-4350,Linux Kernel,3.6.4
+CVE-2013-4350,Linux Kernel,3.6.5
+CVE-2013-4350,Linux Kernel,3.6.6
+CVE-2013-4350,Linux Kernel,3.6.7
+CVE-2013-4350,Linux Kernel,3.6.8
+CVE-2013-4350,Linux Kernel,3.6.9
+CVE-2013-4350,Linux Kernel,3.6.10
+CVE-2013-4350,Linux Kernel,3.6.11
+CVE-2013-4350,Linux Kernel,3.7
+CVE-2013-4350,Linux Kernel,3.7.1
+CVE-2013-4350,Linux Kernel,3.7.2
+CVE-2013-4350,Linux Kernel,3.7.3
+CVE-2013-4350,Linux Kernel,3.7.4
+CVE-2013-4350,Linux Kernel,3.7.5
+CVE-2013-4350,Linux Kernel,3.7.6
+CVE-2013-4350,Linux Kernel,3.7.7
+CVE-2013-4350,Linux Kernel,3.7.8
+CVE-2013-4350,Linux Kernel,3.7.9
+CVE-2013-4350,Linux Kernel,3.7.10
+CVE-2013-4350,Linux Kernel,3.8.0
+CVE-2013-4350,Linux Kernel,3.8.1
+CVE-2013-4350,Linux Kernel,3.8.2
+CVE-2013-4350,Linux Kernel,3.8.3
+CVE-2013-4350,Linux Kernel,3.8.4
+CVE-2013-4350,Linux Kernel,3.8.5
+CVE-2013-4350,Linux Kernel,3.8.6
+CVE-2013-4350,Linux Kernel,3.8.7
+CVE-2013-4350,Linux Kernel,3.8.8
+CVE-2013-4350,Linux Kernel,3.8.9
+CVE-2013-4350,Linux Kernel,3.8.10
+CVE-2013-4350,Linux Kernel,3.8.11
+CVE-2013-4350,Linux Kernel,3.8.12
+CVE-2013-4350,Linux Kernel,3.8.13
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9
+CVE-2013-4350,Linux Kernel,3.9.0
+CVE-2013-4350,Linux Kernel,3.9.1
+CVE-2013-4350,Linux Kernel,3.9.2
+CVE-2013-4350,Linux Kernel,3.9.3
+CVE-2013-4350,Linux Kernel,3.9.4
+CVE-2013-4350,Linux Kernel,3.9.10
+CVE-2013-4350,Linux Kernel,3.9.11
+CVE-2013-4350,Linux Kernel,3.10.0
+CVE-2013-4350,Linux Kernel,3.10.1
+CVE-2013-4350,Linux Kernel,3.10.2
+CVE-2013-4350,Linux Kernel,3.10.3
+CVE-2013-4350,Linux Kernel,3.10.4
+CVE-2013-4350,Linux Kernel,3.10.5
+CVE-2013-4350,Linux Kernel,3.10.6
+CVE-2013-4350,Linux Kernel,3.10.7
+CVE-2013-4350,Linux Kernel,3.10.8
+CVE-2013-4350,Linux Kernel,3.10.9
+CVE-2013-4350,Linux Kernel,3.10.10
+CVE-2013-4350,Linux Kernel,3.10.11
+CVE-2013-4350,Linux Kernel,3.10.12
+CVE-2013-4350,Linux Kernel,3.11
+CVE-2013-4350,Linux Kernel,3.11.1
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3
+CVE-2013-4512,Linux Kernel,3.0.1
+CVE-2013-4512,Linux Kernel,3.0.2
+CVE-2013-4512,Linux Kernel,3.0.3
+CVE-2013-4512,Linux Kernel,3.0.4
+CVE-2013-4512,Linux Kernel,3.0.5
+CVE-2013-4512,Linux Kernel,3.0.6
+CVE-2013-4512,Linux Kernel,3.0.7
+CVE-2013-4512,Linux Kernel,3.0.8
+CVE-2013-4512,Linux Kernel,3.0.9
+CVE-2013-4512,Linux Kernel,3.0.10
+CVE-2013-4512,Linux Kernel,3.0.11
+CVE-2013-4512,Linux Kernel,3.0.12
+CVE-2013-4512,Linux Kernel,3.0.13
+CVE-2013-4512,Linux Kernel,3.0.14
+CVE-2013-4512,Linux Kernel,3.0.15
+CVE-2013-4512,Linux Kernel,3.0.16
+CVE-2013-4512,Linux Kernel,3.0.17
+CVE-2013-4512,Linux Kernel,3.0.18
+CVE-2013-4512,Linux Kernel,3.0.19
+CVE-2013-4512,Linux Kernel,3.0.20
+CVE-2013-4512,Linux Kernel,3.0.21
+CVE-2013-4512,Linux Kernel,3.0.22
+CVE-2013-4512,Linux Kernel,3.0.23
+CVE-2013-4512,Linux Kernel,3.0.24
+CVE-2013-4512,Linux Kernel,3.0.25
+CVE-2013-4512,Linux Kernel,3.0.26
+CVE-2013-4512,Linux Kernel,3.0.27
+CVE-2013-4512,Linux Kernel,3.0.28
+CVE-2013-4512,Linux Kernel,3.0.29
+CVE-2013-4512,Linux Kernel,3.0.30
+CVE-2013-4512,Linux Kernel,3.0.31
+CVE-2013-4512,Linux Kernel,3.0.32
+CVE-2013-4512,Linux Kernel,3.0.33
+CVE-2013-4512,Linux Kernel,3.0.34
+CVE-2013-4512,Linux Kernel,3.0.35
+CVE-2013-4512,Linux Kernel,3.0.36
+CVE-2013-4512,Linux Kernel,3.0.37
+CVE-2013-4512,Linux Kernel,3.0.38
+CVE-2013-4512,Linux Kernel,3.0.39
+CVE-2013-4512,Linux Kernel,3.0.40
+CVE-2013-4512,Linux Kernel,3.0.41
+CVE-2013-4512,Linux Kernel,3.0.42
+CVE-2013-4512,Linux Kernel,3.0.43
+CVE-2013-4512,Linux Kernel,3.0.44
+CVE-2013-4512,Linux Kernel,3.0.45
+CVE-2013-4512,Linux Kernel,3.0.46
+CVE-2013-4512,Linux Kernel,3.0.47
+CVE-2013-4512,Linux Kernel,3.0.48
+CVE-2013-4512,Linux Kernel,3.0.49
+CVE-2013-4512,Linux Kernel,3.0.50
+CVE-2013-4512,Linux Kernel,3.0.51
+CVE-2013-4512,Linux Kernel,3.0.52
+CVE-2013-4512,Linux Kernel,3.0.53
+CVE-2013-4512,Linux Kernel,3.0.54
+CVE-2013-4512,Linux Kernel,3.0.55
+CVE-2013-4512,Linux Kernel,3.0.56
+CVE-2013-4512,Linux Kernel,3.0.57
+CVE-2013-4512,Linux Kernel,3.0.58
+CVE-2013-4512,Linux Kernel,3.0.59
+CVE-2013-4512,Linux Kernel,3.0.60
+CVE-2013-4512,Linux Kernel,3.0.61
+CVE-2013-4512,Linux Kernel,3.0.62
+CVE-2013-4512,Linux Kernel,3.0.63
+CVE-2013-4512,Linux Kernel,3.0.64
+CVE-2013-4512,Linux Kernel,3.0.65
+CVE-2013-4512,Linux Kernel,3.0.66
+CVE-2013-4512,Linux Kernel,3.0.67
+CVE-2013-4512,Linux Kernel,3.0.68
+CVE-2013-4512,Linux Kernel,3.1
+CVE-2013-4512,Linux Kernel,3.1
+CVE-2013-4512,Linux Kernel,3.1
+CVE-2013-4512,Linux Kernel,3.1
+CVE-2013-4512,Linux Kernel,3.1
+CVE-2013-4512,Linux Kernel,3.1.1
+CVE-2013-4512,Linux Kernel,3.1.2
+CVE-2013-4512,Linux Kernel,3.1.3
+CVE-2013-4512,Linux Kernel,3.1.4
+CVE-2013-4512,Linux Kernel,3.1.5
+CVE-2013-4512,Linux Kernel,3.1.6
+CVE-2013-4512,Linux Kernel,3.1.7
+CVE-2013-4512,Linux Kernel,3.1.8
+CVE-2013-4512,Linux Kernel,3.1.9
+CVE-2013-4512,Linux Kernel,3.1.10
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2
+CVE-2013-4512,Linux Kernel,3.2.1
+CVE-2013-4512,Linux Kernel,3.2.1
+CVE-2013-4512,Linux Kernel,3.2.2
+CVE-2013-4512,Linux Kernel,3.2.3
+CVE-2013-4512,Linux Kernel,3.2.4
+CVE-2013-4512,Linux Kernel,3.2.5
+CVE-2013-4512,Linux Kernel,3.2.6
+CVE-2013-4512,Linux Kernel,3.2.7
+CVE-2013-4512,Linux Kernel,3.2.8
+CVE-2013-4512,Linux Kernel,3.2.9
+CVE-2013-4512,Linux Kernel,3.2.10
+CVE-2013-4512,Linux Kernel,3.2.11
+CVE-2013-4512,Linux Kernel,3.2.12
+CVE-2013-4512,Linux Kernel,3.2.13
+CVE-2013-4512,Linux Kernel,3.2.14
+CVE-2013-4512,Linux Kernel,3.2.15
+CVE-2013-4512,Linux Kernel,3.2.16
+CVE-2013-4512,Linux Kernel,3.2.17
+CVE-2013-4512,Linux Kernel,3.2.18
+CVE-2013-4512,Linux Kernel,3.2.19
+CVE-2013-4512,Linux Kernel,3.2.20
+CVE-2013-4512,Linux Kernel,3.2.21
+CVE-2013-4512,Linux Kernel,3.2.22
+CVE-2013-4512,Linux Kernel,3.2.23
+CVE-2013-4512,Linux Kernel,3.2.24
+CVE-2013-4512,Linux Kernel,3.2.25
+CVE-2013-4512,Linux Kernel,3.2.26
+CVE-2013-4512,Linux Kernel,3.2.27
+CVE-2013-4512,Linux Kernel,3.2.28
+CVE-2013-4512,Linux Kernel,3.2.29
+CVE-2013-4512,Linux Kernel,3.2.30
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3
+CVE-2013-4512,Linux Kernel,3.3.1
+CVE-2013-4512,Linux Kernel,3.3.2
+CVE-2013-4512,Linux Kernel,3.3.3
+CVE-2013-4512,Linux Kernel,3.3.4
+CVE-2013-4512,Linux Kernel,3.3.5
+CVE-2013-4512,Linux Kernel,3.3.6
+CVE-2013-4512,Linux Kernel,3.3.7
+CVE-2013-4512,Linux Kernel,3.3.8
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4
+CVE-2013-4512,Linux Kernel,3.4.1
+CVE-2013-4512,Linux Kernel,3.4.1
+CVE-2013-4512,Linux Kernel,3.4.2
+CVE-2013-4512,Linux Kernel,3.4.2
+CVE-2013-4512,Linux Kernel,3.4.3
+CVE-2013-4512,Linux Kernel,3.4.3
+CVE-2013-4512,Linux Kernel,3.4.4
+CVE-2013-4512,Linux Kernel,3.4.4
+CVE-2013-4512,Linux Kernel,3.4.5
+CVE-2013-4512,Linux Kernel,3.4.5
+CVE-2013-4512,Linux Kernel,3.4.6
+CVE-2013-4512,Linux Kernel,3.4.7
+CVE-2013-4512,Linux Kernel,3.4.8
+CVE-2013-4512,Linux Kernel,3.4.9
+CVE-2013-4512,Linux Kernel,3.4.10
+CVE-2013-4512,Linux Kernel,3.4.11
+CVE-2013-4512,Linux Kernel,3.4.12
+CVE-2013-4512,Linux Kernel,3.4.13
+CVE-2013-4512,Linux Kernel,3.4.14
+CVE-2013-4512,Linux Kernel,3.4.15
+CVE-2013-4512,Linux Kernel,3.4.16
+CVE-2013-4512,Linux Kernel,3.4.17
+CVE-2013-4512,Linux Kernel,3.4.18
+CVE-2013-4512,Linux Kernel,3.4.19
+CVE-2013-4512,Linux Kernel,3.4.20
+CVE-2013-4512,Linux Kernel,3.4.21
+CVE-2013-4512,Linux Kernel,3.4.22
+CVE-2013-4512,Linux Kernel,3.4.23
+CVE-2013-4512,Linux Kernel,3.4.24
+CVE-2013-4512,Linux Kernel,3.4.25
+CVE-2013-4512,Linux Kernel,3.4.26
+CVE-2013-4512,Linux Kernel,3.4.27
+CVE-2013-4512,Linux Kernel,3.4.28
+CVE-2013-4512,Linux Kernel,3.4.29
+CVE-2013-4512,Linux Kernel,3.4.30
+CVE-2013-4512,Linux Kernel,3.4.31
+CVE-2013-4512,Linux Kernel,3.4.32
+CVE-2013-4512,Linux Kernel,3.5.1
+CVE-2013-4512,Linux Kernel,3.5.2
+CVE-2013-4512,Linux Kernel,3.5.3
+CVE-2013-4512,Linux Kernel,3.5.4
+CVE-2013-4512,Linux Kernel,3.5.5
+CVE-2013-4512,Linux Kernel,3.5.6
+CVE-2013-4512,Linux Kernel,3.5.7
+CVE-2013-4512,Linux Kernel,3.6
+CVE-2013-4512,Linux Kernel,3.6.1
+CVE-2013-4512,Linux Kernel,3.6.2
+CVE-2013-4512,Linux Kernel,3.6.3
+CVE-2013-4512,Linux Kernel,3.6.4
+CVE-2013-4512,Linux Kernel,3.6.5
+CVE-2013-4512,Linux Kernel,3.6.6
+CVE-2013-4512,Linux Kernel,3.6.7
+CVE-2013-4512,Linux Kernel,3.6.8
+CVE-2013-4512,Linux Kernel,3.6.9
+CVE-2013-4512,Linux Kernel,3.6.10
+CVE-2013-4512,Linux Kernel,3.6.11
+CVE-2013-4512,Linux Kernel,3.7
+CVE-2013-4512,Linux Kernel,3.7.1
+CVE-2013-4512,Linux Kernel,3.7.2
+CVE-2013-4512,Linux Kernel,3.7.3
+CVE-2013-4512,Linux Kernel,3.7.4
+CVE-2013-4512,Linux Kernel,3.7.5
+CVE-2013-4512,Linux Kernel,3.7.6
+CVE-2013-4512,Linux Kernel,3.7.7
+CVE-2013-4512,Linux Kernel,3.7.8
+CVE-2013-4512,Linux Kernel,3.7.9
+CVE-2013-4512,Linux Kernel,3.7.10
+CVE-2013-4512,Linux Kernel,3.8.0
+CVE-2013-4512,Linux Kernel,3.8.1
+CVE-2013-4512,Linux Kernel,3.8.2
+CVE-2013-4512,Linux Kernel,3.8.3
+CVE-2013-4512,Linux Kernel,3.8.4
+CVE-2013-4512,Linux Kernel,3.8.5
+CVE-2013-4512,Linux Kernel,3.8.6
+CVE-2013-4512,Linux Kernel,3.8.7
+CVE-2013-4512,Linux Kernel,3.8.8
+CVE-2013-4512,Linux Kernel,3.8.9
+CVE-2013-4512,Linux Kernel,3.8.10
+CVE-2013-4512,Linux Kernel,3.8.11
+CVE-2013-4512,Linux Kernel,3.8.12
+CVE-2013-4512,Linux Kernel,3.8.13
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9
+CVE-2013-4512,Linux Kernel,3.9.0
+CVE-2013-4512,Linux Kernel,3.9.1
+CVE-2013-4512,Linux Kernel,3.9.2
+CVE-2013-4512,Linux Kernel,3.9.3
+CVE-2013-4512,Linux Kernel,3.9.4
+CVE-2013-4512,Linux Kernel,3.9.5
+CVE-2013-4512,Linux Kernel,3.9.6
+CVE-2013-4512,Linux Kernel,3.9.7
+CVE-2013-4512,Linux Kernel,3.9.8
+CVE-2013-4512,Linux Kernel,3.9.9
+CVE-2013-4512,Linux Kernel,3.9.10
+CVE-2013-4512,Linux Kernel,3.9.11
+CVE-2013-4512,Linux Kernel,3.10.0
+CVE-2013-4512,Linux Kernel,3.10.1
+CVE-2013-4512,Linux Kernel,3.10.2
+CVE-2013-4512,Linux Kernel,3.10.3
+CVE-2013-4512,Linux Kernel,3.10.4
+CVE-2013-4512,Linux Kernel,3.10.5
+CVE-2013-4512,Linux Kernel,3.10.6
+CVE-2013-4512,Linux Kernel,3.10.7
+CVE-2013-4512,Linux Kernel,3.10.8
+CVE-2013-4512,Linux Kernel,3.10.9
+CVE-2013-4512,Linux Kernel,3.10.10
+CVE-2013-4512,Linux Kernel,3.10.11
+CVE-2013-4512,Linux Kernel,3.10.12
+CVE-2013-4512,Linux Kernel,3.10.13
+CVE-2013-4512,Linux Kernel,3.10.14
+CVE-2013-4512,Linux Kernel,3.10.15
+CVE-2013-4512,Linux Kernel,3.10.16
+CVE-2013-4512,Linux Kernel,3.10.17
+CVE-2013-4512,Linux Kernel,3.10.18
+CVE-2013-4512,Linux Kernel,3.11
+CVE-2013-4512,Linux Kernel,3.11.1
+CVE-2013-4512,Linux Kernel,3.11.2
+CVE-2013-4512,Linux Kernel,3.11.3
+CVE-2013-4512,Linux Kernel,3.11.4
+CVE-2013-4512,Linux Kernel,3.11.5
+CVE-2013-4512,Linux Kernel,3.11.6
+CVE-2013-4588,Ubuntu Linux,10.04
+CVE-2013-6044,Django,1.4
+CVE-2013-6044,Django,1.4.1
+CVE-2013-6044,Django,1.4.2
+CVE-2013-6044,Django,1.4.4
+CVE-2013-6044,Django,1.4.5
+CVE-2013-6044,Django,1.5
+CVE-2013-6044,Django,1.5.1
+CVE-2013-6044,Django,1.6
+CVE-2013-6412,Augeas,1.0.0
+CVE-2013-6412,Augeas,1.1.0
+CVE-2013-7018,Ffmpeg,0.3
+CVE-2013-7018,Ffmpeg,0.3.1
+CVE-2013-7018,Ffmpeg,0.3.2
+CVE-2013-7018,Ffmpeg,0.3.3
+CVE-2013-7018,Ffmpeg,0.3.4
+CVE-2013-7018,Ffmpeg,0.4.0
+CVE-2013-7018,Ffmpeg,0.4.2
+CVE-2013-7018,Ffmpeg,0.4.3
+CVE-2013-7018,Ffmpeg,0.4.4
+CVE-2013-7018,Ffmpeg,0.4.5
+CVE-2013-7018,Ffmpeg,0.4.6
+CVE-2013-7018,Ffmpeg,0.4.7
+CVE-2013-7018,Ffmpeg,0.4.8
+CVE-2013-7018,Ffmpeg,0.4.9
+CVE-2013-7018,Ffmpeg,0.5
+CVE-2013-7018,Ffmpeg,0.5.1
+CVE-2013-7018,Ffmpeg,0.5.2
+CVE-2013-7018,Ffmpeg,0.5.3
+CVE-2013-7018,Ffmpeg,0.5.4
+CVE-2013-7018,Ffmpeg,0.5.4.5
+CVE-2013-7018,Ffmpeg,0.5.4.6
+CVE-2013-7018,Ffmpeg,0.5.5
+CVE-2013-7018,Ffmpeg,0.6
+CVE-2013-7018,Ffmpeg,0.6.1
+CVE-2013-7018,Ffmpeg,0.6.2
+CVE-2013-7018,Ffmpeg,0.6.3
+CVE-2013-7018,Ffmpeg,0.7
+CVE-2013-7018,Ffmpeg,0.7.1
+CVE-2013-7018,Ffmpeg,0.7.2
+CVE-2013-7018,Ffmpeg,0.7.3
+CVE-2013-7018,Ffmpeg,0.7.4
+CVE-2013-7018,Ffmpeg,0.7.5
+CVE-2013-7018,Ffmpeg,0.7.6
+CVE-2013-7018,Ffmpeg,0.7.7
+CVE-2013-7018,Ffmpeg,0.7.8
+CVE-2013-7018,Ffmpeg,0.7.9
+CVE-2013-7018,Ffmpeg,0.7.11
+CVE-2013-7018,Ffmpeg,0.7.12
+CVE-2013-7018,Ffmpeg,0.8.0
+CVE-2013-7018,Ffmpeg,0.8.1
+CVE-2013-7018,Ffmpeg,0.8.2
+CVE-2013-7018,Ffmpeg,0.8.5
+CVE-2013-7018,Ffmpeg,0.8.5.3
+CVE-2013-7018,Ffmpeg,0.8.5.4
+CVE-2013-7018,Ffmpeg,0.8.6
+CVE-2013-7018,Ffmpeg,0.8.7
+CVE-2013-7018,Ffmpeg,0.8.8
+CVE-2013-7018,Ffmpeg,0.8.10
+CVE-2013-7018,Ffmpeg,0.8.11
+CVE-2013-7018,Ffmpeg,0.9
+CVE-2013-7018,Ffmpeg,0.9.1
+CVE-2013-7018,Ffmpeg,0.1
+CVE-2013-7018,Ffmpeg,0.10.3
+CVE-2013-7018,Ffmpeg,0.10.4
+CVE-2013-7018,Ffmpeg,0.11
+CVE-2013-7018,Ffmpeg,1
+CVE-2013-7018,Ffmpeg,1.1.1
+CVE-2013-7018,Ffmpeg,1.1.2
+CVE-2013-7018,Ffmpeg,1.1.3
+CVE-2013-7018,Ffmpeg,1.1.4
+CVE-2013-7018,Ffmpeg,1.2
+CVE-2013-7018,Ffmpeg,1.2.1
+CVE-2013-7018,Ffmpeg,2
+CVE-2014-0207,File,5
+CVE-2014-0207,File,5.01
+CVE-2014-0207,File,5.02
+CVE-2014-0207,File,5.03
+CVE-2014-0207,File,5.04
+CVE-2014-0207,File,5.05
+CVE-2014-0207,File,5.06
+CVE-2014-0207,File,5.07
+CVE-2014-0207,File,5.08
+CVE-2014-0207,File,5.09
+CVE-2014-0207,File,5.1
+CVE-2014-0207,File,5.11
+CVE-2014-0207,File,5.12
+CVE-2014-0207,File,5.13
+CVE-2014-0207,File,5.14
+CVE-2014-0207,File,5.15
+CVE-2014-0207,File,5.16
+CVE-2014-0207,File,5.17
+CVE-2014-0207,PHP,5.4.0
+CVE-2014-0207,PHP,5.4.1
+CVE-2014-0207,PHP,5.4.2
+CVE-2014-0207,PHP,5.4.3
+CVE-2014-0207,PHP,5.4.4
+CVE-2014-0207,PHP,5.4.5
+CVE-2014-0207,PHP,5.4.6
+CVE-2014-0207,PHP,5.4.7
+CVE-2014-0207,PHP,5.4.8
+CVE-2014-0207,PHP,5.4.9
+CVE-2014-0207,PHP,5.4.10
+CVE-2014-0207,PHP,5.4.11
+CVE-2014-0207,PHP,5.4.12
+CVE-2014-0207,PHP,5.4.12
+CVE-2014-0207,PHP,5.4.12
+CVE-2014-0207,PHP,5.4.13
+CVE-2014-0207,PHP,5.4.13
+CVE-2014-0207,PHP,5.4.14
+CVE-2014-0207,PHP,5.4.14
+CVE-2014-0207,PHP,5.4.15
+CVE-2014-0207,PHP,5.4.16
+CVE-2014-0207,PHP,5.4.17
+CVE-2014-0207,PHP,5.4.18
+CVE-2014-0207,PHP,5.4.19
+CVE-2014-0207,PHP,5.4.20
+CVE-2014-0207,PHP,5.4.21
+CVE-2014-0207,PHP,5.4.22
+CVE-2014-0207,PHP,5.4.23
+CVE-2014-0207,PHP,5.4.24
+CVE-2014-0207,PHP,5.4.25
+CVE-2014-0207,PHP,5.4.26
+CVE-2014-0207,PHP,5.4.27
+CVE-2014-0207,PHP,5.4.28
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.0
+CVE-2014-0207,PHP,5.5.1
+CVE-2014-0207,PHP,5.5.2
+CVE-2014-0207,PHP,5.5.3
+CVE-2014-0207,PHP,5.5.4
+CVE-2014-0207,PHP,5.5.5
+CVE-2014-0207,PHP,5.5.6
+CVE-2014-0207,PHP,5.5.7
+CVE-2014-0207,PHP,5.5.8
+CVE-2014-0207,PHP,5.5.9
+CVE-2014-0207,PHP,5.5.10
+CVE-2014-0207,PHP,5.5.11
+CVE-2014-0207,PHP,5.5.12
+CVE-2014-0207,PHP,5.5.13
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.0
+CVE-2014-0238,PHP,5.0.1
+CVE-2014-0238,PHP,5.0.2
+CVE-2014-0238,PHP,5.0.3
+CVE-2014-0238,PHP,5.0.4
+CVE-2014-0238,PHP,5.0.5
+CVE-2014-0238,PHP,5.1.0
+CVE-2014-0238,PHP,5.1.1
+CVE-2014-0238,PHP,5.1.2
+CVE-2014-0238,PHP,5.1.3
+CVE-2014-0238,PHP,5.1.4
+CVE-2014-0238,PHP,5.1.5
+CVE-2014-0238,PHP,5.1.6
+CVE-2014-0238,PHP,5.2.0
+CVE-2014-0238,PHP,5.2.1
+CVE-2014-0238,PHP,5.2.2
+CVE-2014-0238,PHP,5.2.3
+CVE-2014-0238,PHP,5.2.4
+CVE-2014-0238,PHP,5.2.5
+CVE-2014-0238,PHP,5.2.6
+CVE-2014-0238,PHP,5.2.7
+CVE-2014-0238,PHP,5.2.8
+CVE-2014-0238,PHP,5.2.9
+CVE-2014-0238,PHP,5.2.10
+CVE-2014-0238,PHP,5.2.11
+CVE-2014-0238,PHP,5.2.12
+CVE-2014-0238,PHP,5.2.13
+CVE-2014-0238,PHP,5.2.14
+CVE-2014-0238,PHP,5.2.15
+CVE-2014-0238,PHP,5.2.16
+CVE-2014-0238,PHP,5.2.17
+CVE-2014-0238,PHP,5.3.0
+CVE-2014-0238,PHP,5.3.1
+CVE-2014-0238,PHP,5.3.2
+CVE-2014-0238,PHP,5.3.3
+CVE-2014-0238,PHP,5.3.4
+CVE-2014-0238,PHP,5.3.5
+CVE-2014-0238,PHP,5.3.6
+CVE-2014-0238,PHP,5.3.7
+CVE-2014-0238,PHP,5.3.8
+CVE-2014-0238,PHP,5.3.9
+CVE-2014-0238,PHP,5.3.10
+CVE-2014-0238,PHP,5.3.11
+CVE-2014-0238,PHP,5.3.12
+CVE-2014-0238,PHP,5.3.13
+CVE-2014-0238,PHP,5.3.14
+CVE-2014-0238,PHP,5.3.15
+CVE-2014-0238,PHP,5.3.16
+CVE-2014-0238,PHP,5.3.17
+CVE-2014-0238,PHP,5.3.18
+CVE-2014-0238,PHP,5.3.19
+CVE-2014-0238,PHP,5.3.20
+CVE-2014-0238,PHP,5.3.21
+CVE-2014-0238,PHP,5.3.22
+CVE-2014-0238,PHP,5.3.23
+CVE-2014-0238,PHP,5.3.24
+CVE-2014-0238,PHP,5.3.25
+CVE-2014-0238,PHP,5.3.26
+CVE-2014-0238,PHP,5.3.27
+CVE-2014-0238,PHP,5.4.0
+CVE-2014-0238,PHP,5.4.1
+CVE-2014-0238,PHP,5.4.2
+CVE-2014-0238,PHP,5.4.3
+CVE-2014-0238,PHP,5.4.4
+CVE-2014-0238,PHP,5.4.5
+CVE-2014-0238,PHP,5.4.6
+CVE-2014-0238,PHP,5.4.7
+CVE-2014-0238,PHP,5.4.8
+CVE-2014-0238,PHP,5.4.9
+CVE-2014-0238,PHP,5.4.10
+CVE-2014-0238,PHP,5.4.11
+CVE-2014-0238,PHP,5.4.12
+CVE-2014-0238,PHP,5.4.12
+CVE-2014-0238,PHP,5.4.12
+CVE-2014-0238,PHP,5.4.13
+CVE-2014-0238,PHP,5.4.13
+CVE-2014-0238,PHP,5.4.14
+CVE-2014-0238,PHP,5.4.14
+CVE-2014-0238,PHP,5.4.15
+CVE-2014-0238,PHP,5.4.16
+CVE-2014-0238,PHP,5.4.17
+CVE-2014-0238,PHP,5.4.18
+CVE-2014-0238,PHP,5.4.19
+CVE-2014-0238,PHP,5.4.20
+CVE-2014-0238,PHP,5.4.21
+CVE-2014-0238,PHP,5.4.22
+CVE-2014-0238,PHP,5.4.23
+CVE-2014-0238,PHP,5.4.24
+CVE-2014-0238,PHP,5.4.25
+CVE-2014-0238,PHP,5.4.26
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.0
+CVE-2014-0238,PHP,5.5.1
+CVE-2014-0238,PHP,5.5.2
+CVE-2014-0238,PHP,5.5.3
+CVE-2014-0238,PHP,5.5.4
+CVE-2014-0238,PHP,5.5.5
+CVE-2014-0238,PHP,5.5.6
+CVE-2014-0238,PHP,5.5.7
+CVE-2014-0238,PHP,5.5.8
+CVE-2014-0238,PHP,5.5.9
+CVE-2014-0238,PHP,5.5.10
+CVE-2014-0238,PHP,5.5.11
+CVE-2014-0238,PHP,5.5.12
+CVE-2014-1690,Ubuntu Linux,12.04
+CVE-2014-1690,Ubuntu Linux,13.1
+CVE-2014-2270,File,5
+CVE-2014-2270,File,5.01
+CVE-2014-2270,File,5.02
+CVE-2014-2270,File,5.03
+CVE-2014-2270,File,5.04
+CVE-2014-2270,File,5.05
+CVE-2014-2270,File,5.06
+CVE-2014-2270,File,5.07
+CVE-2014-2270,File,5.08
+CVE-2014-2270,File,5.09
+CVE-2014-2270,File,5.1
+CVE-2014-2270,File,5.11
+CVE-2014-2270,File,5.12
+CVE-2014-2270,File,5.13
+CVE-2014-2270,File,5.14
+CVE-2014-2270,File,5.15
+CVE-2014-2270,Libmagic,-
+CVE-2014-3587,File,5
+CVE-2014-3587,File,5.01
+CVE-2014-3587,File,5.02
+CVE-2014-3587,File,5.03
+CVE-2014-3587,File,5.04
+CVE-2014-3587,File,5.05
+CVE-2014-3587,File,5.06
+CVE-2014-3587,File,5.07
+CVE-2014-3587,File,5.08
+CVE-2014-3587,File,5.09
+CVE-2014-3587,File,5.1
+CVE-2014-3587,File,5.11
+CVE-2014-3587,File,5.12
+CVE-2014-3587,File,5.13
+CVE-2014-3587,File,5.14
+CVE-2014-3587,File,5.15
+CVE-2014-3587,File,5.16
+CVE-2014-3587,File,5.17
+CVE-2014-3587,File,5.18
+CVE-2014-3587,PHP,5.4.0
+CVE-2014-3587,PHP,5.4.0
+CVE-2014-3587,PHP,5.4.0
+CVE-2014-3587,PHP,5.4.0
+CVE-2014-3587,PHP,5.4.1
+CVE-2014-3587,PHP,5.4.2
+CVE-2014-3587,PHP,5.4.3
+CVE-2014-3587,PHP,5.4.4
+CVE-2014-3587,PHP,5.4.5
+CVE-2014-3587,PHP,5.4.6
+CVE-2014-3587,PHP,5.4.7
+CVE-2014-3587,PHP,5.4.8
+CVE-2014-3587,PHP,5.4.9
+CVE-2014-3587,PHP,5.4.10
+CVE-2014-3587,PHP,5.4.11
+CVE-2014-3587,PHP,5.4.12
+CVE-2014-3587,PHP,5.4.12
+CVE-2014-3587,PHP,5.4.12
+CVE-2014-3587,PHP,5.4.13
+CVE-2014-3587,PHP,5.4.13
+CVE-2014-3587,PHP,5.4.14
+CVE-2014-3587,PHP,5.4.14
+CVE-2014-3587,PHP,5.4.15
+CVE-2014-3587,PHP,5.4.15
+CVE-2014-3587,PHP,5.4.16
+CVE-2014-3587,PHP,5.4.17
+CVE-2014-3587,PHP,5.4.18
+CVE-2014-3587,PHP,5.4.19
+CVE-2014-3587,PHP,5.4.20
+CVE-2014-3587,PHP,5.4.21
+CVE-2014-3587,PHP,5.4.22
+CVE-2014-3587,PHP,5.4.23
+CVE-2014-3587,PHP,5.4.24
+CVE-2014-3587,PHP,5.4.25
+CVE-2014-3587,PHP,5.4.26
+CVE-2014-3587,PHP,5.4.27
+CVE-2014-3587,PHP,5.4.28
+CVE-2014-3587,PHP,5.4.29
+CVE-2014-3587,PHP,5.4.30
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.0
+CVE-2014-3587,PHP,5.5.1
+CVE-2014-3587,PHP,5.5.2
+CVE-2014-3587,PHP,5.5.3
+CVE-2014-3587,PHP,5.5.4
+CVE-2014-3587,PHP,5.5.5
+CVE-2014-3587,PHP,5.5.6
+CVE-2014-3587,PHP,5.5.7
+CVE-2014-3587,PHP,5.5.8
+CVE-2014-3587,PHP,5.5.9
+CVE-2014-3587,PHP,5.5.10
+CVE-2014-3587,PHP,5.5.11
+CVE-2014-3587,PHP,5.5.12
+CVE-2014-3587,PHP,5.5.13
+CVE-2014-3587,PHP,5.5.14
+CVE-2014-3587,PHP,5.5.15
+CVE-2014-3647,Ubuntu Linux,12.04
+CVE-2014-3647,Debian Linux,7
+CVE-2014-3647,Evergreen,11.4
+CVE-2014-3647,Linux,7
+CVE-2014-3647,Enterprise Linux,5
+CVE-2014-3647,Enterprise Linux,6
+CVE-2014-3647,Suse Linux Enterprise Server,11
+CVE-2014-3980,Libfep,0.0.5
+CVE-2014-3980,Libfep,0.0.6
+CVE-2014-3980,Libfep,0.0.7
+CVE-2014-3980,Libfep,0.0.8
+CVE-2014-3980,Libfep,0.0.9
+CVE-2014-4501,Bfgminer,3.2.0
+CVE-2014-4501,Bfgminer,3.2.1
+CVE-2014-4501,Bfgminer,3.2.2
+CVE-2014-4501,Bfgminer,3.2.3
+CVE-2014-4501,Bfgminer,3.2.4
+CVE-2014-4501,Bfgminer,3.2.5
+CVE-2014-4501,Bfgminer,3.2.6
+CVE-2014-4501,Bfgminer,3.2.7
+CVE-2014-4501,Bfgminer,3.2.8
+CVE-2014-4501,Cgminer,4.3.0
+CVE-2014-4501,Cgminer,4.3.1
+CVE-2014-4501,Cgminer,4.3.2
+CVE-2014-4501,Cgminer,4.3.3
+CVE-2014-4501,Sgminer,4.0.0
+CVE-2014-4501,Sgminer,4.1.0
+CVE-2014-4501,Sgminer,4.1.153
+CVE-2014-4501,Sgminer,4.1.242
+CVE-2014-4501,Sgminer,4.1.271
+CVE-2014-4501,Sgminer,4.2.0
+CVE-2014-4654,Ubuntu Linux,12.04
+CVE-2014-4654,Linux Enterprise Server,10
+CVE-2014-6410,Linux Kernel,3.16.0
+CVE-2014-6410,Linux Kernel,3.16.1
+CVE-2014-6410,Linux Kernel,3.16.2
+CVE-2014-8176,Openssl,1.0.0b
+CVE-2014-8176,Openssl,1.0.0a
+CVE-2014-8176,Openssl,1.0.0d
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.0c
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.0e
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.0j
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.0l
+CVE-2014-8176,Openssl,1.0.0h
+CVE-2014-8176,Openssl,1.0.0k
+CVE-2014-8176,Openssl,1.0.0f
+CVE-2014-8176,Openssl,1.0.0i
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.0g
+CVE-2014-8176,Openssl,1.0.0
+CVE-2014-8176,Openssl,1.0.1
+CVE-2014-8176,Openssl,1.0.1e
+CVE-2014-8176,Openssl,1.0.1a
+CVE-2014-8176,Openssl,1.0.1
+CVE-2014-8176,Openssl,1.0.1f
+CVE-2014-8176,Openssl,1.0.1g
+CVE-2014-8176,Openssl,1.0.1
+CVE-2014-8176,Openssl,1.0.1b
+CVE-2014-8176,Openssl,1.0.1d
+CVE-2014-8176,Openssl,1.0.1
+CVE-2014-8176,Openssl,1.0.1c
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3
+CVE-2014-8884,Linux Kernel,3.0.1
+CVE-2014-8884,Linux Kernel,3.0.2
+CVE-2014-8884,Linux Kernel,3.0.3
+CVE-2014-8884,Linux Kernel,3.0.4
+CVE-2014-8884,Linux Kernel,3.0.5
+CVE-2014-8884,Linux Kernel,3.0.6
+CVE-2014-8884,Linux Kernel,3.0.7
+CVE-2014-8884,Linux Kernel,3.0.8
+CVE-2014-8884,Linux Kernel,3.0.9
+CVE-2014-8884,Linux Kernel,3.0.10
+CVE-2014-8884,Linux Kernel,3.0.11
+CVE-2014-8884,Linux Kernel,3.0.12
+CVE-2014-8884,Linux Kernel,3.0.13
+CVE-2014-8884,Linux Kernel,3.0.14
+CVE-2014-8884,Linux Kernel,3.0.15
+CVE-2014-8884,Linux Kernel,3.0.16
+CVE-2014-8884,Linux Kernel,3.0.17
+CVE-2014-8884,Linux Kernel,3.0.18
+CVE-2014-8884,Linux Kernel,3.0.19
+CVE-2014-8884,Linux Kernel,3.0.20
+CVE-2014-8884,Linux Kernel,3.0.21
+CVE-2014-8884,Linux Kernel,3.0.22
+CVE-2014-8884,Linux Kernel,3.0.23
+CVE-2014-8884,Linux Kernel,3.0.24
+CVE-2014-8884,Linux Kernel,3.0.25
+CVE-2014-8884,Linux Kernel,3.0.26
+CVE-2014-8884,Linux Kernel,3.0.27
+CVE-2014-8884,Linux Kernel,3.0.28
+CVE-2014-8884,Linux Kernel,3.0.29
+CVE-2014-8884,Linux Kernel,3.0.30
+CVE-2014-8884,Linux Kernel,3.0.31
+CVE-2014-8884,Linux Kernel,3.0.32
+CVE-2014-8884,Linux Kernel,3.0.33
+CVE-2014-8884,Linux Kernel,3.0.34
+CVE-2014-8884,Linux Kernel,3.0.35
+CVE-2014-8884,Linux Kernel,3.0.36
+CVE-2014-8884,Linux Kernel,3.0.37
+CVE-2014-8884,Linux Kernel,3.0.38
+CVE-2014-8884,Linux Kernel,3.0.39
+CVE-2014-8884,Linux Kernel,3.0.40
+CVE-2014-8884,Linux Kernel,3.0.41
+CVE-2014-8884,Linux Kernel,3.0.42
+CVE-2014-8884,Linux Kernel,3.0.43
+CVE-2014-8884,Linux Kernel,3.0.44
+CVE-2014-8884,Linux Kernel,3.0.45
+CVE-2014-8884,Linux Kernel,3.0.46
+CVE-2014-8884,Linux Kernel,3.0.47
+CVE-2014-8884,Linux Kernel,3.0.48
+CVE-2014-8884,Linux Kernel,3.0.49
+CVE-2014-8884,Linux Kernel,3.0.50
+CVE-2014-8884,Linux Kernel,3.0.51
+CVE-2014-8884,Linux Kernel,3.0.52
+CVE-2014-8884,Linux Kernel,3.0.53
+CVE-2014-8884,Linux Kernel,3.0.54
+CVE-2014-8884,Linux Kernel,3.0.55
+CVE-2014-8884,Linux Kernel,3.0.56
+CVE-2014-8884,Linux Kernel,3.0.57
+CVE-2014-8884,Linux Kernel,3.0.58
+CVE-2014-8884,Linux Kernel,3.0.59
+CVE-2014-8884,Linux Kernel,3.0.60
+CVE-2014-8884,Linux Kernel,3.0.61
+CVE-2014-8884,Linux Kernel,3.0.62
+CVE-2014-8884,Linux Kernel,3.0.63
+CVE-2014-8884,Linux Kernel,3.0.64
+CVE-2014-8884,Linux Kernel,3.0.65
+CVE-2014-8884,Linux Kernel,3.0.66
+CVE-2014-8884,Linux Kernel,3.0.67
+CVE-2014-8884,Linux Kernel,3.0.68
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.1.1
+CVE-2014-8884,Linux Kernel,3.1.2
+CVE-2014-8884,Linux Kernel,3.1.3
+CVE-2014-8884,Linux Kernel,3.1.4
+CVE-2014-8884,Linux Kernel,3.1.5
+CVE-2014-8884,Linux Kernel,3.1.6
+CVE-2014-8884,Linux Kernel,3.1.7
+CVE-2014-8884,Linux Kernel,3.1.8
+CVE-2014-8884,Linux Kernel,3.1.9
+CVE-2014-8884,Linux Kernel,3.1.10
+CVE-2014-8884,Linux Kernel,3.2
+CVE-2014-8884,Linux Kernel,3.2
+CVE-2014-8884,Linux Kernel,3.2
+CVE-2014-8884,Linux Kernel,3.2
+CVE-2014-8884,Linux Kernel,3.1
+CVE-2014-8884,Linux Kernel,3.10.0
+CVE-2014-8884,Linux Kernel,3.10.1
+CVE-2014-8884,Linux Kernel,3.10.1
+CVE-2014-8884,Linux Kernel,3.10.2
+CVE-2014-8884,Linux Kernel,3.10.2
+CVE-2014-8884,Linux Kernel,3.10.3
+CVE-2014-8884,Linux Kernel,3.10.3
+CVE-2014-8884,Linux Kernel,3.10.4
+CVE-2014-8884,Linux Kernel,3.10.4
+CVE-2014-8884,Linux Kernel,3.10.5
+CVE-2014-8884,Linux Kernel,3.10.5
+CVE-2014-8884,Linux Kernel,3.10.6
+CVE-2014-8884,Linux Kernel,3.10.6
+CVE-2014-8884,Linux Kernel,3.10.7
+CVE-2014-8884,Linux Kernel,3.10.7
+CVE-2014-8884,Linux Kernel,3.10.8
+CVE-2014-8884,Linux Kernel,3.10.8
+CVE-2014-8884,Linux Kernel,3.10.9
+CVE-2014-8884,Linux Kernel,3.10.9
+CVE-2014-8884,Linux Kernel,3.10.10
+CVE-2014-8884,Linux Kernel,3.10.11
+CVE-2014-8884,Linux Kernel,3.10.12
+CVE-2014-8884,Linux Kernel,3.10.13
+CVE-2014-8884,Linux Kernel,3.10.14
+CVE-2014-8884,Linux Kernel,3.10.15
+CVE-2014-8884,Linux Kernel,3.10.16
+CVE-2014-8884,Linux Kernel,3.10.17
+CVE-2014-8884,Linux Kernel,3.10.18
+CVE-2014-8884,Linux Kernel,3.10.19
+CVE-2014-8884,Linux Kernel,3.10.20
+CVE-2014-8884,Linux Kernel,3.10.21
+CVE-2014-8884,Linux Kernel,3.10.22
+CVE-2014-8884,Linux Kernel,3.10.23
+CVE-2014-8884,Linux Kernel,3.10.24
+CVE-2014-8884,Linux Kernel,3.10.25
+CVE-2014-8884,Linux Kernel,3.10.26
+CVE-2014-8884,Linux Kernel,3.10.27
+CVE-2014-8884,Linux Kernel,3.10.28
+CVE-2014-8884,Linux Kernel,3.10.29
+CVE-2014-8884,Linux Kernel,3.11
+CVE-2014-8884,Linux Kernel,3.11.1
+CVE-2014-8884,Linux Kernel,3.11.2
+CVE-2014-8884,Linux Kernel,3.11.3
+CVE-2014-8884,Linux Kernel,3.11.4
+CVE-2014-8884,Linux Kernel,3.11.5
+CVE-2014-8884,Linux Kernel,3.11.6
+CVE-2014-8884,Linux Kernel,3.11.7
+CVE-2014-8884,Linux Kernel,3.11.8
+CVE-2014-8884,Linux Kernel,3.11.9
+CVE-2014-8884,Linux Kernel,3.11.10
+CVE-2014-8884,Linux Kernel,3.12
+CVE-2014-8884,Linux Kernel,3.12.1
+CVE-2014-8884,Linux Kernel,3.12.2
+CVE-2014-8884,Linux Kernel,3.12.3
+CVE-2014-8884,Linux Kernel,3.12.4
+CVE-2014-8884,Linux Kernel,3.12.5
+CVE-2014-8884,Linux Kernel,3.12.6
+CVE-2014-8884,Linux Kernel,3.12.7
+CVE-2014-8884,Linux Kernel,3.12.8
+CVE-2014-8884,Linux Kernel,3.12.9
+CVE-2014-8884,Linux Kernel,3.12.10
+CVE-2014-8884,Linux Kernel,3.12.11
+CVE-2014-8884,Linux Kernel,3.12.12
+CVE-2014-8884,Linux Kernel,3.12.13
+CVE-2014-8884,Linux Kernel,3.12.14
+CVE-2014-8884,Linux Kernel,3.12.15
+CVE-2014-8884,Linux Kernel,3.12.16
+CVE-2014-8884,Linux Kernel,3.12.17
+CVE-2014-8884,Linux Kernel,3.13
+CVE-2014-8884,Linux Kernel,3.13.1
+CVE-2014-8884,Linux Kernel,3.13.2
+CVE-2014-8884,Linux Kernel,3.13.3
+CVE-2014-8884,Linux Kernel,3.13.4
+CVE-2014-8884,Linux Kernel,3.13.5
+CVE-2014-8884,Linux Kernel,3.13.6
+CVE-2014-8884,Linux Kernel,3.13.7
+CVE-2014-8884,Linux Kernel,3.13.8
+CVE-2014-8884,Linux Kernel,3.13.9
+CVE-2014-8884,Linux Kernel,3.13.10
+CVE-2014-8884,Linux Kernel,3.13.11
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14
+CVE-2014-8884,Linux Kernel,3.14.1
+CVE-2014-8884,Linux Kernel,3.14.2
+CVE-2014-8884,Linux Kernel,3.14.3
+CVE-2014-8884,Linux Kernel,3.14.4
+CVE-2014-8884,Linux Kernel,3.14.5
+CVE-2014-8884,Linux Kernel,3.15
+CVE-2014-8884,Linux Kernel,3.15.1
+CVE-2014-8884,Linux Kernel,3.15.2
+CVE-2014-8884,Linux Kernel,3.15.3
+CVE-2014-8884,Linux Kernel,3.15.4
+CVE-2014-8884,Linux Kernel,3.15.5
+CVE-2014-8884,Linux Kernel,3.15.6
+CVE-2014-8884,Linux Kernel,3.15.7
+CVE-2014-8884,Linux Kernel,3.15.8
+CVE-2014-8884,Linux Kernel,3.16.0
+CVE-2014-8884,Linux Kernel,3.16.1
+CVE-2014-8884,Linux Kernel,3.17
+CVE-2014-8884,Linux Kernel,3.17.1
+CVE-2014-8884,Linux Kernel,3.17.2
+CVE-2015-1792,Openssl,1.0.0c
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0a
+CVE-2015-1792,Openssl,1.0.0o
+CVE-2015-1792,Openssl,1.0.0k
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0d
+CVE-2015-1792,Openssl,1.0.0p
+CVE-2015-1792,Openssl,1.0.0i
+CVE-2015-1792,Openssl,1.0.0l
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0e
+CVE-2015-1792,Openssl,1.0.0j
+CVE-2015-1792,Openssl,1.0.0f
+CVE-2015-1792,Openssl,1.0.0m
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0q
+CVE-2015-1792,Openssl,1.0.0g
+CVE-2015-1792,Openssl,1.0.0n
+CVE-2015-1792,Openssl,1.0.0b
+CVE-2015-1792,Openssl,1.0.0r
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0
+CVE-2015-1792,Openssl,1.0.0h
+CVE-2015-1792,Openssl,1.0.1
+CVE-2015-1792,Openssl,1.0.1m
+CVE-2015-1792,Openssl,1.0.1j
+CVE-2015-1792,Openssl,1.0.1f
+CVE-2015-1792,Openssl,1.0.1
+CVE-2015-1792,Openssl,1.0.1k
+CVE-2015-1792,Openssl,1.0.1g
+CVE-2015-1792,Openssl,1.0.1c
+CVE-2015-1792,Openssl,1.0.1a
+CVE-2015-1792,Openssl,1.0.1h
+CVE-2015-1792,Openssl,1.0.1
+CVE-2015-1792,Openssl,1.0.1d
+CVE-2015-1792,Openssl,1.0.1b
+CVE-2015-1792,Openssl,1.0.1
+CVE-2015-1792,Openssl,1.0.1l
+CVE-2015-1792,Openssl,1.0.1i
+CVE-2015-1792,Openssl,1.0.1e
+CVE-2015-1792,Openssl,1.0.2
+CVE-2015-1792,Openssl,1.0.2
+CVE-2015-1792,Openssl,1.0.2a
+CVE-2015-2831,Das Watchdog,0.9.0
+CVE-2015-3150,Automatic Bug Reporting Tool,-
+CVE-2015-3151,Automatic Bug Reporting Tool,-
+CVE-2015-6031,Ubuntu Linux,12.04
+CVE-2015-6031,Ubuntu Linux,14.04
+CVE-2015-6031,Ubuntu Linux,15.04
+CVE-2015-6031,Debian Linux,7
+CVE-2015-6031,Debian Linux,8
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Miniupnpc,1.9
+CVE-2015-6031,Leap,42.1
+CVE-2015-6031,Opensuse,13.1
+CVE-2015-6031,Opensuse,13.2
+CVE-2015-6938,Fedora,21
+CVE-2015-6938,Fedora,22
+CVE-2015-6938,Fedora,23
+CVE-2015-6938,Notebook,4.0.0
+CVE-2015-6938,Notebook,4.0.1
+CVE-2015-6938,Notebook,4.0.2
+CVE-2015-6938,Notebook,4.0.3
+CVE-2015-6938,Notebook,4.0.4
+CVE-2015-6938,Opensuse,13.1
+CVE-2015-6938,Opensuse,13.2
+CVE-2015-7513,Ubuntu Linux,12.04
+CVE-2015-7513,Ubuntu Linux,14.04
+CVE-2015-7513,Ubuntu Linux,15.04
+CVE-2015-7513,Ubuntu Linux,15.1
+CVE-2015-7513,Debian Linux,7
+CVE-2015-7513,Debian Linux,8
+CVE-2015-7513,Fedora,22
+CVE-2015-7513,Fedora,23
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-7513,Linux Kernel,4.4
+CVE-2015-8955,Android,7
+CVE-2015-9542,Ubuntu Linux,12.04
+CVE-2015-9542,Ubuntu Linux,14.04
+CVE-2015-9542,Ubuntu Linux,16.04
+CVE-2015-9542,Ubuntu Linux,18.04
+CVE-2015-9542,Ubuntu Linux,19.1
+CVE-2015-9542,Debian Linux,8
+CVE-2015-9542,Debian Linux,9
+CVE-2015-9542,Pam Radius,1.4.0
+CVE-2016-0546,Ubuntu Linux,12.04
+CVE-2016-0546,Ubuntu Linux,14.04
+CVE-2016-0546,Ubuntu Linux,15.04
+CVE-2016-0546,Ubuntu Linux,15.1
+CVE-2016-0546,Debian Linux,8
+CVE-2016-0546,Leap,42.1
+CVE-2016-0546,Opensuse,13.2
+CVE-2016-0546,Linux,7
+CVE-2016-0546,Solaris,11.3
+CVE-2016-0546,Enterprise Linux,6
+CVE-2016-0546,Enterprise Linux,7
+CVE-2016-0546,Enterprise Linux Desktop,7
+CVE-2016-0546,Enterprise Linux Hpc Node,7
+CVE-2016-0546,Enterprise Linux Hpc Node Eus,7.2
+CVE-2016-0546,Enterprise Linux Server,7
+CVE-2016-0546,Enterprise Linux Server Aus,7.2
+CVE-2016-0546,Enterprise Linux Server Eus,7.2
+CVE-2016-0546,Enterprise Linux Workstation,7
+CVE-2016-10154,Linux Kernel,4.9
+CVE-2016-10156,Systemd,228
+CVE-2016-10190,Ffmpeg,3
+CVE-2016-10190,Ffmpeg,3.0.1
+CVE-2016-10190,Ffmpeg,3.0.2
+CVE-2016-10190,Ffmpeg,3.0.3
+CVE-2016-10190,Ffmpeg,3.0.4
+CVE-2016-10190,Ffmpeg,3.1
+CVE-2016-10190,Ffmpeg,3.1.1
+CVE-2016-10190,Ffmpeg,3.1.2
+CVE-2016-10190,Ffmpeg,3.1.3
+CVE-2016-10190,Ffmpeg,3.1.4
+CVE-2016-10190,Ffmpeg,3.1.5
+CVE-2016-10190,Ffmpeg,3.2
+CVE-2016-10190,Ffmpeg,3.2.1
+CVE-2016-10191,Ffmpeg,3
+CVE-2016-10191,Ffmpeg,3.0.1
+CVE-2016-10191,Ffmpeg,3.0.2
+CVE-2016-10191,Ffmpeg,3.0.3
+CVE-2016-10191,Ffmpeg,3.0.4
+CVE-2016-10191,Ffmpeg,3.1
+CVE-2016-10191,Ffmpeg,3.1.1
+CVE-2016-10191,Ffmpeg,3.1.2
+CVE-2016-10191,Ffmpeg,3.1.3
+CVE-2016-10191,Ffmpeg,3.1.4
+CVE-2016-10191,Ffmpeg,3.1.5
+CVE-2016-10191,Ffmpeg,3.2
+CVE-2016-10191,Ffmpeg,3.2.1
+CVE-2016-10195,Debian Linux,8
+CVE-2016-10197,Debian Linux,8
+CVE-2016-1246,Debian Linux,8
+CVE-2016-2180,Openssl,1.0.1g
+CVE-2016-2180,Openssl,1.0.1r
+CVE-2016-2180,Openssl,1.0.1i
+CVE-2016-2180,Openssl,1.0.1e
+CVE-2016-2180,Openssl,1.0.1n
+CVE-2016-2180,Openssl,1.0.1s
+CVE-2016-2180,Openssl,1.0.1l
+CVE-2016-2180,Openssl,1.0.1b
+CVE-2016-2180,Openssl,1.0.1o
+CVE-2016-2180,Openssl,1.0.1m
+CVE-2016-2180,Openssl,1.0.1c
+CVE-2016-2180,Openssl,1.0.1
+CVE-2016-2180,Openssl,1.0.1p
+CVE-2016-2180,Openssl,1.0.1t
+CVE-2016-2180,Openssl,1.0.1j
+CVE-2016-2180,Openssl,1.0.1a
+CVE-2016-2180,Openssl,1.0.1q
+CVE-2016-2180,Openssl,1.0.1f
+CVE-2016-2180,Openssl,1.0.1k
+CVE-2016-2180,Openssl,1.0.1h
+CVE-2016-2180,Openssl,1.0.1d
+CVE-2016-2180,Openssl,1.0.2a
+CVE-2016-2180,Openssl,1.0.2e
+CVE-2016-2180,Openssl,1.0.2h
+CVE-2016-2180,Openssl,1.0.2f
+CVE-2016-2180,Openssl,1.0.2b
+CVE-2016-2180,Openssl,1.0.2g
+CVE-2016-2180,Openssl,1.0.2c
+CVE-2016-2180,Openssl,1.0.2
+CVE-2016-2180,Openssl,1.0.2d
+CVE-2016-2180,Linux,6
+CVE-2016-2180,Linux,7
+CVE-2016-2385,Debian Linux,8
+CVE-2016-3179,Minissdpd,1.2.20130907-3
+CVE-2016-3698,Ubuntu Linux,15.1
+CVE-2016-3698,Ubuntu Linux,16.04
+CVE-2016-3698,Debian Linux,8
+CVE-2016-3698,Enterprise Linux Desktop,7
+CVE-2016-3698,Enterprise Linux Hpc Node,7
+CVE-2016-3698,Enterprise Linux Hpc Node Eus,7.2
+CVE-2016-3698,Enterprise Linux Server,7
+CVE-2016-3698,Enterprise Linux Server Aus,7.2
+CVE-2016-3698,Enterprise Linux Server Eus,7.2
+CVE-2016-3698,Enterprise Linux Workstation,7
+CVE-2016-4580,Ubuntu Linux,12.04
+CVE-2016-4580,Ubuntu Linux,14.04
+CVE-2016-4580,Ubuntu Linux,15.1
+CVE-2016-4580,Ubuntu Linux,16.04
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.0
+CVE-2016-5094,PHP,5.6.1
+CVE-2016-5094,PHP,5.6.2
+CVE-2016-5094,PHP,5.6.3
+CVE-2016-5094,PHP,5.6.4
+CVE-2016-5094,PHP,5.6.5
+CVE-2016-5094,PHP,5.6.6
+CVE-2016-5094,PHP,5.6.7
+CVE-2016-5094,PHP,5.6.8
+CVE-2016-5094,PHP,5.6.9
+CVE-2016-5094,PHP,5.6.10
+CVE-2016-5094,PHP,5.6.11
+CVE-2016-5094,PHP,5.6.12
+CVE-2016-5094,PHP,5.6.13
+CVE-2016-5094,PHP,5.6.14
+CVE-2016-5094,PHP,5.6.15
+CVE-2016-5094,PHP,5.6.16
+CVE-2016-5094,PHP,5.6.17
+CVE-2016-5094,PHP,5.6.18
+CVE-2016-5094,PHP,5.6.19
+CVE-2016-5094,PHP,5.6.20
+CVE-2016-5094,PHP,5.6.21
+CVE-2016-5104,Ubuntu Linux,14.04
+CVE-2016-5104,Ubuntu Linux,15.1
+CVE-2016-5104,Ubuntu Linux,16.04
+CVE-2016-5104,Leap,42.1
+CVE-2016-5104,Opensuse,13.2
+CVE-2016-5116,Debian Linux,8
+CVE-2016-5116,Leap,42.1
+CVE-2016-5356,Wireshark,1.12.0
+CVE-2016-5356,Wireshark,1.12.1
+CVE-2016-5356,Wireshark,1.12.2
+CVE-2016-5356,Wireshark,1.12.3
+CVE-2016-5356,Wireshark,1.12.4
+CVE-2016-5356,Wireshark,1.12.5
+CVE-2016-5356,Wireshark,1.12.6
+CVE-2016-5356,Wireshark,1.12.7
+CVE-2016-5356,Wireshark,1.12.8
+CVE-2016-5356,Wireshark,1.12.9
+CVE-2016-5356,Wireshark,1.12.10
+CVE-2016-5356,Wireshark,1.12.11
+CVE-2016-5356,Wireshark,2.0.0
+CVE-2016-5356,Wireshark,2.0.1
+CVE-2016-5356,Wireshark,2.0.2
+CVE-2016-5356,Wireshark,2.0.3
+CVE-2016-5357,Solaris,11.3
+CVE-2016-5357,Wireshark,1.12.0
+CVE-2016-5357,Wireshark,1.12.1
+CVE-2016-5357,Wireshark,1.12.2
+CVE-2016-5357,Wireshark,1.12.3
+CVE-2016-5357,Wireshark,1.12.4
+CVE-2016-5357,Wireshark,1.12.5
+CVE-2016-5357,Wireshark,1.12.6
+CVE-2016-5357,Wireshark,1.12.7
+CVE-2016-5357,Wireshark,1.12.8
+CVE-2016-5357,Wireshark,1.12.9
+CVE-2016-5357,Wireshark,1.12.10
+CVE-2016-5357,Wireshark,1.12.11
+CVE-2016-5357,Wireshark,2.0.0
+CVE-2016-5357,Wireshark,2.0.1
+CVE-2016-5357,Wireshark,2.0.2
+CVE-2016-5357,Wireshark,2.0.3
+CVE-2016-5841,Solaris,10
+CVE-2016-5841,Solaris,11.3
+CVE-2016-5842,Solaris,10
+CVE-2016-5842,Solaris,11.3
+CVE-2016-7798,Debian Linux,8
+CVE-2016-7798,Debian Linux,9
+CVE-2017-11523,Imagemagick,7.0.0-0
+CVE-2017-11523,Imagemagick,7.0.1-2
+CVE-2017-11523,Imagemagick,7.0.1-7
+CVE-2017-11523,Imagemagick,7.0.1-9
+CVE-2017-11523,Imagemagick,7.0.1-8
+CVE-2017-11523,Imagemagick,7.0.1-10
+CVE-2017-11523,Imagemagick,7.0.1-3
+CVE-2017-11523,Imagemagick,7.0.1-4
+CVE-2017-11523,Imagemagick,7.0.1-5
+CVE-2017-11523,Imagemagick,7.0.1-1
+CVE-2017-11523,Imagemagick,7.0.1-0
+CVE-2017-11523,Imagemagick,7.0.1-6
+CVE-2017-11523,Imagemagick,7.0.2-6
+CVE-2017-11523,Imagemagick,7.0.2-2
+CVE-2017-11523,Imagemagick,7.0.2-3
+CVE-2017-11523,Imagemagick,7.0.2-9
+CVE-2017-11523,Imagemagick,7.0.2-4
+CVE-2017-11523,Imagemagick,7.0.2-10
+CVE-2017-11523,Imagemagick,7.0.2-7
+CVE-2017-11523,Imagemagick,7.0.2-8
+CVE-2017-11523,Imagemagick,7.0.2-0
+CVE-2017-11523,Imagemagick,7.0.2-5
+CVE-2017-11523,Imagemagick,7.0.2-1
+CVE-2017-11523,Imagemagick,7.0.3-9
+CVE-2017-11523,Imagemagick,7.0.3-5
+CVE-2017-11523,Imagemagick,7.0.3-2
+CVE-2017-11523,Imagemagick,7.0.3-3
+CVE-2017-11523,Imagemagick,7.0.3-0
+CVE-2017-11523,Imagemagick,7.0.3-10
+CVE-2017-11523,Imagemagick,7.0.3-6
+CVE-2017-11523,Imagemagick,7.0.3-1
+CVE-2017-11523,Imagemagick,7.0.3-8
+CVE-2017-11523,Imagemagick,7.0.3-7
+CVE-2017-11523,Imagemagick,7.0.3-4
+CVE-2017-11523,Imagemagick,7.0.4-8
+CVE-2017-11523,Imagemagick,7.0.4-4
+CVE-2017-11523,Imagemagick,7.0.4-10
+CVE-2017-11523,Imagemagick,7.0.4-9
+CVE-2017-11523,Imagemagick,7.0.4-5
+CVE-2017-11523,Imagemagick,7.0.4-6
+CVE-2017-11523,Imagemagick,7.0.4-1
+CVE-2017-11523,Imagemagick,7.0.4-7
+CVE-2017-11523,Imagemagick,7.0.4-2
+CVE-2017-11523,Imagemagick,7.0.4-0
+CVE-2017-11523,Imagemagick,7.0.4-3
+CVE-2017-11523,Imagemagick,7.0.5-0
+CVE-2017-11523,Imagemagick,7.0.5-7
+CVE-2017-11523,Imagemagick,7.0.5-1
+CVE-2017-11523,Imagemagick,7.0.5-8
+CVE-2017-11523,Imagemagick,7.0.5-4
+CVE-2017-11523,Imagemagick,7.0.5-5
+CVE-2017-11523,Imagemagick,7.0.5-6
+CVE-2017-11523,Imagemagick,7.0.6-1
+CVE-2017-12902,Debian Linux,9
+CVE-2017-12902,Debian Linux,10
+CVE-2017-12902,Enterprise Linux Desktop,7
+CVE-2017-12902,Enterprise Linux Server,7
+CVE-2017-12902,Enterprise Linux Server Aus,7.6
+CVE-2017-12902,Enterprise Linux Server Aus,7.7
+CVE-2017-12987,Debian Linux,9
+CVE-2017-12987,Debian Linux,10
+CVE-2017-12987,Enterprise Linux Desktop,7
+CVE-2017-12987,Enterprise Linux Server,7
+CVE-2017-12987,Enterprise Linux Server Aus,7.6
+CVE-2017-12987,Enterprise Linux Server Aus,7.7
+CVE-2017-14639,Bento4,1.5.0-617
+CVE-2017-14642,Bento4,1.5.0-617
+CVE-2017-15924,Debian Linux,9.2
+CVE-2017-15924,Shadowsocks-libev,1.3
+CVE-2017-15924,Shadowsocks-libev,1.3.2
+CVE-2017-15924,Shadowsocks-libev,1.4.0
+CVE-2017-15924,Shadowsocks-libev,1.4.1
+CVE-2017-15924,Shadowsocks-libev,1.4.2
+CVE-2017-15924,Shadowsocks-libev,1.4.3
+CVE-2017-15924,Shadowsocks-libev,1.4.4
+CVE-2017-15924,Shadowsocks-libev,1.4.5
+CVE-2017-15924,Shadowsocks-libev,1.4.6
+CVE-2017-15924,Shadowsocks-libev,1.4.7
+CVE-2017-15924,Shadowsocks-libev,1.4.8
+CVE-2017-15924,Shadowsocks-libev,1.5.0
+CVE-2017-15924,Shadowsocks-libev,1.5.1
+CVE-2017-15924,Shadowsocks-libev,1.5.2
+CVE-2017-15924,Shadowsocks-libev,1.5.3
+CVE-2017-15924,Shadowsocks-libev,1.6.1
+CVE-2017-15924,Shadowsocks-libev,1.6.2
+CVE-2017-15924,Shadowsocks-libev,1.6.3
+CVE-2017-15924,Shadowsocks-libev,1.6.4
+CVE-2017-15924,Shadowsocks-libev,2.0.1
+CVE-2017-15924,Shadowsocks-libev,2.0.2
+CVE-2017-15924,Shadowsocks-libev,2.0.3
+CVE-2017-15924,Shadowsocks-libev,2.0.4
+CVE-2017-15924,Shadowsocks-libev,2.0.5
+CVE-2017-15924,Shadowsocks-libev,2.0.6
+CVE-2017-15924,Shadowsocks-libev,2.0.7
+CVE-2017-15924,Shadowsocks-libev,2.0.8
+CVE-2017-15924,Shadowsocks-libev,2.1.0
+CVE-2017-15924,Shadowsocks-libev,2.1.1
+CVE-2017-15924,Shadowsocks-libev,2.1.2
+CVE-2017-15924,Shadowsocks-libev,2.1.3
+CVE-2017-15924,Shadowsocks-libev,2.1.4
+CVE-2017-15924,Shadowsocks-libev,2.2.0
+CVE-2017-15924,Shadowsocks-libev,2.2.1
+CVE-2017-15924,Shadowsocks-libev,2.2.2
+CVE-2017-15924,Shadowsocks-libev,2.2.3
+CVE-2017-15924,Shadowsocks-libev,2.3.0
+CVE-2017-15924,Shadowsocks-libev,2.3.1
+CVE-2017-15924,Shadowsocks-libev,2.3.2
+CVE-2017-15924,Shadowsocks-libev,2.3.3
+CVE-2017-15924,Shadowsocks-libev,2.4.0
+CVE-2017-15924,Shadowsocks-libev,2.4.1
+CVE-2017-15924,Shadowsocks-libev,2.4.2
+CVE-2017-15924,Shadowsocks-libev,2.4.3
+CVE-2017-15924,Shadowsocks-libev,2.4.4
+CVE-2017-15924,Shadowsocks-libev,2.4.5
+CVE-2017-15924,Shadowsocks-libev,2.4.6
+CVE-2017-15924,Shadowsocks-libev,2.4.7
+CVE-2017-15924,Shadowsocks-libev,2.4.8
+CVE-2017-15924,Shadowsocks-libev,2.5.0
+CVE-2017-15924,Shadowsocks-libev,2.5.1
+CVE-2017-15924,Shadowsocks-libev,2.5.2
+CVE-2017-15924,Shadowsocks-libev,2.5.3
+CVE-2017-15924,Shadowsocks-libev,2.5.4
+CVE-2017-15924,Shadowsocks-libev,2.5.5
+CVE-2017-15924,Shadowsocks-libev,2.5.6
+CVE-2017-15924,Shadowsocks-libev,2.6.0
+CVE-2017-15924,Shadowsocks-libev,2.6.1
+CVE-2017-15924,Shadowsocks-libev,2.6.2
+CVE-2017-15924,Shadowsocks-libev,2.6.3
+CVE-2017-15924,Shadowsocks-libev,3.0.0
+CVE-2017-15924,Shadowsocks-libev,3.0.1
+CVE-2017-15924,Shadowsocks-libev,3.0.2
+CVE-2017-15924,Shadowsocks-libev,3.0.3
+CVE-2017-15924,Shadowsocks-libev,3.0.4
+CVE-2017-15924,Shadowsocks-libev,3.0.5
+CVE-2017-15924,Shadowsocks-libev,3.0.6
+CVE-2017-15924,Shadowsocks-libev,3.0.7
+CVE-2017-15924,Shadowsocks-libev,3.0.8
+CVE-2017-15924,Shadowsocks-libev,3.1.0
+CVE-2017-18922,Ubuntu Linux,16.04
+CVE-2017-18922,Ubuntu Linux,18.04
+CVE-2017-18922,Ubuntu Linux,19.1
+CVE-2017-18922,Ubuntu Linux,20.04
+CVE-2017-18922,Fedora,31
+CVE-2017-18922,Fedora,32
+CVE-2017-18922,Leap,15.1
+CVE-2017-18922,Leap,15.2
+CVE-2017-5847,Debian Linux,8
+CVE-2017-5847,Debian Linux,9
+CVE-2017-6308,Debian Linux,8
+CVE-2017-6435,Libplist,1.12
+CVE-2017-7418,Proftpd,1.3.6
+CVE-2017-7418,Proftpd,1.3.6
+CVE-2017-7418,Proftpd,1.3.6
+CVE-2017-7418,Proftpd,1.3.6
+CVE-2017-7418,Proftpd,1.3.6
+CVE-2017-8062,Linux Kernel,4.9
+CVE-2017-8062,Linux Kernel,4.9.1
+CVE-2017-8062,Linux Kernel,4.9.2
+CVE-2017-8062,Linux Kernel,4.9.3
+CVE-2017-8062,Linux Kernel,4.9.4
+CVE-2017-8062,Linux Kernel,4.9.5
+CVE-2017-8062,Linux Kernel,4.9.6
+CVE-2017-8062,Linux Kernel,4.9.8
+CVE-2017-8062,Linux Kernel,4.9.9
+CVE-2017-8062,Linux Kernel,4.9.10
+CVE-2017-8062,Linux Kernel,4.9.11
+CVE-2017-8062,Linux Kernel,4.9.12
+CVE-2017-8062,Linux Kernel,4.9.13
+CVE-2017-8062,Linux Kernel,4.9.14
+CVE-2017-8062,Linux Kernel,4.9.15
+CVE-2017-8062,Linux Kernel,4.9.16
+CVE-2017-8062,Linux Kernel,4.9.17
+CVE-2017-8062,Linux Kernel,4.9.18
+CVE-2017-8062,Linux Kernel,4.9.19
+CVE-2017-8062,Linux Kernel,4.1
+CVE-2017-8062,Linux Kernel,4.10.1
+CVE-2017-8062,Linux Kernel,4.10.2
+CVE-2017-8062,Linux Kernel,4.10.3
+CVE-2017-8073,Debian Linux,8
+CVE-2017-8807,Debian Linux,9
+CVE-2017-9993,Debian Linux,8
+CVE-2017-9993,Debian Linux,9
+CVE-2018-10887,Debian Linux,8
+CVE-2018-10887,Debian Linux,9
+CVE-2018-13094,Ubuntu Linux,14.04
+CVE-2018-13094,Ubuntu Linux,16.04
+CVE-2018-13094,Ubuntu Linux,18.04
+CVE-2018-14354,Ubuntu Linux,12.04
+CVE-2018-14354,Ubuntu Linux,14.04
+CVE-2018-14354,Ubuntu Linux,16.04
+CVE-2018-14354,Ubuntu Linux,18.04
+CVE-2018-14354,Debian Linux,8
+CVE-2018-14354,Debian Linux,9
+CVE-2018-14354,Enterprise Linux Desktop,6
+CVE-2018-14354,Enterprise Linux Desktop,7
+CVE-2018-14354,Enterprise Linux Server,6
+CVE-2018-14354,Enterprise Linux Server,7
+CVE-2018-14354,Enterprise Linux Server Aus,7.6
+CVE-2018-14354,Enterprise Linux Server Aus,7.7
+CVE-2018-14354,Enterprise Linux Server Eus,7.5
+CVE-2018-14354,Enterprise Linux Server Eus,7.6
+CVE-2018-14354,Enterprise Linux Server Eus,7.7
+CVE-2018-14354,Enterprise Linux Server Tus,7.6
+CVE-2018-14354,Enterprise Linux Server Tus,7.7
+CVE-2018-14354,Enterprise Linux Workstation,6
+CVE-2018-14354,Enterprise Linux Workstation,7
+CVE-2018-14360,Debian Linux,8
+CVE-2018-14360,Debian Linux,9
+CVE-2018-15501,Debian Linux,8
+CVE-2018-15501,Debian Linux,9
+CVE-2018-16276,Ubuntu Linux,12.04
+CVE-2018-16276,Ubuntu Linux,14.04
+CVE-2018-16276,Ubuntu Linux,16.04
+CVE-2018-16276,Ubuntu Linux,18.04
+CVE-2018-16276,Debian Linux,8
+CVE-2018-16276,Debian Linux,9
+CVE-2018-16839,Ubuntu Linux,14.04
+CVE-2018-16839,Ubuntu Linux,16.04
+CVE-2018-16839,Ubuntu Linux,18.04
+CVE-2018-16839,Ubuntu Linux,18.1
+CVE-2018-16839,Debian Linux,8
+CVE-2018-16839,Debian Linux,9
+CVE-2018-19044,Keepalived,2.0.8
+CVE-2018-20433,Debian Linux,8
+CVE-2018-20433,C3p0,0.9.5.2
+CVE-2018-20763,Ubuntu Linux,16.04
+CVE-2018-20763,Ubuntu Linux,18.04
+CVE-2018-20763,Ubuntu Linux,18.1
+CVE-2018-20763,Debian Linux,8
+CVE-2018-6560,Enterprise Linux Desktop,7
+CVE-2018-6560,Enterprise Linux Server,7
+CVE-2018-6560,Enterprise Linux Server Aus,7.6
+CVE-2018-6560,Enterprise Linux Server Eus,7.5
+CVE-2018-6560,Enterprise Linux Server Eus,7.6
+CVE-2018-6560,Enterprise Linux Server Tus,7.6
+CVE-2018-6560,Enterprise Linux Workstation,7
+CVE-2019-11222,Debian Linux,8
+CVE-2019-11222,Gpac,0.7.1
+CVE-2019-11411,Mujs,1.0.5
+CVE-2019-12210,Pam-u2f,1.0.7
+CVE-2019-12973,Debian Linux,9
+CVE-2019-12973,Leap,15
+CVE-2019-12973,Leap,15.1
+CVE-2019-12973,Database Server,18C
+CVE-2019-12973,Outside In Technology,8.5.4
+CVE-2019-12973,Outside In Technology,8.5.5
+CVE-2019-12973,Openjpeg,2.3.1
+CVE-2019-14763,Ubuntu Linux,16.04
+CVE-2019-14763,Ubuntu Linux,18.04
+CVE-2019-14814,Ubuntu Linux,14.04
+CVE-2019-14814,Ubuntu Linux,16.04
+CVE-2019-14814,Ubuntu Linux,18.04
+CVE-2019-14814,Ubuntu Linux,19.04
+CVE-2019-14814,Debian Linux,8
+CVE-2019-14814,Data Availability Services,-
+CVE-2019-14814,Hci Management Node,-
+CVE-2019-14814,Service Processor,-
+CVE-2019-14814,Solidfire,-
+CVE-2019-14814,Steelstore Cloud Integrated Storage,-
+CVE-2019-14814,Leap,15
+CVE-2019-14814,Leap,15.1
+CVE-2019-14814,Enterprise Linux,5
+CVE-2019-14814,Enterprise Linux,6
+CVE-2019-14814,Enterprise Linux,7
+CVE-2019-14814,Enterprise Linux,8
+CVE-2019-14814,Enterprise Linux Eus,8.1
+CVE-2019-14814,Enterprise Linux Eus,8.2
+CVE-2019-14814,Enterprise Linux Eus,8.4
+CVE-2019-14814,Enterprise Linux For Real Time,8
+CVE-2019-14814,Enterprise Linux For Real Time For Nfv,8
+CVE-2019-14814,Enterprise Linux For Real Time For Nfv Tus,8.2
+CVE-2019-14814,Enterprise Linux For Real Time For Nfv Tus,8.4
+CVE-2019-14814,Enterprise Linux For Real Time Tus,8.2
+CVE-2019-14814,Enterprise Linux For Real Time Tus,8.4
+CVE-2019-14814,Enterprise Linux Server Aus,8.2
+CVE-2019-14814,Enterprise Linux Server Aus,8.4
+CVE-2019-14814,Enterprise Linux Server Tus,8.2
+CVE-2019-14814,Enterprise Linux Server Tus,8.4
+CVE-2019-14814,Messaging Realtime Grid,2
+CVE-2019-14815,Enterprise Linux,7
+CVE-2019-14815,Enterprise Linux,8
+CVE-2019-14816,Ubuntu Linux,14.04
+CVE-2019-14816,Ubuntu Linux,16.04
+CVE-2019-14816,Ubuntu Linux,18.04
+CVE-2019-14816,Ubuntu Linux,19.04
+CVE-2019-14816,Debian Linux,8
+CVE-2019-14816,Data Availability Services,-
+CVE-2019-14816,Hci Management Node,-
+CVE-2019-14816,Service Processor,-
+CVE-2019-14816,Solidfire,-
+CVE-2019-14816,Steelstore Cloud Integrated Storage,-
+CVE-2019-14816,Leap,15
+CVE-2019-14816,Leap,15.1
+CVE-2019-14816,Enterprise Linux,5
+CVE-2019-14816,Enterprise Linux,6
+CVE-2019-14816,Enterprise Linux,7
+CVE-2019-14816,Enterprise Linux,8
+CVE-2019-14816,Enterprise Linux Eus,7.6
+CVE-2019-14816,Enterprise Linux Eus,7.7
+CVE-2019-14816,Enterprise Linux Eus,8.1
+CVE-2019-14816,Enterprise Linux Eus,8.2
+CVE-2019-14816,Enterprise Linux Eus,8.4
+CVE-2019-14816,Enterprise Linux For Real Time,7
+CVE-2019-14816,Enterprise Linux For Real Time,8
+CVE-2019-14816,Enterprise Linux For Real Time For Nfv,7
+CVE-2019-14816,Enterprise Linux For Real Time For Nfv,8
+CVE-2019-14816,Enterprise Linux For Real Time For Nfv Tus,8.2
+CVE-2019-14816,Enterprise Linux For Real Time For Nfv Tus,8.4
+CVE-2019-14816,Enterprise Linux For Real Time Tus,8.2
+CVE-2019-14816,Enterprise Linux For Real Time Tus,8.4
+CVE-2019-14816,Enterprise Linux Server,8
+CVE-2019-14816,Enterprise Linux Server Aus,7.2
+CVE-2019-14816,Enterprise Linux Server Aus,7.3
+CVE-2019-14816,Enterprise Linux Server Aus,7.6
+CVE-2019-14816,Enterprise Linux Server Aus,8.2
+CVE-2019-14816,Enterprise Linux Server Aus,8.4
+CVE-2019-14816,Enterprise Linux Server Tus,7.3
+CVE-2019-14816,Enterprise Linux Server Tus,7.6
+CVE-2019-14816,Enterprise Linux Server Tus,8.2
+CVE-2019-14816,Enterprise Linux Server Tus,8.4
+CVE-2019-14816,Enterprise Linux Tus,7.7
+CVE-2019-14816,Messaging Realtime Grid,2
+CVE-2019-14816,Virtualization,4
+CVE-2019-15026,Memcached,1.5.16
+CVE-2019-15090,Ubuntu Linux,16.04
+CVE-2019-15090,Ubuntu Linux,18.04
+CVE-2019-15090,Ubuntu Linux,19.1
+CVE-2019-15090,Leap,15
+CVE-2019-15090,Leap,15.1
+CVE-2019-16058,Opensc,0.2.0
+CVE-2019-16058,Opensc,0.3.0
+CVE-2019-18808,Ubuntu Linux,14.04
+CVE-2019-18808,Ubuntu Linux,16.04
+CVE-2019-18808,Ubuntu Linux,18.04
+CVE-2019-18808,Ubuntu Linux,20.04
+CVE-2019-18808,Fedora,30
+CVE-2019-18808,Fedora,31
+CVE-2019-18808,Leap,15.1
+CVE-2019-19333,Libyang,0.11
+CVE-2019-19333,Libyang,0.11
+CVE-2019-19333,Libyang,0.12
+CVE-2019-19333,Libyang,0.12
+CVE-2019-19333,Libyang,0.13
+CVE-2019-19333,Libyang,0.13
+CVE-2019-19333,Libyang,0.14
+CVE-2019-19333,Libyang,0.15
+CVE-2019-19333,Libyang,0.16
+CVE-2019-19333,Libyang,0.16
+CVE-2019-19333,Libyang,0.16
+CVE-2019-19333,Libyang,1
+CVE-2019-19333,Libyang,1
+CVE-2019-19333,Libyang,1
+CVE-2019-19333,Libyang,1
+CVE-2019-19333,Enterprise Linux,8
+CVE-2019-19334,Libyang,0.11
+CVE-2019-19334,Libyang,0.11
+CVE-2019-19334,Libyang,0.12
+CVE-2019-19334,Libyang,0.12
+CVE-2019-19334,Libyang,0.13
+CVE-2019-19334,Libyang,0.13
+CVE-2019-19334,Libyang,0.14
+CVE-2019-19334,Libyang,0.15
+CVE-2019-19334,Libyang,0.16
+CVE-2019-19334,Libyang,0.16
+CVE-2019-19334,Libyang,0.16
+CVE-2019-19334,Libyang,1
+CVE-2019-19334,Libyang,1
+CVE-2019-19334,Libyang,1
+CVE-2019-19334,Libyang,1
+CVE-2019-19334,Fedora,31
+CVE-2019-19334,Enterprise Linux,8
+CVE-2019-19638,Libsixel,1.8.2
+CVE-2019-20839,Ubuntu Linux,14.04
+CVE-2019-20839,Ubuntu Linux,16.04
+CVE-2019-20839,Ubuntu Linux,16.04
+CVE-2019-20839,Ubuntu Linux,18.04
+CVE-2019-20839,Ubuntu Linux,18.1
+CVE-2019-20839,Ubuntu Linux,20.04
+CVE-2019-20839,Debian Linux,8
+CVE-2019-20839,Debian Linux,9
+CVE-2019-20839,Leap,15.2
+CVE-2019-5312,Wxjava,3.3.0
+CVE-2019-9718,Ffmpeg,4.1
+CVE-2020-13114,Ubuntu Linux,12.04
+CVE-2020-13114,Ubuntu Linux,14.04
+CVE-2020-13114,Ubuntu Linux,16.04
+CVE-2020-13114,Ubuntu Linux,18.04
+CVE-2020-13114,Ubuntu Linux,19.1
+CVE-2020-13114,Ubuntu Linux,20.04
+CVE-2020-13114,Leap,15.1
+CVE-2020-13396,Ubuntu Linux,16.04
+CVE-2020-13396,Ubuntu Linux,18.04
+CVE-2020-13396,Ubuntu Linux,19.1
+CVE-2020-13396,Ubuntu Linux,20.04
+CVE-2020-13396,Debian Linux,9
+CVE-2020-13396,Leap,15.1
+CVE-2020-13398,Ubuntu Linux,16.04
+CVE-2020-13398,Ubuntu Linux,18.04
+CVE-2020-13398,Ubuntu Linux,19.1
+CVE-2020-13398,Ubuntu Linux,20.04
+CVE-2020-13398,Debian Linux,9
+CVE-2020-13398,Leap,15.1
+CVE-2020-13904,Ffmpeg,4.2.3
+CVE-2020-14396,Ubuntu Linux,14.04
+CVE-2020-14396,Ubuntu Linux,16.04
+CVE-2020-14396,Ubuntu Linux,16.04
+CVE-2020-14396,Ubuntu Linux,18.04
+CVE-2020-14396,Ubuntu Linux,18.1
+CVE-2020-14396,Ubuntu Linux,20.04
+CVE-2020-14396,Debian Linux,8
+CVE-2020-14396,Debian Linux,9
+CVE-2020-20739,Debian Linux,9
+CVE-2020-20739,Fedora,32
+CVE-2020-26572,Debian Linux,9
+CVE-2020-26572,Fedora,33
+CVE-2020-7042,Fedora,30
+CVE-2020-7042,Fedora,31
+CVE-2020-7042,Fedora,32
+CVE-2020-7042,Backports Sle,15
+CVE-2020-7042,Leap,15.1
+CVE-2020-9365,Fedora,30
+CVE-2020-9365,Fedora,31
+CVE-2020-9365,Fedora,32
+CVE-2020-9365,Pure-ftpd,1.0.49

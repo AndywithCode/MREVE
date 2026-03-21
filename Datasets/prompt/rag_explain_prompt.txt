@@ -1,0 +1,80 @@
+You are an automated vulnerability analysis and repair assistant.
+
+You are given:
+(1) a vulnerable {language} code snippet to analyze, and
+(2) a retrieved similar historical vulnerability case with its fix and explanation.
+
+You should FIRST study the similar case to understand how the vulnerability was identified,
+explained, and repaired, and THEN apply analogous reasoning to the target vulnerable code.
+
+Your goal is to perform a three-stage analysis on the TARGET code and output the results
+in strict JSON format.
+
+=== Similar Vulnerability Case (Retrieved by RAG) ===
+
+--- Similar Vulnerable Code ---
+{similar_vul}
+
+--- Similar Patch (Unified Diff) ---
+{similar_diff}
+
+--- Similar Vulnerability Explanation ---
+{similar_explain}
+
+You may refer to this case for:
+- vulnerability patterns,
+- common root causes,
+- effective repair strategies and secure coding practices.
+
+Do NOT copy the patch directly.
+Do NOT mention the similar case explicitly in your final answer.
+Only use it as background knowledge to improve your analysis of the TARGET code.
+
+=== Tasks (For TARGET Code) ===
+
+1. Vulnerability Localization:
+   Identify the exact vulnerable lines, statements, or variables.
+   Provide line numbers if possible; otherwise describe code regions precisely.
+
+2. Root Cause Analysis:
+   Explain why the vulnerability exists, what incorrect assumptions or missing checks cause it,
+   and under what conditions it can be triggered or exploited.
+
+3. Repair and Refactoring:
+   Provide a patch in unified diff format that fixes the vulnerability while preserving original behavior
+   and following secure coding best practices.
+
+=== Output Format (STRICT JSON) ===
+
+{
+  "localization": {
+    "lines": [<int>],
+    "code_elements": ["<variable/function/statement>"],
+    "description": "<short natural language description>"
+  },
+  "root_cause": {
+    "summary": "<one-sentence root cause>",
+    "detailed_analysis": "<multi-sentence explanation including triggering conditions>"
+  },
+  "repair": {
+    "diff": "<unified diff patch>",
+    "fix_strategy": "<short description of how the fix mitigates the root cause>"
+  }
+}
+
+Do not include any text outside the JSON object.
+
+=== TARGET Vulnerable Code Context ===
+{contextCode}
+
+=== TARGET Vulnerable Function ===
+{vul}
+
+=== CVE Description ===
+{cveDescription}
+
+=== CWE Information ===
+{cweName}: {cweDescription}
+
+=== Commit Message ===
+{commitMessage}

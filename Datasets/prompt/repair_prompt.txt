@@ -1,0 +1,17 @@
+// Provide a diff to fix the vulnerability in the given {language} code.
+
+// Vulnerable Context
+{example_vul}
+
+Let's think step by step. {example_cot}
+
+
+// Provide a diff to fix the vulnerability in the given {language} code.
+
+// Vulnerable Context
+{vul}
+
+
+Let's think step by step. 
+
+

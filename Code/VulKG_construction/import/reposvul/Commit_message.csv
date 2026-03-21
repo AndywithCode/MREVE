@@ -1,0 +1,3678 @@
+cveID,commitID,commitMessage
+CVE-2011-0990,2f00e4bbb2137130845afb1b2a1e678552fc8e5c,Disable some of the FastCopy fast paths since they are racy.
+CVE-2011-2517,208c72f4fe44fe09577e7975ba0e7fa0278f3d03,"nl80211: fix check for valid SSID size in scan operations
+
+In both trigger_scan and sched_scan operations, we were checking for
+the SSID length before assigning the value correctly.  Since the
+memory was just kzalloc'ed, the check was always failing and SSID with
+over 32 characters were allowed to go through.
+
+This was causing a buffer overflow when copying the actual SSID to the
+proper place.
+
+This bug has been there since 2.6.29-rc4.
+
+Cc: stable@kernel.org
+Signed-off-by: Luciano Coelho <coelho@ti.com>
+Signed-off-by: John W. Linville <linville@tuxdriver.com>"
+CVE-2011-4081,7ed47b7d142ec99ad6880bbbec51e9f12b3af74c,"crypto: ghash - Avoid null pointer dereference if no key is set
+
+The ghash_update function passes a pointer to gf128mul_4k_lle which will
+be NULL if ghash_setkey is not called or if the most recent call to
+ghash_setkey failed to allocate memory.  This causes an oops.  Fix this
+up by returning an error code in the null case.
+
+This is trivially triggered from unprivileged userspace through the
+AF_ALG interface by simply writing to the socket without setting a key.
+
+The ghash_final function has a similar issue, but triggering it requires
+a memory allocation failure in ghash_setkey _after_ at least one
+successful call to ghash_update.
+
+  BUG: unable to handle kernel NULL pointer dereference at 00000670
+  IP: [<d88c92d4>] gf128mul_4k_lle+0x23/0x60 [gf128mul]
+  *pde = 00000000
+  Oops: 0000 [#1] PREEMPT SMP
+  Modules linked in: ghash_generic gf128mul algif_hash af_alg nfs lockd nfs_acl sunrpc bridge ipv6 stp llc
+
+  Pid: 1502, comm: hashatron Tainted: G        W   3.1.0-rc9-00085-ge9308cf #32 Bochs Bochs
+  EIP: 0060:[<d88c92d4>] EFLAGS: 00000202 CPU: 0
+  EIP is at gf128mul_4k_lle+0x23/0x60 [gf128mul]
+  EAX: d69db1f0 EBX: d6b8ddac ECX: 00000004 EDX: 00000000
+  ESI: 00000670 EDI: d6b8ddac EBP: d6b8ddc8 ESP: d6b8dda4
+   DS: 007b ES: 007b FS: 00d8 GS: 0033 SS: 0068
+  Process hashatron (pid: 1502, ti=d6b8c000 task=d6810000 task.ti=d6b8c000)
+  Stack:
+   00000000 d69db1f0 00000163 00000000 d6b8ddc8 c101a520 d69db1f0 d52aa000
+   00000ff0 d6b8dde8 d88d310f d6b8a3f8 d52aa000 00001000 d88d502c d6b8ddfc
+   00001000 d6b8ddf4 c11676ed d69db1e8 d6b8de24 c11679ad d52aa000 00000000
+  Call Trace:
+   [<c101a520>] ? kmap_atomic_prot+0x37/0xa6
+   [<d88d310f>] ghash_update+0x85/0xbe [ghash_generic]
+   [<c11676ed>] crypto_shash_update+0x18/0x1b
+   [<c11679ad>] shash_ahash_update+0x22/0x36
+   [<c11679cc>] shash_async_update+0xb/0xd
+   [<d88ce0ba>] hash_sendpage+0xba/0xf2 [algif_hash]
+   [<c121b24c>] kernel_sendpage+0x39/0x4e
+   [<d88ce000>] ? 0xd88cdfff
+   [<c121b298>] sock_sendpage+0x37/0x3e
+   [<c121b261>] ? kernel_sendpage+0x4e/0x4e
+   [<c10b4dbc>] pipe_to_sendpage+0x56/0x61
+   [<c10b4e1f>] splice_from_pipe_feed+0x58/0xcd
+   [<c10b4d66>] ? splice_from_pipe_begin+0x10/0x10
+   [<c10b51f5>] __splice_from_pipe+0x36/0x55
+   [<c10b4d66>] ? splice_from_pipe_begin+0x10/0x10
+   [<c10b6383>] splice_from_pipe+0x51/0x64
+   [<c10b63c2>] ? default_file_splice_write+0x2c/0x2c
+   [<c10b63d5>] generic_splice_sendpage+0x13/0x15
+   [<c10b4d66>] ? splice_from_pipe_begin+0x10/0x10
+   [<c10b527f>] do_splice_from+0x5d/0x67
+   [<c10b6865>] sys_splice+0x2bf/0x363
+   [<c129373b>] ? sysenter_exit+0xf/0x16
+   [<c104dc1e>] ? trace_hardirqs_on_caller+0x10e/0x13f
+   [<c129370c>] sysenter_do_call+0x12/0x32
+  Code: 83 c4 0c 5b 5e 5f c9 c3 55 b9 04 00 00 00 89 e5 57 8d 7d e4 56 53 8d 5d e4 83 ec 18 89 45 e0 89 55 dc 0f b6 70 0f c1 e6 04 01 d6 <f3> a5 be 0f 00 00 00 4e 89 d8 e8 48 ff ff ff 8b 45 e0 89 da 0f
+  EIP: [<d88c92d4>] gf128mul_4k_lle+0x23/0x60 [gf128mul] SS:ESP 0068:d6b8dda4
+  CR2: 0000000000000670
+  ---[ end trace 4eaa2a86a8e2da24 ]---
+  note: hashatron[1502] exited with preempt_count 1
+  BUG: scheduling while atomic: hashatron/1502/0x10000002
+  INFO: lockdep is turned off.
+  [...]
+
+Signed-off-by: Nick Bowler <nbowler@elliptictech.com>
+Cc: stable@kernel.org [2.6.37+]
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>"
+CVE-2011-4594,bc909d9ddbf7778371e36a651d6e4194b1cc7d4c,"sendmmsg/sendmsg: fix unsafe user pointer access
+
+Dereferencing a user pointer directly from kernel-space without going
+through the copy_from_user family of functions is a bad idea. Two of
+such usages can be found in the sendmsg code path called from sendmmsg,
+added by
+
+commit c71d8ebe7a4496fb7231151cb70a6baa0cb56f9a upstream.
+commit 5b47b8038f183b44d2d8ff1c7d11a5c1be706b34 in the 3.0-stable tree.
+
+Usages are performed through memcmp() and memcpy() directly. Fix those
+by using the already copied msg_sys structure instead of the __user *msg
+structure. Note that msg_sys can be set to NULL by verify_compat_iovec()
+or verify_iovec(), which requires additional NULL pointer checks.
+
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Signed-off-by: David Goulet <dgoulet@ev0ke.net>
+CC: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+CC: Anton Blanchard <anton@samba.org>
+CC: David S. Miller <davem@davemloft.net>
+CC: stable <stable@kernel.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2011-4913,be20250c13f88375345ad99950190685eda51eb8,"ROSE: prevent heap corruption with bad facilities
+
+When parsing the FAC_NATIONAL_DIGIS facilities field, it's possible for
+a remote host to provide more digipeaters than expected, resulting in
+heap corruption.  Check against ROSE_MAX_DIGIS to prevent overflows, and
+abort facilities parsing on failure.
+
+Additionally, when parsing the FAC_CCITT_DEST_NSAP and
+FAC_CCITT_SRC_NSAP facilities fields, a remote host can provide a length
+of less than 10, resulting in an underflow in a memcpy size, causing a
+kernel panic due to massive heap corruption.  A length of greater than
+20 results in a stack overflow of the callsign array.  Abort facilities
+parsing on these invalid length values.
+
+Signed-off-by: Dan Rosenberg <drosenberg@vsecurity.com>
+Cc: stable@kernel.org
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2011-1078,c4c896e1471aec3b004a693c689f60be3b17ac86,"Bluetooth: sco: fix information leak to userspace
+
+struct sco_conninfo has one padding byte in the end.  Local variable
+cinfo of type sco_conninfo is copied to userspace with this uninizialized
+one byte, leading to old stack contents leak.
+
+Signed-off-by: Vasiliy Kulikov <segoon@openwall.com>
+Signed-off-by: Gustavo F. Padovan <padovan@profusion.mobi>"
+CVE-2012-3430,06b6a1cf6e776426766298d055bb3991957d90a7,"rds: set correct msg_namelen
+
+Jay Fenlason (fenlason@redhat.com) found a bug,
+that recvfrom() on an RDS socket can return the contents of random kernel
+memory to userspace if it was called with a address length larger than
+sizeof(struct sockaddr_in).
+rds_recvmsg() also fails to set the addr_len paramater properly before
+returning, but that's just a bug.
+There are also a number of cases wher recvfrom() can return an entirely bogus
+address. Anything in rds_recvmsg() that returns a non-negative value but does
+not go through the ""sin = (struct sockaddr_in *)msg->msg_name;"" code path
+at the end of the while(1) loop will return up to 128 bytes of kernel memory
+to userspace.
+
+And I write two test programs to reproduce this bug, you will see that in
+rds_server, fromAddr will be overwritten and the following sock_fd will be
+destroyed.
+Yes, it is the programmer's fault to set msg_namelen incorrectly, but it is
+better to make the kernel copy the real length of address to user space in
+such case.
+
+How to run the test programs ?
+I test them on 32bit x86 system, 3.5.0-rc7.
+
+1 compile
+gcc -o rds_client rds_client.c
+gcc -o rds_server rds_server.c
+
+2 run ./rds_server on one console
+
+3 run ./rds_client on another console
+
+4 you will see something like:
+server is waiting to receive data...
+old socket fd=3
+server received data from client:data from client
+msg.msg_namelen=32
+new socket fd=-1067277685
+sendmsg()
+: Bad file descriptor
+
+/***************** rds_client.c ********************/
+
+int main(void)
+{
+	int sock_fd;
+	struct sockaddr_in serverAddr;
+	struct sockaddr_in toAddr;
+	char recvBuffer[128] = ""data from client"";
+	struct msghdr msg;
+	struct iovec iov;
+
+	sock_fd = socket(AF_RDS, SOCK_SEQPACKET, 0);
+	if (sock_fd < 0) {
+		perror(""create socket error\n"");
+		exit(1);
+	}
+
+	memset(&serverAddr, 0, sizeof(serverAddr));
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_addr.s_addr = inet_addr(""127.0.0.1"");
+	serverAddr.sin_port = htons(4001);
+
+	if (bind(sock_fd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+		perror(""bind() error\n"");
+		close(sock_fd);
+		exit(1);
+	}
+
+	memset(&toAddr, 0, sizeof(toAddr));
+	toAddr.sin_family = AF_INET;
+	toAddr.sin_addr.s_addr = inet_addr(""127.0.0.1"");
+	toAddr.sin_port = htons(4000);
+	msg.msg_name = &toAddr;
+	msg.msg_namelen = sizeof(toAddr);
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_iov->iov_base = recvBuffer;
+	msg.msg_iov->iov_len = strlen(recvBuffer) + 1;
+	msg.msg_control = 0;
+	msg.msg_controllen = 0;
+	msg.msg_flags = 0;
+
+	if (sendmsg(sock_fd, &msg, 0) == -1) {
+		perror(""sendto() error\n"");
+		close(sock_fd);
+		exit(1);
+	}
+
+	printf(""client send data:%s\n"", recvBuffer);
+
+	memset(recvBuffer, '\0', 128);
+
+	msg.msg_name = &toAddr;
+	msg.msg_namelen = sizeof(toAddr);
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_iov->iov_base = recvBuffer;
+	msg.msg_iov->iov_len = 128;
+	msg.msg_control = 0;
+	msg.msg_controllen = 0;
+	msg.msg_flags = 0;
+	if (recvmsg(sock_fd, &msg, 0) == -1) {
+		perror(""recvmsg() error\n"");
+		close(sock_fd);
+		exit(1);
+	}
+
+	printf(""receive data from server:%s\n"", recvBuffer);
+
+	close(sock_fd);
+
+	return 0;
+}
+
+/***************** rds_server.c ********************/
+
+int main(void)
+{
+	struct sockaddr_in fromAddr;
+	int sock_fd;
+	struct sockaddr_in serverAddr;
+	unsigned int addrLen;
+	char recvBuffer[128];
+	struct msghdr msg;
+	struct iovec iov;
+
+	sock_fd = socket(AF_RDS, SOCK_SEQPACKET, 0);
+	if(sock_fd < 0) {
+		perror(""create socket error\n"");
+		exit(0);
+	}
+
+	memset(&serverAddr, 0, sizeof(serverAddr));
+	serverAddr.sin_family = AF_INET;
+	serverAddr.sin_addr.s_addr = inet_addr(""127.0.0.1"");
+	serverAddr.sin_port = htons(4000);
+	if (bind(sock_fd, (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+		perror(""bind error\n"");
+		close(sock_fd);
+		exit(1);
+	}
+
+	printf(""server is waiting to receive data...\n"");
+	msg.msg_name = &fromAddr;
+
+	/*
+	 * I add 16 to sizeof(fromAddr), ie 32,
+	 * and pay attention to the definition of fromAddr,
+	 * recvmsg() will overwrite sock_fd,
+	 * since kernel will copy 32 bytes to userspace.
+	 *
+	 * If you just use sizeof(fromAddr), it works fine.
+	 * */
+	msg.msg_namelen = sizeof(fromAddr) + 16;
+	/* msg.msg_namelen = sizeof(fromAddr); */
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_iov->iov_base = recvBuffer;
+	msg.msg_iov->iov_len = 128;
+	msg.msg_control = 0;
+	msg.msg_controllen = 0;
+	msg.msg_flags = 0;
+
+	while (1) {
+		printf(""old socket fd=%d\n"", sock_fd);
+		if (recvmsg(sock_fd, &msg, 0) == -1) {
+			perror(""recvmsg() error\n"");
+			close(sock_fd);
+			exit(1);
+		}
+		printf(""server received data from client:%s\n"", recvBuffer);
+		printf(""msg.msg_namelen=%d\n"", msg.msg_namelen);
+		printf(""new socket fd=%d\n"", sock_fd);
+		strcat(recvBuffer, ""--data from server"");
+		if (sendmsg(sock_fd, &msg, 0) == -1) {
+			perror(""sendmsg()\n"");
+			close(sock_fd);
+			exit(1);
+		}
+	}
+
+	close(sock_fd);
+	return 0;
+}
+
+Signed-off-by: Weiping Pan <wpan@redhat.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2012-5532,95a69adab9acfc3981c504737a2b6578e4d846ef,"tools: hv: Netlink source address validation allows DoS
+
+The source code without this patch caused hypervkvpd to exit when it processed
+a spoofed Netlink packet which has been sent from an untrusted local user.
+Now Netlink messages with a non-zero nl_pid source address are ignored
+and a warning is printed into the syslog.
+
+Signed-off-by: Tomas Hozza <thozza@redhat.com>
+Acked-by:  K. Y. Srinivasan <kys@microsoft.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>"
+CVE-2012-0957,2702b1526c7278c4d65d78de209a465d4de2885e,"kernel/sys.c: fix stack memory content leak via UNAME26
+
+Calling uname() with the UNAME26 personality set allows a leak of kernel
+stack contents.  This fixes it by defensively calculating the length of
+copy_to_user() call, making the len argument unsigned, and initializing
+the stack buffer to zero (now technically unneeded, but hey, overkill).
+
+CVE-2012-0957
+
+Reported-by: PaX Team <pageexec@freemail.hu>
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Cc: Andi Kleen <ak@linux.intel.com>
+Cc: PaX Team <pageexec@freemail.hu>
+Cc: Brad Spengler <spender@grsecurity.net>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>"
+CVE-2012-3364,67de956ff5dc1d4f321e16cfbd63f5be3b691b43,"NFC: Prevent multiple buffer overflows in NCI
+
+Fix multiple remotely-exploitable stack-based buffer overflows due to
+the NCI code pulling length fields directly from incoming frames and
+copying too much data into statically-sized arrays.
+
+Signed-off-by: Dan Rosenberg <dan.j.rosenberg@gmail.com>
+Cc: stable@kernel.org
+Cc: security@kernel.org
+Cc: Lauro Ramos Venancio <lauro.venancio@openbossa.org>
+Cc: Aloisio Almeida Jr <aloisio.almeida@openbossa.org>
+Cc: Samuel Ortiz <sameo@linux.intel.com>
+Cc: David S. Miller <davem@davemloft.net>
+Acked-by: Ilan Elias <ilane@ti.com>
+Signed-off-by: Samuel Ortiz <sameo@linux.intel.com>"
+CVE-2013-0349,0a9ab9bdb3e891762553f667066190c1d22ad62b,"Bluetooth: Fix incorrect strncpy() in hidp_setup_hid()
+
+The length parameter should be sizeof(req->name) - 1 because there is no
+guarantee that string provided by userspace will contain the trailing
+'\0'.
+
+Can be easily reproduced by manually setting req->name to 128 non-zero
+bytes prior to ioctl(HIDPCONNADD) and checking the device name setup on
+input subsystem:
+
+$ cat /sys/devices/pnp0/00\:04/tty/ttyS0/hci0/hci0\:1/input8/name
+AAAAAA[...]AAAAAAAAf0:af:f0:af:f0:af
+
+(""f0:af:f0:af:f0:af"" is the device bluetooth address, taken from ""phys""
+field in struct hid_device due to overflow.)
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Anderson Lizardo <anderson.lizardo@openbossa.org>
+Acked-by: Marcel Holtmann <marcel@holtmann.org>
+Signed-off-by: Gustavo Padovan <gustavo.padovan@collabora.co.uk>"
+CVE-2012-4530,b66c5984017533316fd1951770302649baf1aa33,"exec: do not leave bprm->interp on stack
+
+If a series of scripts are executed, each triggering module loading via
+unprintable bytes in the script header, kernel stack contents can leak
+into the command line.
+
+Normally execution of binfmt_script and binfmt_misc happens recursively.
+However, when modules are enabled, and unprintable bytes exist in the
+bprm->buf, execution will restart after attempting to load matching
+binfmt modules.  Unfortunately, the logic in binfmt_script and
+binfmt_misc does not expect to get restarted.  They leave bprm->interp
+pointing to their local stack.  This means on restart bprm->interp is
+left pointing into unused stack memory which can then be copied into the
+userspace argv areas.
+
+After additional study, it seems that both recursion and restart remains
+the desirable way to handle exec with scripts, misc, and modules.  As
+such, we need to protect the changes to interp.
+
+This changes the logic to require allocation for any changes to the
+bprm->interp.  To avoid adding a new kmalloc to every exec, the default
+value is left as-is.  Only when passing through binfmt_script or
+binfmt_misc does an allocation take place.
+
+For a proof of concept, see DoTest.sh from:
+
+   http://www.halfdog.net/Security/2012/LinuxKernelBinfmtScriptStackDataDisclosure/
+
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Cc: halfdog <me@halfdog.net>
+Cc: P J P <ppandit@redhat.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>"
+CVE-2012-6538,4c87308bdea31a7b4828a51f6156e6f721a1fcc9,"xfrm_user: fix info leak in copy_to_user_auth()
+
+copy_to_user_auth() fails to initialize the remainder of alg_name and
+therefore discloses up to 54 bytes of heap memory via netlink to
+userland.
+
+Use strncpy() instead of strcpy() to fill the trailing bytes of alg_name
+with null bytes.
+
+Signed-off-by: Mathias Krause <minipli@googlemail.com>
+Acked-by: Steffen Klassert <steffen.klassert@secunet.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2012-6542,3592aaeb80290bda0f2cf0b5456c97bfc638b192,"llc: fix info leak via getsockname()
+
+The LLC code wrongly returns 0, i.e. ""success"", when the socket is
+zapped. Together with the uninitialized uaddrlen pointer argument from
+sys_getsockname this leads to an arbitrary memory leak of up to 128
+bytes kernel stack via the getsockname() syscall.
+
+Return an error instead when the socket is zapped to prevent the info
+leak. Also remove the unnecessary memset(0). We don't directly write to
+the memory pointed by uaddr but memcpy() a local structure at the end of
+the function that is properly initialized.
+
+Signed-off-by: Mathias Krause <minipli@googlemail.com>
+Cc: Arnaldo Carvalho de Melo <acme@ghostprotocols.net>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2013-1929,715230a44310a8cf66fbfb5a46f9a62a9b2de424,"tg3: fix length overflow in VPD firmware parsing
+
+Commit 184b89044fb6e2a74611dafa69b1dce0d98612c6 (""tg3: Use VPD fw version
+when present"") introduced VPD parsing that contained a potential length
+overflow.
+
+Limit the hardware's reported firmware string length (max 255 bytes) to
+stay inside the driver's firmware string length (32 bytes). On overflow,
+truncate the formatted firmware string instead of potentially overwriting
+portions of the tg3 struct.
+
+http://cansecwest.com/slides/2013/PrivateCore%20CSW%202013.pdf
+
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Reported-by: Oded Horovitz <oded@privatecore.com>
+Reported-by: Brad Spengler <spender@grsecurity.net>
+Cc: stable@vger.kernel.org
+Cc: Matt Carlson <mcarlson@broadcom.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2013-2850,cea4dcfdad926a27a18e188720efe0f2c9403456,"iscsi-target: fix heap buffer overflow on error
+
+If a key was larger than 64 bytes, as checked by iscsi_check_key(), the
+error response packet, generated by iscsi_add_notunderstood_response(),
+would still attempt to copy the entire key into the packet, overflowing
+the structure on the heap.
+
+Remote preauthentication kernel memory corruption was possible if a
+target was configured and listening on the network.
+
+CVE-2013-2850
+
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicholas Bellinger <nab@linux-iscsi.org>"
+CVE-2013-4350,95ee62083cb6453e056562d91f597552021e6ae7,"net: sctp: fix ipv6 ipsec encryption bug in sctp_v6_xmit
+
+Alan Chester reported an issue with IPv6 on SCTP that IPsec traffic is not
+being encrypted, whereas on IPv4 it is. Setting up an AH + ESP transport
+does not seem to have the desired effect:
+
+SCTP + IPv4:
+
+  22:14:20.809645 IP (tos 0x2,ECT(0), ttl 64, id 0, offset 0, flags [DF], proto AH (51), length 116)
+    192.168.0.2 > 192.168.0.5: AH(spi=0x00000042,sumlen=16,seq=0x1): ESP(spi=0x00000044,seq=0x1), length 72
+  22:14:20.813270 IP (tos 0x2,ECT(0), ttl 64, id 0, offset 0, flags [DF], proto AH (51), length 340)
+    192.168.0.5 > 192.168.0.2: AH(spi=0x00000043,sumlen=16,seq=0x1):
+
+SCTP + IPv6:
+
+  22:31:19.215029 IP6 (class 0x02, hlim 64, next-header SCTP (132) payload length: 364)
+    fe80::222:15ff:fe87:7fc.3333 > fe80::92e6:baff:fe0d:5a54.36767: sctp
+    1) [INIT ACK] [init tag: 747759530] [rwnd: 62464] [OS: 10] [MIS: 10]
+
+Moreover, Alan says:
+
+  This problem was seen with both Racoon and Racoon2. Other people have seen
+  this with OpenSwan. When IPsec is configured to encrypt all upper layer
+  protocols the SCTP connection does not initialize. After using Wireshark to
+  follow packets, this is because the SCTP packet leaves Box A unencrypted and
+  Box B believes all upper layer protocols are to be encrypted so it drops
+  this packet, causing the SCTP connection to fail to initialize. When IPsec
+  is configured to encrypt just SCTP, the SCTP packets are observed unencrypted.
+
+In fact, using `socat sctp6-listen:3333 -` on one end and transferring ""plaintext""
+string on the other end, results in cleartext on the wire where SCTP eventually
+does not report any errors, thus in the latter case that Alan reports, the
+non-paranoid user might think he's communicating over an encrypted transport on
+SCTP although he's not (tcpdump ... -X):
+
+  ...
+  0x0030: 5d70 8e1a 0003 001a 177d eb6c 0000 0000  ]p.......}.l....
+  0x0040: 0000 0000 706c 6169 6e74 6578 740a 0000  ....plaintext...
+
+Only in /proc/net/xfrm_stat we can see XfrmInTmplMismatch increasing on the
+receiver side. Initial follow-up analysis from Alan's bug report was done by
+Alexey Dobriyan. Also thanks to Vlad Yasevich for feedback on this.
+
+SCTP has its own implementation of sctp_v6_xmit() not calling inet6_csk_xmit().
+This has the implication that it probably never really got updated along with
+changes in inet6_csk_xmit() and therefore does not seem to invoke xfrm handlers.
+
+SCTP's IPv4 xmit however, properly calls ip_queue_xmit() to do the work. Since
+a call to inet6_csk_xmit() would solve this problem, but result in unecessary
+route lookups, let us just use the cached flowi6 instead that we got through
+sctp_v6_get_dst(). Since all SCTP packets are being sent through sctp_packet_transmit(),
+we do the route lookup / flow caching in sctp_transport_route(), hold it in
+tp->dst and skb_dst_set() right after that. If we would alter fl6->daddr in
+sctp_v6_xmit() to np->opt->srcrt, we possibly could run into the same effect
+of not having xfrm layer pick it up, hence, use fl6_update_dst() in sctp_v6_get_dst()
+instead to get the correct source routed dst entry, which we assign to the skb.
+
+Also source address routing example from 625034113 (""sctp: fix sctp to work with
+ipv6 source address routing"") still works with this patch! Nevertheless, in RFC5095
+it is actually 'recommended' to not use that anyway due to traffic amplification [1].
+So it seems we're not supposed to do that anyway in sctp_v6_xmit(). Moreover, if
+we overwrite the flow destination here, the lower IPv6 layer will be unable to
+put the correct destination address into IP header, as routing header is added in
+ipv6_push_nfrag_opts() but then probably with wrong final destination. Things aside,
+result of this patch is that we do not have any XfrmInTmplMismatch increase plus on
+the wire with this patch it now looks like:
+
+SCTP + IPv6:
+
+  08:17:47.074080 IP6 2620:52:0:102f:7a2b:cbff:fe27:1b0a > 2620:52:0:102f:213:72ff:fe32:7eba:
+    AH(spi=0x00005fb4,seq=0x1): ESP(spi=0x00005fb5,seq=0x1), length 72
+  08:17:47.074264 IP6 2620:52:0:102f:213:72ff:fe32:7eba > 2620:52:0:102f:7a2b:cbff:fe27:1b0a:
+    AH(spi=0x00003d54,seq=0x1): ESP(spi=0x00003d55,seq=0x1), length 296
+
+This fixes Kernel Bugzilla 24412. This security issue seems to be present since
+2.6.18 kernels. Lets just hope some big passive adversary in the wild didn't have
+its fun with that. lksctp-tools IPv6 regression test suite passes as well with
+this patch.
+
+ [1] http://www.secdev.org/conf/IPv6_RH_security-csw07.pdf
+
+Reported-by: Alan Chester <alan.chester@tekelec.com>
+Reported-by: Alexey Dobriyan <adobriyan@gmail.com>
+Signed-off-by: Daniel Borkmann <dborkman@redhat.com>
+Cc: Steffen Klassert <steffen.klassert@secunet.com>
+Cc: Hannes Frederic Sowa <hannes@stressinduktion.org>
+Acked-by: Vlad Yasevich <vyasevich@gmail.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2012-0787,b8de6a8c5cfffb007149036ffa561ced4d11c462,"Prevent cross-mountpoint attacks via .augsave during saving
+
+Previously Augeas would open PATH.augsave for writing if a rename from PATH to
+PATH.augsave failed, then write the file contents in.  Now if the rename fails,
+it tries to unlink PATH.augsave and open it with O_EXCL first.
+
+Mountpoints remain permitted at either PATH or PATH.augnew provided
+/augeas/save/copy_if_rename_fails exists.
+
+* src/transform.c (clone_file):
+    add argument to perform unlink and O_EXCL on destination filename after a
+    rename failure to prevent PATH.augsave being a mountpoint
+* src/transform.c (transform_save, remove_file):
+    always try to unlink PATH.augsave if rename fails, only allowing PATH to be
+    a mountpoint; allow PATH or PATH.augnew to be mountpoints
+* tests/
+    test-put-mount: check PATH being a mountpoint is supported
+    test-put-mount-augnew.sh: check PATH.augnew being a mountpoint is supported
+    test-put-mount-augsave.sh: check unlink error when PATH.augsave is a mount
+
+Fixes BZ 772261"
+CVE-2013-4588,04bcef2a83f40c6db24222b27a52892cba39dffb,"ipvs: Add boundary check on ioctl arguments
+
+The ipvs code has a nifty system for doing the size of ioctl command
+copies; it defines an array with values into which it indexes the cmd
+to find the right length.
+
+Unfortunately, the ipvs code forgot to check if the cmd was in the
+range that the array provides, allowing for an index outside of the
+array, which then gives a ""garbage"" result into the length, which
+then gets used for copying into a stack buffer.
+
+Fix this by adding sanity checks on these as well as the copy size.
+
+[ horms@verge.net.au: adjusted limit to IP_VS_SO_GET_MAX ]
+Signed-off-by: Arjan van de Ven <arjan@linux.intel.com>
+Acked-by: Julian Anastasov <ja@ssi.bg>
+Signed-off-by: Simon Horman <horms@verge.net.au>
+Signed-off-by: Patrick McHardy <kaber@trash.net>"
+CVE-2013-4512,201f99f170df14ba52ea4c52847779042b7a623b,"uml: check length in exitcode_proc_write()
+
+We don't cap the size of buffer from the user so we could write past the
+end of the array here.  Only root can write to this file.
+
+Reported-by: Nico Golde <nico@ngolde.de>
+Reported-by: Fabian Yamaguchi <fabs@goesec.de>
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Cc: stable@kernel.org
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>"
+CVE-2013-7018,9a271a9368eaabf99e6c2046103acb33957e63b7,"jpeg2000: check log2_cblk dimensions
+
+Fixes out of array access
+Fixes Ticket2895
+
+Found-by: Piotr Bandurski <ami_stuff@o2.pl>
+Signed-off-by: Michael Niedermayer <michaelni@gmx.at>"
+CVE-2013-6412,f5b4fc0ceb0e5a2be5f3a19f63ad936897a3ac26,"Fix umask handling when creating new files
+
+  * src/transform.c (transform_save): faulty umask arithmetic would cause
+    overly-open file modes when the umask contains ""7"", as the umask was
+    incorrectly subtracted from the target file mode
+
+Fixes CVE-2013-6412, RHBZ#1034261"
+CVE-2014-1690,2690d97ade05c5325cbf7c72b94b90d265659886,"netfilter: nf_nat: fix access to uninitialized buffer in IRC NAT helper
+
+Commit 5901b6be885e attempted to introduce IPv6 support into
+IRC NAT helper. By doing so, the following code seemed to be removed
+by accident:
+
+  ip = ntohl(exp->master->tuplehash[IP_CT_DIR_REPLY].tuple.dst.u3.ip);
+  sprintf(buffer, ""%u %u"", ip, port);
+  pr_debug(""nf_nat_irc: inserting '%s' == %pI4, port %u\n"", buffer, &ip, port);
+
+This leads to the fact that buffer[] was left uninitialized and
+contained some stack value. When we call nf_nat_mangle_tcp_packet(),
+we call strlen(buffer) on excatly this uninitialized buffer. If we
+are unlucky and the skb has enough tailroom, we overwrite resp. leak
+contents with values that sit on our stack into the packet and send
+that out to the receiver.
+
+Since the rather informal DCC spec [1] does not seem to specify
+IPv6 support right now, we log such occurences so that admins can
+act accordingly, and drop the packet. I've looked into XChat source,
+and IPv6 is not supported there: addresses are in u32 and print
+via %u format string.
+
+Therefore, restore old behaviour as in IPv4, use snprintf(). The
+IRC helper does not support IPv6 by now. By this, we can safely use
+strlen(buffer) in nf_nat_mangle_tcp_packet() and prevent a buffer
+overflow. Also simplify some code as we now have ct variable anyway.
+
+  [1] http://www.irchelp.org/irchelp/rfc/ctcpspec.html
+
+Fixes: 5901b6be885e (""netfilter: nf_nat: support IPv6 in IRC NAT helper"")
+Signed-off-by: Daniel Borkmann <dborkman@redhat.com>
+Cc: Harald Welte <laforge@gnumonks.org>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>"
+CVE-2014-2270,447558595a3650db2886cd2f416ad0beba965801,PR/313: Aaron Reffett: Check properly for exceeding the offset.
+CVE-2014-0238,f97486ef5dc3e8735440edc4fc8808c63e1a3ef0,"CVE-2014-0207: Prevent 0 element vectors and vectors longer than the number
+of properties from accessing random memory."
+CVE-2014-3980,293d9d3f7565f01a9dc40b53259886832eaa2ace,Don't use abstract Unix domain sockets
+CVE-2014-4501,e1c5050734123973b99d181c45e74b2cbb00272e,Do some random sanity checking for stratum message parsing
+CVE-2014-4501,c80ad8548251eb0e15329fc240c89070640c9d79,"Stratum: extract_sockaddr: Truncate overlong addresses rather than stack overflow
+
+Thanks to Mick Ayzenberg <mick@dejavusecurity.com> for finding this!"
+CVE-2014-4501,b65574bef233474e915fdf18614aa211e31cc6c2,"Stratum: extract_sockaddr: Truncate overlong addresses rather than stack overflow
+
+Thanks to Mick Ayzenberg <mick@dejavusecurity.com> for finding this!"
+CVE-2014-4501,78cc408369bdbbd440196c93574098d1482efbce,"stratum: parse_reconnect(): treat pool-sent URL as untrusted.
+
+Thanks to Mick Ayzenberg <mick@dejavusecurity.com> for reminding
+that this existed and highlighting the offender.
+
+Also to Luke-jr for actually fixing this in bfgminer. :D"
+CVE-2014-0207,6d209c1c489457397a5763bca4b28e43aac90391,"Apply patches from file-CVE-2012-1571.patch
+From Francisco Alonso Espejo:
+    file < 5.18/git version can be made to crash when checking some
+    corrupt CDF files (Using an invalid cdf_read_short_sector size)
+    The problem I found here, is that in most situations (if
+    h_short_sec_size_p2 > 8) because the blocksize is 512 and normal
+    values are 06 which means reading 64 bytes.As long as the check
+    for the block size copy is not checked properly (there's an assert
+    that makes wrong/invalid assumptions)"
+CVE-2014-4654,82262a46627bebb0febcc26664746c25cef08563,"ALSA: control: Fix replacing user controls
+
+There are two issues with the current implementation for replacing user
+controls. The first is that the code does not check if the control is actually a
+user control and neither does it check if the control is owned by the process
+that tries to remove it. That allows userspace applications to remove arbitrary
+controls, which can cause a user after free if a for example a driver does not
+expect a control to be removed from under its feed.
+
+The second issue is that on one hand when a control is replaced the
+user_ctl_count limit is not checked and on the other hand the user_ctl_count is
+increased (even though the number of user controls does not change). This allows
+userspace, once the user_ctl_count limit as been reached, to repeatedly replace
+a control until user_ctl_count overflows. Once that happens new controls can be
+added effectively bypassing the user_ctl_count limit.
+
+Both issues can be fixed by instead of open-coding the removal of the control
+that is to be replaced to use snd_ctl_remove_user_ctl(). This function does
+proper permission checks as well as decrements user_ctl_count after the control
+has been removed.
+
+Note that by using snd_ctl_remove_user_ctl() the check which returns -EBUSY at
+beginning of the function if the control already exists is removed. This is not
+a problem though since the check is quite useless, because the lock that is
+protecting the control list is released between the check and before adding the
+new control to the list, which means that it is possible that a different
+control with the same settings is added to the list after the check. Luckily
+there is another check that is done while holding the lock in snd_ctl_add(), so
+we'll rely on that to make sure that the same control is not added twice.
+
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Acked-by: Jaroslav Kysela <perex@perex.cz>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>"
+CVE-2014-3587,0641e56be1af003aa02c7c6b0184466540637233,Prevent wrap around (Remi Collet at redhat)
+CVE-2014-3587,7ba1409a1aee5925180de546057ddd84ff267947,Fix bug #67716 - Segfault in cdf.c
+CVE-2014-6410,c03aa9f6e1f938618e6db2e23afef0574efeeb65,"udf: Avoid infinite loop when processing indirect ICBs
+
+We did not implement any bound on number of indirect ICBs we follow when
+loading inode. Thus corrupted medium could cause kernel to go into an
+infinite loop, possibly causing a stack overflow.
+
+Fix the possible stack overflow by removing recursion from
+__udf_read_inode() and limit number of indirect ICBs we follow to avoid
+infinite loops.
+
+Signed-off-by: Jan Kara <jack@suse.cz>"
+CVE-2014-8884,f2e323ec96077642d397bb1c355def536d489d16,"[media] ttusb-dec: buffer overflow in ioctl
+
+We need to add a limit check here so we don't overflow the buffer.
+
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@osg.samsung.com>"
+CVE-2014-3647,234f3ce485d54017f15cf5e0699cff4100121601,"KVM: x86: Emulator fixes for eip canonical checks on near branches
+
+Before changing rip (during jmp, call, ret, etc.) the target should be asserted
+to be canonical one, as real CPUs do.  During sysret, both target rsp and rip
+should be canonical. If any of these values is noncanonical, a #GP exception
+should occur.  The exception to this rule are syscall and sysenter instructions
+in which the assigned rip is checked during the assignment to the relevant
+MSRs.
+
+This patch fixes the emulator to behave as real CPUs do for near branches.
+Far branches are handled by the next patch.
+
+This fixes CVE-2014-3647.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Nadav Amit <namit@cs.technion.ac.il>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>"
+CVE-2014-3647,d1442d85cc30ea75f7d399474ca738e0bc96f715,"KVM: x86: Handle errors when RIP is set during far jumps
+
+Far jmp/call/ret may fault while loading a new RIP.  Currently KVM does not
+handle this case, and may result in failed vm-entry once the assignment is
+done.  The tricky part of doing so is that loading the new CS affects the
+VMCS/VMCB state, so if we fail during loading the new RIP, we are left in
+unconsistent state.  Therefore, this patch saves on 64-bit the old CS
+descriptor and restores it if loading RIP failed.
+
+This fixes CVE-2014-3647.
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Nadav Amit <namit@cs.technion.ac.il>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>"
+CVE-2014-9420,f54e18f1b831c92f6512d2eedb224cd63d607d3d,"isofs: Fix infinite looping over CE entries
+
+Rock Ridge extensions define so called Continuation Entries (CE) which
+define where is further space with Rock Ridge data. Corrupted isofs
+image can contain arbitrarily long chain of these, including a one
+containing loop and thus causing kernel to end in an infinite loop when
+traversing these entries.
+
+Limit the traversal to 32 entries which should be more than enough space
+to store all the Rock Ridge data.
+
+Reported-by: P J P <ppandit@redhat.com>
+CC: stable@vger.kernel.org
+Signed-off-by: Jan Kara <jack@suse.cz>"
+CVE-2014-6396,e3abe7d7585ecc420a7cab73313216613aadad5a,Fixed heap overflow caused by length
+CVE-2014-6395,e3abe7d7585ecc420a7cab73313216613aadad5a,Fixed heap overflow caused by length
+CVE-2015-2831,bd20bb02e75e2c0483832b52f2577253febfb690,Fix memory overflow if the name of an environment is larger than 500 characters. Bug found by Adam Sampson.
+CVE-2015-1792,cd30f03ac5bf2962f44bd02ae8d88245dff2f12c,"Canonicalise input in CMS_verify.
+
+If content is detached and not binary mode translate the input to
+CRLF format. Before this change the input was verified verbatim
+which lead to a discrepancy between sign and verify."
+CVE-2014-8176,470990fee0182566d439ef7e82d1abf18b7085d7,"Free up s->d1->buffered_app_data.q properly.
+
+PR#3286"
+CVE-2015-1331,72cf81f6a3404e35028567db2c99a90406e9c6e6,"CVE-2015-1331: lxclock: use /run/lxc/lock rather than /run/lock/lxc
+
+This prevents an unprivileged user to use LXC to create arbitrary file
+on the filesystem.
+
+Signed-off-by: Serge Hallyn <serge.hallyn@ubuntu.com>
+Signed-off-by: Tyler Hicks <tyhicks@canonical.com>
+Acked-by: Stéphane Graber <stgraber@ubuntu.com>"
+CVE-2015-6031,79cca974a4c2ab1199786732a67ff6d898051b78,igd_desc_parse.c: fix buffer overflow
+CVE-2015-7885,4b6184336ebb5c8dc1eae7f7ab46ee608a748b05,"staging/dgnc: fix info leak in ioctl
+
+The dgnc_mgmt_ioctl() code fails to initialize the 16 _reserved bytes of
+struct digi_dinfo after the ->dinfo_nboards member. Add an explicit
+memset(0) before filling the structure to avoid the info leak.
+
+Signed-off-by: Salva Peiró <speirofr@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>"
+CVE-2016-0546,0dbd5a8797ed4bd18e8b883988fb62177eb0f73f,"Bug#21973610: BUFFER OVERFLOW ISSUES
+
+Description : Incorrect usage of sprintf/strcpy caused
+              possible buffer overflow issues at various
+              places.
+
+Solution : - Fixed mysql_plugin and mysqlshow
+           - Fixed regex library issues
+
+Reviewed-By : Georgi Kodinov <georgi.kodinov@oracle.com>
+Reviewed-By : Venkata S Murthy Sidagam <venkata.sidagam@oracle.com>"
+CVE-2015-7513,0185604c2d82c560dab2f2933a18f797e74ab5a8,"KVM: x86: Reload pit counters for all channels when restoring state
+
+Currently if userspace restores the pit counters with a count of 0
+on channels 1 or 2 and the guest attempts to read the count on those
+channels, then KVM will perform a mod of 0 and crash.  This will ensure
+that 0 values are converted to 65536 as per the spec.
+
+This is CVE-2015-7513.
+
+Signed-off-by: Andy Honig <ahonig@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>"
+CVE-2015-7550,b4a1b4f5047e4f54e194681125c74c0aa64d637d,"KEYS: Fix race between read and revoke
+
+This fixes CVE-2015-7550.
+
+There's a race between keyctl_read() and keyctl_revoke().  If the revoke
+happens between keyctl_read() checking the validity of a key and the key's
+semaphore being taken, then the key type read method will see a revoked key.
+
+This causes a problem for the user-defined key type because it assumes in
+its read method that there will always be a payload in a non-revoked key
+and doesn't check for a NULL pointer.
+
+Fix this by making keyctl_read() check the validity of a key after taking
+semaphore instead of before.
+
+I think the bug was introduced with the original keyrings code.
+
+This was discovered by a multithreaded test program generated by syzkaller
+(http://github.com/google/syzkaller).  Here's a cleaned up version:
+
+	#include <sys/types.h>
+	#include <keyutils.h>
+	#include <pthread.h>
+	void *thr0(void *arg)
+	{
+		key_serial_t key = (unsigned long)arg;
+		keyctl_revoke(key);
+		return 0;
+	}
+	void *thr1(void *arg)
+	{
+		key_serial_t key = (unsigned long)arg;
+		char buffer[16];
+		keyctl_read(key, buffer, 16);
+		return 0;
+	}
+	int main()
+	{
+		key_serial_t key = add_key(""user"", ""%"", ""foo"", 3, KEY_SPEC_USER_KEYRING);
+		pthread_t th[5];
+		pthread_create(&th[0], 0, thr0, (void *)(unsigned long)key);
+		pthread_create(&th[1], 0, thr1, (void *)(unsigned long)key);
+		pthread_create(&th[2], 0, thr0, (void *)(unsigned long)key);
+		pthread_create(&th[3], 0, thr1, (void *)(unsigned long)key);
+		pthread_join(th[0], 0);
+		pthread_join(th[1], 0);
+		pthread_join(th[2], 0);
+		pthread_join(th[3], 0);
+		return 0;
+	}
+
+Build as:
+
+	cc -o keyctl-race keyctl-race.c -lkeyutils -lpthread
+
+Run as:
+
+	while keyctl-race; do :; done
+
+as it may need several iterations to crash the kernel.  The crash can be
+summarised as:
+
+	BUG: unable to handle kernel NULL pointer dereference at 0000000000000010
+	IP: [<ffffffff81279b08>] user_read+0x56/0xa3
+	...
+	Call Trace:
+	 [<ffffffff81276aa9>] keyctl_read_key+0xb6/0xd7
+	 [<ffffffff81277815>] SyS_keyctl+0x83/0xe0
+	 [<ffffffff815dbb97>] entry_SYSCALL_64_fastpath+0x12/0x6f
+
+Reported-by: Dmitry Vyukov <dvyukov@google.com>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Tested-by: Dmitry Vyukov <dvyukov@google.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: James Morris <james.l.morris@oracle.com>"
+CVE-2016-2385,f50c9c853e7809810099c970780c30b0765b0643,"seas: safety check for target buffer size before copying message in encode_msg()
+
+- avoid buffer overflow for large SIP messages
+- reported by Stelios Tsampas"
+CVE-2016-4580,79e48650320e6fba48369fccf13fd045315b19b8,"net: fix a kernel infoleak in x25 module
+
+Stack object ""dte_facilities"" is allocated in x25_rx_call_request(),
+which is supposed to be initialized in x25_negotiate_facilities.
+However, 5 fields (8 bytes in total) are not initialized. This
+object is then copied to userland via copy_to_user, thus infoleak
+occurs.
+
+Signed-off-by: Kangjie Lu <kjlu@gatech.edu>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2016-1541,d0331e8e5b05b475f20b1f3101fe1ad772d7e7e7,"Issue #656:  Fix CVE-2016-1541, VU#862384
+
+When reading OS X metadata entries in Zip archives that were stored
+without compression, libarchive would use the uncompressed entry size
+to allocate a buffer but would use the compressed entry size to limit
+the amount of data copied into that buffer.  Since the compressed
+and uncompressed sizes are provided by data in the archive itself,
+an attacker could manipulate these values to write data beyond
+the end of the allocated buffer.
+
+This fix provides three new checks to guard against such
+manipulation and to make libarchive generally more robust when
+handling this type of entry:
+ 1. If an OS X metadata entry is stored without compression,
+    abort the entire archive if the compressed and uncompressed
+    data sizes do not match.
+ 2. When sanity-checking the size of an OS X metadata entry,
+    abort this entry if either the compressed or uncompressed
+    size is larger than 4MB.
+ 3. When copying data into the allocated buffer, check the copy
+    size against both the compressed entry size and uncompressed
+    entry size."
+CVE-2016-5243,5d2be1422e02ccd697ccfcd45c85b4a26e6178e2,"tipc: fix an infoleak in tipc_nl_compat_link_dump
+
+link_info.str is a char array of size 60. Memory after the NULL
+byte is not initialized. Sending the whole object out can cause
+a leak.
+
+Signed-off-by: Kangjie Lu <kjlu@gatech.edu>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2016-3698,a4892df306e0532487f1634ba6d4c6d4bb381c7f,"libndp: validate the IPv6 hop limit
+
+None of the NDP messages should ever come from a non-local network; as
+stated in RFC4861's 6.1.1 (RS), 6.1.2 (RA), 7.1.1 (NS), 7.1.2 (NA),
+and 8.1. (redirect):
+
+  - The IP Hop Limit field has a value of 255, i.e., the packet
+    could not possibly have been forwarded by a router.
+
+This fixes CVE-2016-3698.
+
+Reported by: Julien BERNARD <julien.bernard@viagenie.ca>
+Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
+Signed-off-by: Jiri Pirko <jiri@mellanox.com>"
+CVE-2016-3698,2af9a55b38b55abbf05fd116ec097d4029115839,"libndb: reject redirect and router advertisements from non-link-local
+
+RFC4861 suggests that these messages should only originate from
+link-local addresses in 6.1.2 (RA) and 8.1. (redirect):
+
+Mitigates CVE-2016-3698.
+
+Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
+Signed-off-by: Jiri Pirko <jiri@mellanox.com>"
+CVE-2016-5104,df1f5c4d70d0c19ad40072f5246ca457e7f9849e,common: [security fix] Make sure sockets only listen locally
+CVE-2016-5104,4397b3376dc4e4cb1c991d0aed61ce6482614196,common: [security fix] Make sure sockets only listen locally
+CVE-2016-2180,0ed26acce328ec16a3aa635f1ca37365e8c7403a,"Fix OOB read in TS_OBJ_print_bio().
+
+TS_OBJ_print_bio() misuses OBJ_txt2obj: it should print the result
+as a null terminated buffer. The length value returned is the total
+length the complete text reprsentation would need not the amount of
+data written.
+
+CVE-2016-2180
+
+Thanks to Shi Lei for reporting this bug.
+
+Reviewed-by: Matt Caswell <matt@openssl.org>"
+CVE-2016-7115,b69d11727d4f0f8cf719c79e3fb700f55ca03e9a,"Merge pull request #20 from eyalitki/master
+
+2nd round security fixes from eyalitki"
+CVE-2016-5356,a66628e425db725df1ac52a3c573a03357060ddd,"Don't treat the packet length as unsigned.
+
+The scanf family of functions are as annoyingly bad at handling unsigned
+numbers as strtoul() is - both of them are perfectly willing to accept a
+value beginning with a negative sign as an unsigned value.  When using
+strtoul(), you can compensate for this by explicitly checking for a '-'
+as the first character of the string, but you can't do that with
+sscanf().
+
+So revert to having pkt_len be signed, and scanning it with %d, but
+check for a negative value and fail if we see a negative value.
+
+Bug: 12395
+Change-Id: I43b458a73b0934e9a5c2c89d34eac5a8f21a7455
+Reviewed-on: https://code.wireshark.org/review/15223
+Reviewed-by: Guy Harris <guy@alum.mit.edu>"
+CVE-2016-5356,f5ec0afb766f19519ea9623152cca3bbe2229500,"Fix packet length handling.
+
+Treat the packet length as unsigned - it shouldn't be negative in the
+file.  If it is, that'll probably cause the sscanf to fail, so we'll
+report the file as bad.
+
+Check it against WTAP_MAX_PACKET_SIZE to make sure we don't try to
+allocate a huge amount of memory, just as we do in other file readers.
+
+Use the now-validated packet size as the length in
+ws_buffer_assure_space(), so we are certain to have enough space, and
+don't allocate too much space.
+
+Merge the header and packet data parsing routines while we're at it.
+
+Bug: 12395
+Change-Id: Ia70f33b71ff28451190fcf144c333fd1362646b2
+Reviewed-on: https://code.wireshark.org/review/15172
+Reviewed-by: Guy Harris <guy@alum.mit.edu>"
+CVE-2016-5357,11edc83b98a61e890d7bb01855389d40e984ea82,"Don't treat the packet length as unsigned.
+
+The scanf family of functions are as annoyingly bad at handling unsigned
+numbers as strtoul() is - both of them are perfectly willing to accept a
+value beginning with a negative sign as an unsigned value.  When using
+strtoul(), you can compensate for this by explicitly checking for a '-'
+as the first character of the string, but you can't do that with
+sscanf().
+
+So revert to having pkt_len be signed, and scanning it with %d, but
+check for a negative value and fail if we see a negative value.
+
+Bug: 12396
+Change-Id: I54fe8f61f42c32b5ef33da633ece51bbcda8c95f
+Reviewed-on: https://code.wireshark.org/review/15220
+Reviewed-by: Guy Harris <guy@alum.mit.edu>"
+CVE-2016-5357,6a140eca7b78b230f1f90a739a32257476513c78,"Fix packet length handling.
+
+Treat the packet length as unsigned - it shouldn't be negative in the
+file.  If it is, that'll probably cause the sscanf to fail, so we'll
+report the file as bad.
+
+Check it against WTAP_MAX_PACKET_SIZE to make sure we don't try to
+allocate a huge amount of memory, just as we do in other file readers.
+
+Use the now-validated packet size as the length in
+ws_buffer_assure_space(), so we are certain to have enough space, and
+don't allocate too much space.
+
+Merge the header and packet data parsing routines while we're at it.
+
+Bug: 12396
+Change-Id: I7f981f9cdcbea7ecdeb88bfff2f12d875de2244f
+Reviewed-on: https://code.wireshark.org/review/15176
+Reviewed-by: Guy Harris <guy@alum.mit.edu>"
+CVE-2016-5116,4dc1a2d7931017d3625f2d7cff70a17ce58b53b4,"xbm: avoid stack overflow (read) with large names #211
+
+We use the name passed in to printf into a local stack buffer which is
+limited to 4000 bytes.  So given a large enough value, lots of stack
+data is leaked.  Rewrite the code to do simple memory copies with most
+of the strings to avoid that issue, and only use stack buffer for small
+numbers of constant size.
+
+This closes #211."
+CVE-2016-5094,0da8b8b801f9276359262f1ef8274c7812d3dfda,Fix bug #72135 - don't create strings with lengths outside int range
+CVE-2016-6136,43761473c254b45883a64441dd0bc85a42f3645c,"audit: fix a double fetch in audit_log_single_execve_arg()
+
+There is a double fetch problem in audit_log_single_execve_arg()
+where we first check the execve(2) argumnets for any ""bad"" characters
+which would require hex encoding and then re-fetch the arguments for
+logging in the audit record[1].  Of course this leaves a window of
+opportunity for an unsavory application to munge with the data.
+
+This patch reworks things by only fetching the argument data once[2]
+into a buffer where it is scanned and logged into the audit
+records(s).  In addition to fixing the double fetch, this patch
+improves on the original code in a few other ways: better handling
+of large arguments which require encoding, stricter record length
+checking, and some performance improvements (completely unverified,
+but we got rid of some strlen() calls, that's got to be a good
+thing).
+
+As part of the development of this patch, I've also created a basic
+regression test for the audit-testsuite, the test can be tracked on
+GitHub at the following link:
+
+ * https://github.com/linux-audit/audit-testsuite/issues/25
+
+[1] If you pay careful attention, there is actually a triple fetch
+problem due to a strnlen_user() call at the top of the function.
+
+[2] This is a tiny white lie, we do make a call to strnlen_user()
+prior to fetching the argument data.  I don't like it, but due to the
+way the audit record is structured we really have no choice unless we
+copy the entire argument at once (which would require a rather
+wasteful allocation).  The good news is that with this patch the
+kernel no longer relies on this strnlen_user() value for anything
+beyond recording it in the log, we also update it with a trustworthy
+value whenever possible.
+
+Reported-by: Pengfei Wang <wpengfeinudt@gmail.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Paul Moore <paul@paul-moore.com>"
+CVE-2016-8658,ded89912156b1a47d940a0c954c43afbabd0c42c,"brcmfmac: avoid potential stack overflow in brcmf_cfg80211_start_ap()
+
+User-space can choose to omit NL80211_ATTR_SSID and only provide raw
+IE TLV data. When doing so it can provide SSID IE with length exceeding
+the allowed size. The driver further processes this IE copying it
+into a local variable without checking the length. Hence stack can be
+corrupted and used as exploit.
+
+Cc: stable@vger.kernel.org # v4.7
+Reported-by: Daxing Guo <freener.gdx@gmail.com>
+Reviewed-by: Hante Meuleman <hante.meuleman@broadcom.com>
+Reviewed-by: Pieter-Paul Giesberts <pieter-paul.giesberts@broadcom.com>
+Reviewed-by: Franky Lin <franky.lin@broadcom.com>
+Signed-off-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>"
+CVE-2015-8955,8fff105e13041e49b82f92eef034f363a6b1c071,"arm64: perf: reject groups spanning multiple HW PMUs
+
+The perf core implicitly rejects events spanning multiple HW PMUs, as in
+these cases the event->ctx will differ. However this validation is
+performed after pmu::event_init() is called in perf_init_event(), and
+thus pmu::event_init() may be called with a group leader from a
+different HW PMU.
+
+The ARM64 PMU driver does not take this fact into account, and when
+validating groups assumes that it can call to_arm_pmu(event->pmu) for
+any HW event. When the event in question is from another HW PMU this is
+wrong, and results in dereferencing garbage.
+
+This patch updates the ARM64 PMU driver to first test for and reject
+events from other PMUs, moving the to_arm_pmu and related logic after
+this test. Fixes a crash triggered by perf_fuzzer on Linux-4.0-rc2, with
+a CCI PMU present:
+
+Bad mode in Synchronous Abort handler detected, code 0x86000006 -- IABT (current EL)
+CPU: 0 PID: 1371 Comm: perf_fuzzer Not tainted 3.19.0+ #249
+Hardware name: V2F-1XV7 Cortex-A53x2 SMM (DT)
+task: ffffffc07c73a280 ti: ffffffc07b0a0000 task.ti: ffffffc07b0a0000
+PC is at 0x0
+LR is at validate_event+0x90/0xa8
+pc : [<0000000000000000>] lr : [<ffffffc000090228>] pstate: 00000145
+sp : ffffffc07b0a3ba0
+
+[<          (null)>]           (null)
+[<ffffffc0000907d8>] armpmu_event_init+0x174/0x3cc
+[<ffffffc00015d870>] perf_try_init_event+0x34/0x70
+[<ffffffc000164094>] perf_init_event+0xe0/0x10c
+[<ffffffc000164348>] perf_event_alloc+0x288/0x358
+[<ffffffc000164c5c>] SyS_perf_event_open+0x464/0x98c
+Code: bad PC value
+
+Also cleans up the code to use the arm_pmu only when we know
+that we are dealing with an arm pmu event.
+
+Cc: Will Deacon <will.deacon@arm.com>
+Acked-by: Mark Rutland <mark.rutland@arm.com>
+Acked-by: Peter Ziljstra (Intel) <peterz@infradead.org>
+Signed-off-by: Suzuki K. Poulose <suzuki.poulose@arm.com>
+Signed-off-by: Will Deacon <will.deacon@arm.com>"
+CVE-2015-8950,6829e274a623187c24f7cfc0e3d35f25d087fcc5,"arm64: dma-mapping: always clear allocated buffers
+
+Buffers allocated by dma_alloc_coherent() are always zeroed on Alpha,
+ARM (32bit), MIPS, PowerPC, x86/x86_64 and probably other architectures.
+It turned out that some drivers rely on this 'feature'. Allocated buffer
+might be also exposed to userspace with dma_mmap() call, so clearing it
+is desired from security point of view to avoid exposing random memory
+to userspace. This patch unifies dma_alloc_coherent() behavior on ARM64
+architecture with other implementations by unconditionally zeroing
+allocated buffer.
+
+Cc: <stable@vger.kernel.org> # v3.14+
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Will Deacon <will.deacon@arm.com>"
+CVE-2016-1246,7c164a0c86cec6ee95df1d141e67b0e85dfdefd2,"Do not use unsafe sprintf w/variable length input
+
+This can cause a  buffer overflow to occur when reporting error
+message about validation of (untrusted) user input parameters."
+CVE-2015-8970,dd504589577d8e8e70f51f997ad487a4cb6c026f,"crypto: algif_skcipher - Require setkey before accept(2)
+
+Some cipher implementations will crash if you try to use them
+without calling setkey first.  This patch adds a check so that
+the accept(2) call will fail with -ENOKEY if setkey hasn't been
+done on the socket yet.
+
+Cc: stable@vger.kernel.org
+Reported-by: Dmitry Vyukov <dvyukov@google.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Tested-by: Dmitry Vyukov <dvyukov@google.com>"
+CVE-2016-7912,38740a5b87d53ceb89eb2c970150f6e94e00373a,"usb: gadget: f_fs: Fix use-after-free
+
+When using asynchronous read or write operations on the USB endpoints the
+issuer of the IO request is notified by calling the ki_complete() callback
+of the submitted kiocb when the URB has been completed.
+
+Calling this ki_complete() callback will free kiocb. Make sure that the
+structure is no longer accessed beyond that point, otherwise undefined
+behaviour might occur.
+
+Fixes: 2e4c7553cd6f (""usb: gadget: f_fs: add aio support"")
+Cc: <stable@vger.kernel.org> # v3.15+
+Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
+Signed-off-by: Felipe Balbi <felipe.balbi@linux.intel.com>"
+CVE-2016-9756,2117d5398c81554fbf803f5fd1dc55eb78216c0c,"KVM: x86: drop error recovery in em_jmp_far and em_ret_far
+
+em_jmp_far and em_ret_far assumed that setting IP can only fail in 64
+bit mode, but syzkaller proved otherwise (and SDM agrees).
+Code segment was restored upon failure, but it was left uninitialized
+outside of long mode, which could lead to a leak of host kernel stack.
+We could have fixed that by always saving and restoring the CS, but we
+take a simpler approach and just break any guest that manages to fail
+as the error recovery is error-prone and modern CPUs don't need emulator
+for this.
+
+Found by syzkaller:
+
+  WARNING: CPU: 2 PID: 3668 at arch/x86/kvm/emulate.c:2217 em_ret_far+0x428/0x480
+  Kernel panic - not syncing: panic_on_warn set ...
+
+  CPU: 2 PID: 3668 Comm: syz-executor Not tainted 4.9.0-rc4+ #49
+  Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS Bochs 01/01/2011
+   [...]
+  Call Trace:
+   [...] __dump_stack lib/dump_stack.c:15
+   [...] dump_stack+0xb3/0x118 lib/dump_stack.c:51
+   [...] panic+0x1b7/0x3a3 kernel/panic.c:179
+   [...] __warn+0x1c4/0x1e0 kernel/panic.c:542
+   [...] warn_slowpath_null+0x2c/0x40 kernel/panic.c:585
+   [...] em_ret_far+0x428/0x480 arch/x86/kvm/emulate.c:2217
+   [...] em_ret_far_imm+0x17/0x70 arch/x86/kvm/emulate.c:2227
+   [...] x86_emulate_insn+0x87a/0x3730 arch/x86/kvm/emulate.c:5294
+   [...] x86_emulate_instruction+0x520/0x1ba0 arch/x86/kvm/x86.c:5545
+   [...] emulate_instruction arch/x86/include/asm/kvm_host.h:1116
+   [...] complete_emulated_io arch/x86/kvm/x86.c:6870
+   [...] complete_emulated_mmio+0x4e9/0x710 arch/x86/kvm/x86.c:6934
+   [...] kvm_arch_vcpu_ioctl_run+0x3b7a/0x5a90 arch/x86/kvm/x86.c:6978
+   [...] kvm_vcpu_ioctl+0x61e/0xdd0 arch/x86/kvm/../../../virt/kvm/kvm_main.c:2557
+   [...] vfs_ioctl fs/ioctl.c:43
+   [...] do_vfs_ioctl+0x18c/0x1040 fs/ioctl.c:679
+   [...] SYSC_ioctl fs/ioctl.c:694
+   [...] SyS_ioctl+0x8f/0xc0 fs/ioctl.c:685
+   [...] entry_SYSCALL_64_fastpath+0x1f/0xc2
+
+Reported-by: Dmitry Vyukov <dvyukov@google.com>
+Cc: stable@vger.kernel.org
+Fixes: d1442d85cc30 (""KVM: x86: Handle errors when RIP is set during far jumps"")
+Signed-off-by: Radim Krčmář <rkrcmar@redhat.com>"
+CVE-2016-5841,d8ab7f046587f2e9f734b687ba7e6e10147c294b,Improve checking of EXIF profile to prevent integer overflow (bug report from Ibrahim el-sayed)
+CVE-2016-5841,01588fbdd5469847e919b472e8bfbd69bef0d652,Release ImageMagick 7.0.2-1
+CVE-2016-5842,d8ab7f046587f2e9f734b687ba7e6e10147c294b,Improve checking of EXIF profile to prevent integer overflow (bug report from Ibrahim el-sayed)
+CVE-2016-5842,01588fbdd5469847e919b472e8bfbd69bef0d652,Release ImageMagick 7.0.2-1
+CVE-2016-7798,8108e0a6db133f3375608303fdd2083eb5115062,"cipher: don't set dummy encryption key in Cipher#initialize
+
+Remove the encryption key initialization from Cipher#initialize. This
+is effectively a revert of r32723 (""Avoid possible SEGV from AES
+encryption/decryption"", 2011-07-28).
+
+r32723, which added the key initialization, was a workaround for
+Ruby Bug #2768. For some certain ciphers, calling EVP_CipherUpdate()
+before setting an encryption key caused segfault. It was not a problem
+until OpenSSL implemented GCM mode - the encryption key could be
+overridden by repeated calls of EVP_CipherInit_ex(). But, it is not the
+case for AES-GCM ciphers. Setting a key, an IV, a key, in this order
+causes the IV to be reset to an all-zero IV.
+
+The problem of Bug #2768 persists on the current versions of OpenSSL.
+So, make Cipher#update raise an exception if a key is not yet set by the
+user. Since encrypting or decrypting without key does not make any
+sense, this should not break existing applications.
+
+Users can still call Cipher#key= and Cipher#iv= multiple times with
+their own responsibility.
+
+Reference: https://bugs.ruby-lang.org/issues/2768
+Reference: https://bugs.ruby-lang.org/issues/8221
+Reference: https://github.com/ruby/openssl/issues/49"
+CVE-2016-10156,06eeacb6fe029804f296b065b3ce91e796e1cd0e,"basic: fix touch() creating files with 07777 mode
+
+mode_t is unsigned, so MODE_INVALID < 0 can never be true.
+
+This fixes a possible DoS where any user could fill /run by writing to
+a world-writable /run/systemd/show-status."
+CVE-2016-10156,ee735086f8670be1591fa9593e80dd60163a7a2f,util-lib: use MODE_INVALID as invalid value for mode_t everywhere
+CVE-2017-5545,7391a506352c009fe044dead7baad9e22dd279ee,"plistutil: Prevent OOB heap buffer read by checking input size
+
+As pointed out in #87 plistutil would do a memcmp with a heap buffer
+without checking the size. If the size is less than 8 it would read
+beyond the bounds of this heap buffer. This commit prevents that."
+CVE-2016-10011,ac8147a06ed2e2403fb6b9a0c03e618a9333c0e9,"use sshbuf_allocate() to pre-allocate the buffer used for loading
+keys. This avoids implicit realloc inside the buffer code, which
+might theoretically leave fragments of the key on the heap. This
+doesn't appear to happen in practice for normal sized keys, but
+was observed for novelty oversize ones.
+
+Pointed out by Jann Horn of Project Zero; ok markus@"
+CVE-2017-6308,c5044689e50039635e7700fe2472fd632ac77176,Fix integer overflows and harden memory allocator.
+CVE-2017-5847,d21017b52a585f145e8d62781bcc1c5fefc7ee37,"asfdemux: Check that we have enough data available before parsing bool/uint extended content descriptors
+
+https://bugzilla.gnome.org/show_bug.cgi?id=777955"
+CVE-2016-10190,2a05c8f813de6f2278827734bf8102291e7484aa,"http: make length/offset-related variables unsigned.
+
+Fixes #5992, reported and found by Paul Cher <paulcher@icloud.com>."
+CVE-2016-10191,7d57ca4d9a75562fa32e40766211de150f8b3ee7,"avformat/rtmppkt: Check for packet size mismatches
+
+Fixes out of array access
+
+Found-by: Paul Cher <paulcher@icloud.com>
+Reviewed-by: Paul Cher <paulcher@icloud.com>
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2016-10154,06deeec77a5a689cc94b21a8a91a76e42176685d,"cifs: Fix smbencrypt() to stop pointing a scatterlist at the stack
+
+smbencrypt() points a scatterlist to the stack, which is breaks if
+CONFIG_VMAP_STACK=y.
+
+Fix it by switching to crypto_cipher_encrypt_one().  The new code
+should be considerably faster as an added benefit.
+
+This code is nearly identical to some code that Eric Biggers
+suggested.
+
+Cc: stable@vger.kernel.org # 4.9 only
+Reported-by: Eric Biggers <ebiggers3@gmail.com>
+Signed-off-by: Andy Lutomirski <luto@kernel.org>
+Acked-by: Jeff Layton <jlayton@redhat.com>
+Signed-off-by: Steve French <smfrench@gmail.com>"
+CVE-2016-3179,140ee8d2204b383279f854802b27bdb41c1d5d1a,minissdpd.c: Initialize pointers to NULL (fix)
+CVE-2016-10145,d23beebe7b1179fb75db1e85fbca3100e49593d9,...
+CVE-2016-10195,96f64a022014a208105ead6c8a7066018449d86d,"evdns: name_parse(): fix remote stack overread
+
+@asn-the-goblin-slayer:
+  ""the name_parse() function in libevent's DNS code is vulnerable to a buffer overread.
+
+   971         if (cp != name_out) {
+   972             if (cp + 1 >= end) return -1;
+   973             *cp++ = '.';
+   974         }
+   975         if (cp + label_len >= end) return -1;
+   976         memcpy(cp, packet + j, label_len);
+   977         cp += label_len;
+   978         j += label_len;
+   No check is made against length before the memcpy occurs.
+
+   This was found through the Tor bug bounty program and the discovery should be credited to 'Guido Vranken'.""
+
+Reproducer for gdb (https://gist.github.com/azat/e4fcf540e9b89ab86d02):
+  set $PROT_NONE=0x0
+  set $PROT_READ=0x1
+  set $PROT_WRITE=0x2
+  set $MAP_ANONYMOUS=0x20
+  set $MAP_SHARED=0x01
+  set $MAP_FIXED=0x10
+  set $MAP_32BIT=0x40
+
+  start
+
+  set $length=202
+  # overread
+  set $length=2
+  # allocate with mmap to have a seg fault on page boundary
+  set $l=(1<<20)*2
+  p mmap(0, $l, $PROT_READ|$PROT_WRITE, $MAP_ANONYMOUS|$MAP_SHARED|$MAP_32BIT, -1, 0)
+  set $packet=(char *)$1+$l-$length
+  # hack the packet
+  set $packet[0]=63
+  set $packet[1]='/'
+
+  p malloc(sizeof(int))
+  set $idx=(int *)$2
+  set $idx[0]=0
+  set $name_out_len=202
+
+  p malloc($name_out_len)
+  set $name_out=$3
+
+  # have WRITE only mapping to fail on read
+  set $end=$1+$l
+  p (void *)mmap($end, 1<<12, $PROT_NONE, $MAP_ANONYMOUS|$MAP_SHARED|$MAP_FIXED|$MAP_32BIT, -1, 0)
+  set $m=$4
+
+  p name_parse($packet, $length, $idx, $name_out, $name_out_len)
+  x/2s (char *)$name_out
+
+Before this patch:
+$ gdb -ex 'source gdb' dns-example
+$1 = 1073741824
+$2 = (void *) 0x633010
+$3 = (void *) 0x633030
+$4 = (void *) 0x40200000
+
+Program received signal SIGSEGV, Segmentation fault.
+__memcpy_sse2_unaligned () at memcpy-sse2-unaligned.S:33
+
+After this patch:
+$ gdb -ex 'source gdb' dns-example
+$1 = 1073741824
+$2 = (void *) 0x633010
+$3 = (void *) 0x633030
+$4 = (void *) 0x40200000
+$5 = -1
+0x633030:       ""/""
+0x633032:       """"
+(gdb) p $m
+$6 = (void *) 0x40200000
+(gdb) p $1
+$7 = 1073741824
+(gdb) p/x $1
+$8 = 0x40000000
+(gdb) quit
+
+P.S. plus drop one condition duplicate.
+
+Fixes: #317"
+CVE-2016-10197,ec65c42052d95d2c23d1d837136d1cf1d9ecef9e,"evdns: fix searching empty hostnames
+
+From #332:
+  Here follows a bug report by **Guido Vranken** via the _Tor bug bounty program_. Please credit Guido accordingly.
+
+  ## Bug report
+
+  The DNS code of Libevent contains this rather obvious OOB read:
+
+  ```c
+  static char *
+  search_make_new(const struct search_state *const state, int n, const char *const base_name) {
+      const size_t base_len = strlen(base_name);
+      const char need_to_append_dot = base_name[base_len - 1] == '.' ? 0 : 1;
+  ```
+
+  If the length of ```base_name``` is 0, then line 3125 reads 1 byte before the buffer. This will trigger a crash on ASAN-protected builds.
+
+  To reproduce:
+
+  Build libevent with ASAN:
+  ```
+  $ CFLAGS='-fomit-frame-pointer -fsanitize=address' ./configure && make -j4
+  ```
+  Put the attached ```resolv.conf``` and ```poc.c``` in the source directory and then do:
+
+  ```
+  $ gcc -fsanitize=address -fomit-frame-pointer poc.c .libs/libevent.a
+  $ ./a.out
+  =================================================================
+  ==22201== ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60060000efdf at pc 0x4429da bp 0x7ffe1ed47300 sp 0x7ffe1ed472f8
+  READ of size 1 at 0x60060000efdf thread T0
+  ```
+
+P.S. we can add a check earlier, but since this is very uncommon, I didn't add it.
+
+Fixes: #332"
+CVE-2017-6435,fbd8494d5e4e46bf2e90cb6116903e404374fb56,"bplist: Make sure to bail out if malloc() fails in parse_string_node()
+
+Credit to Wang Junjie <zhunkibatu@gmail.com> (#93)"
+CVE-2017-8073,2fb346f25f79e412cf0ed314fdf791763c19b70b,irc: fix parsing of DCC filename
+CVE-2017-8062,606142af57dad981b78707234cfbd15f9f7b7125,"[media] dw2102: don't do DMA on stack
+
+On Kernel 4.9, WARNINGs about doing DMA on stack are hit at
+the dw2102 driver: one in su3000_power_ctrl() and the other in tt_s2_4600_frontend_attach().
+
+Both were due to the use of buffers on the stack as parameters to
+dvb_usb_generic_rw() and the resulting attempt to do DMA with them.
+
+The device was non-functional as a result.
+
+So, switch this driver over to use a buffer within the device state
+structure, as has been done with other DVB-USB drivers.
+
+Tested with TechnoTrend TT-connect S2-4600.
+
+[mchehab@osg.samsung.com: fixed a warning at su3000_i2c_transfer() that
+ state var were dereferenced before check 'd']
+Signed-off-by: Jonathan McDowell <noodles@earth.li>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Mauro Carvalho Chehab <mchehab@s-opensource.com>"
+CVE-2017-7875,f7a547b7ef8fc8ebdeaa4c28515c9d72e592fb6d,"Fix double-free/OOB-write while receiving IPC data
+
+If a malicious client pretends to be the E17 window manager, it is
+possible to trigger an out of boundary heap write while receiving an
+IPC message.
+
+The length of the already received message is stored in an unsigned
+short, which overflows after receiving 64 KB of data. It's comparably
+small amount of data and therefore achievable for an attacker.
+
+When len overflows, realloc() will either be called with a small value
+and therefore chars will be appended out of bounds, or len + 1 will be
+exactly 0, in which case realloc() behaves like free(). This could be
+abused for a later double-free attack as it's even possible to overwrite
+the free information -- but this depends on the malloc implementation.
+
+Signed-off-by: Tobias Stoeckmann <tobias@stoeckmann.org>"
+CVE-2017-7418,ecff21e0d0e84f35c299ef91d7fda088e516d4ed,"Backporting recursive handling of DefaultRoot path, when AllowChrootSymlinks
+is off, to 1.3.5 branch."
+CVE-2017-7418,f59593e6ff730b832dbe8754916cb5c821db579f,"Merge pull request #444 from proftpd/auth-symlinks-anywhere-in-chroot
+
+Walk the entire DefaultRoot path, checking for symlinks of any compon…"
+CVE-2017-9075,fdcee2cbb8438702ea1b328fb6e0ac5e9a40c7f8,"sctp: do not inherit ipv6_{mc|ac|fl}_list from parent
+
+SCTP needs fixes similar to 83eaddab4378 (""ipv6/dccp: do not inherit
+ipv6_mc_list from parent""), otherwise bad things can happen.
+
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reported-by: Andrey Konovalov <andreyknvl@google.com>
+Tested-by: Andrey Konovalov <andreyknvl@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2017-7501,404ef011c300207cdb1e531670384564aae04bdc,"Don't follow symlinks on file creation (CVE-2017-7501)
+
+Open newly created files with O_EXCL to prevent symlink tricks.
+When reopening hardlinks for writing the actual content, use append
+mode instead. This is compatible with the write-only permissions but
+is not destructive in case we got redirected to somebody elses file,
+verify the target before actually writing anything.
+
+As these are files with the temporary suffix, errors mean a local
+user with sufficient privileges to break the installation of the package
+anyway is trying to goof us on purpose, don't bother trying to mend it
+(we couldn't fix the hardlink case anyhow) but just bail out.
+
+Based on a patch by Florian Festi."
+CVE-2016-8649,81f466d05f2a89cb4f122ef7f593ff3f279b165c,"attach: do not send procfd to attached process
+
+So far, we opened a file descriptor refering to proc on the host inside the
+host namespace and handed that fd to the attached process in
+attach_child_main(). This was done to ensure that LSM labels were correctly
+setup. However, by exploiting a potential kernel bug, ptrace could be used to
+prevent the file descriptor from being closed which in turn could be used by an
+unprivileged container to gain access to the host namespace. Aside from this
+needing an upstream kernel fix, we should make sure that we don't pass the fd
+for proc itself to the attached process. However, we cannot completely prevent
+this, as the attached process needs to be able to change its apparmor profile
+by writing to /proc/self/attr/exec or /proc/self/attr/current. To minimize the
+attack surface, we only send the fd for /proc/self/attr/exec or
+/proc/self/attr/current to the attached process. To do this we introduce a
+little more IPC between the child and parent:
+
+	 * IPC mechanism: (X is receiver)
+	 *   initial process        intermediate          attached
+	 *        X           <---  send pid of
+	 *                          attached proc,
+	 *                          then exit
+	 *    send 0 ------------------------------------>    X
+	 *                                              [do initialization]
+	 *        X  <------------------------------------  send 1
+	 *   [add to cgroup, ...]
+	 *    send 2 ------------------------------------>    X
+	 *						[set LXC_ATTACH_NO_NEW_PRIVS]
+	 *        X  <------------------------------------  send 3
+	 *   [open LSM label fd]
+	 *    send 4 ------------------------------------>    X
+	 *   						[set LSM label]
+	 *   close socket                                 close socket
+	 *                                                run program
+
+The attached child tells the parent when it is ready to have its LSM labels set
+up. The parent then opens an approriate fd for the child PID to
+/proc/<pid>/attr/exec or /proc/<pid>/attr/current and sends it via SCM_RIGHTS
+to the child. The child can then set its LSM laben. Both sides then close the
+socket fds and the child execs the requested process.
+
+Signed-off-by: Christian Brauner <christian.brauner@canonical.com>"
+CVE-2017-9993,a5d849b149ca67ced2d271dc84db0bc95a548abb,"avformat/avidec: Limit formats in gab2 to srt and ass/ssa
+
+This prevents part of one exploit leading to an information leak
+
+Found-by: Emil Lerner and Pavel Cheremushkin
+Reported-by: Thierry Foucu <tfoucu@google.com>
+
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2017-9993,189ff4219644532bdfa7bab28dfedaee4d6d4021,"avformat/hls: Check local file extensions
+
+This reduces the attack surface of local file-system
+information leaking.
+
+It prevents the existing exploit leading to an information leak. As
+well as similar hypothetical attacks.
+
+Leaks of information from files and symlinks ending in common multimedia extensions
+are still possible. But files with sensitive information like private keys and passwords
+generally do not use common multimedia filename extensions.
+It does not stop leaks via remote addresses in the LAN.
+
+The existing exploit depends on a specific decoder as well.
+It does appear though that the exploit should be possible with any decoder.
+The problem is that as long as sensitive information gets into the decoder,
+the output of the decoder becomes sensitive as well.
+The only obvious solution is to prevent access to sensitive information. Or to
+disable hls or possibly some of its feature. More complex solutions like
+checking the path to limit access to only subdirectories of the hls path may
+work as an alternative. But such solutions are fragile and tricky to implement
+portably and would not stop every possible attack nor would they work with all
+valid hls files.
+
+Developers have expressed their dislike / objected to disabling hls by default as well
+as disabling hls with local files. There also where objections against restricting
+remote url file extensions. This here is a less robust but also lower
+inconvenience solution.
+It can be applied stand alone or together with other solutions.
+limiting the check to local files was suggested by nevcairiel
+
+This recommits the security fix without the author name joke which was
+originally requested by Nicolas.
+
+Found-by: Emil Lerner and Pavel Cheremushkin
+Reported-by: Thierry Foucu <tfoucu@google.com>
+
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2015-3315,d6e2f6f128cef4c21cb80941ae674c9842681aa7,"ccpp: open file for dump_fd_info with O_EXCL
+
+To avoid possible races.
+
+Related: #1211835
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3315,4f2c1ddd3e3b81d2d5146b883115371f1cada9f9,"ccpp: do not read data from root directories
+
+Users are allowed to modify /proc/[pid]/root to any directory by running
+their own MOUNT namespace.
+
+Related: #1211835
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3315,80408e9e24a1c10f85fd969e1853e0f192157f92,"ccpp: fix symlink race conditions
+
+Fix copy & chown race conditions
+
+Related: #1211835
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3315,17cb66b13997b0159b4253b3f5722db79f476d68,"ccpp: stop reading hs_error.log from /tmp
+
+The file might contain anything and there is no way to verify its
+contents.
+
+Related: #1211835
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2017-11523,a8f9c2aabed37cd6a728532d1aed13ae0f3dfd78,https://github.com/ImageMagick/ImageMagick/issues/591
+CVE-2017-11523,83e0f8ffd7eeb7661b0ff83257da23d24ca7f078,https://github.com/ImageMagick/ImageMagick/issues/591
+CVE-2017-11399,ba4beaf6149f7241c8bd85fe853318c2f6837ad0,"avcodec/apedec: Fix integer overflow
+
+Fixes: out of array access
+Fixes: PoC.ape and others
+
+Found-by: Bingchang, Liu@VARAS of IIE
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2017-11399,96349da5ec8eda9f0368446e557fe0c8ba0e66b7,"avcodec/apedec: Fix integer overflow
+
+Fixes: out of array access
+Fixes: PoC.ape and others
+
+Found-by: Bingchang, Liu@VARAS of IIE
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>
+(cherry picked from commit ba4beaf6149f7241c8bd85fe853318c2f6837ad0)
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2017-14767,c42a1388a6d1bfd8001bf6a4241d8ca27e49326d,"avformat/rtpdec_h264: Fix heap-buffer-overflow
+
+Fixes: rtp_sdp/poc.sdp
+
+Found-by: Bingchang <l.bing.chang.bc@gmail.com>
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2017-12987,99798bd9a41bd3d03fdc1e949810a38967f20ed3,"CVE-2017-12987/IEEE 802.11: Fix processing of TIM IE.
+
+The arguments to memcpy() were completely wrong.
+
+This fixes a buffer over-read discovered by Kamil Frankowicz.
+
+Add a test using the capture file supplied by Brian 'geeknik' Carpenter."
+CVE-2017-12987,2ecb9d2c67d9119250c54811a6ce4d0f2ddf44f1,"CVE-2017-12987/Another test for the TIM IE bug, from Kamil Frankowicz."
+CVE-2017-12902,d17507ffa3e9742199b02a66aa940e79ababfa30,"CVE-2017-12902/Zephyr: Fix bounds checking.
+
+Use ND_TTEST() rather than comparing against ndo->ndo_snapend ourselves;
+it's easy to get the tests wrong.
+
+Check for running out of packet data before checking for running out of
+captured data, and distinguish between running out of packet data (which
+might just mean ""no more strings"") and running out of captured data
+(which means ""truncated"").
+
+This fixes a buffer over-read discovered by Forcepoint's security
+researchers Otto Airamo & Antti Levomäki.
+
+Add a test using the capture file supplied by the reporter(s)."
+CVE-2017-12902,6ec0c6fa63412c7a07a5bcb790a529c3563b4173,"CVE-2017-12902/Zephyr: Add an additional test.
+
+File from Kamil Frankowicz."
+CVE-2017-12894,730fc35968c5433b9e2a829779057f4f9495dc51,"CVE-2017-12894/In lookup_bytestring(), take the length of the byte string into account.
+
+Otherwise, if, in our search of the hash table, we come across a byte
+string that's shorter than the string we're looking for, we'll search
+past the end of the string in the hash table.
+
+This fixes a buffer over-read discovered by Forcepoint's security
+researchers Otto Airamo & Antti Levomäki.
+
+Add a test using the capture file supplied by the reporter(s)."
+CVE-2017-13008,5edf405d7ed9fc92f4f43e8a3d44baa4c6387562,"CVE-2017-13008/IEEE 802.11: Fix TIM bitmap copy to copy from p + offset.
+
+offset has already been advanced to point to the bitmap; we shouldn't
+add the amount to advance again.
+
+This fixes a buffer over-read discovered by Brian 'geeknik' Carpenter.
+
+Add a test using the capture file supplied by the reporter(s).
+
+While we're at it, remove some redundant tests - we've already checked,
+before the case statement, whether we have captured the entire
+information element and whether the entire information element is
+present in the on-the-wire packet; in the cases for particular IEs, we
+only need to make sure we don't go past the end of the IE."
+CVE-2017-13035,571a6f33f47e7a2394fa08f925e534135c29cf1e,"CVE-2017-13035/Properly handle IS-IS IDs shorter than a system ID (MAC address).
+
+Some of them are variable-length, with a field giving the total length,
+and therefore they can be shorter than 6 octets.  If one is, don't run
+past the end.
+
+This fixes a buffer over-read discovered by Bhargava Shastry,
+SecT/TU Berlin.
+
+Add a test using the capture file supplied by the reporter(s), modified
+so the capture file won't be rejected as an invalid capture."
+CVE-2017-13043,d515b4b4a300479cdf1a6e0d1bb95bc1f9fee514,"CVE-2017-13043/BGP: fix decoding of MVPN route types 6 and 7
+
+RFC 6514 Section 4.6 defines the structure for Shared Tree Join (6) and
+Source Tree Join (7) multicast VPN route types. decode_multicast_vpn()
+didn't implement the Source AS field of that structure properly, adjust
+the offsets to put it right.
+
+This fixes a buffer over-read discovered by Bhargava Shastry,
+SecT/TU Berlin.
+
+Add a test using the capture file supplied by the reporter(s)."
+CVE-2017-13053,bd4e697ebd6c8457efa8f28f6831fc929b88a014,"CVE-2017-13053/BGP: fix VPN route target bounds checks
+
+decode_rt_routing_info() didn't check bounds before fetching 4 octets of
+the origin AS field and could over-read the input buffer, put it right.
+
+It also fetched the varying number of octets of the route target field
+from 4 octets lower than the correct offset, put it right.
+
+It also used the same temporary buffer explicitly through as_printf()
+and implicitly through bgp_vpn_rd_print() so the end result of snprintf()
+was not what was originally intended.
+
+This fixes a buffer over-read discovered by Bhargava Shastry,
+SecT/TU Berlin.
+
+Add a test using the capture file supplied by the reporter(s)."
+CVE-2017-12146,6265539776a0810b7ce6398c27866ddb9c6bd154,"driver core: platform: fix race condition with driver_override
+
+The driver_override implementation is susceptible to race condition when
+different threads are reading vs storing a different driver override.
+Add locking to avoid race condition.
+
+Fixes: 3d713e0e382e (""driver core: platform: add device binding path 'driver_override'"")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Salido <salidoa@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>"
+CVE-2017-14106,499350a5a6e7512d9ed369ed63a4244b6536f4f8,"tcp: initialize rcv_mss to TCP_MIN_MSS instead of 0
+
+When tcp_disconnect() is called, inet_csk_delack_init() sets
+icsk->icsk_ack.rcv_mss to 0.
+This could potentially cause tcp_recvmsg() => tcp_cleanup_rbuf() =>
+__tcp_select_window() call path to have division by 0 issue.
+So this patch initializes rcv_mss to TCP_MIN_MSS instead of 0.
+
+Reported-by: Andrey Konovalov  <andreyknvl@google.com>
+Signed-off-by: Wei Wang <weiwan@google.com>
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Neal Cardwell <ncardwell@google.com>
+Signed-off-by: Yuchung Cheng <ycheng@google.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2017-15924,c67d275803dc6ea22c558d06b1f7ba9f94cd8de3,Fix #1734
+CVE-2017-14991,3e0097499839e0fe3af380410eababe5a47c4cf9,"scsi: sg: fixup infoleak when using SG_GET_REQUEST_TABLE
+
+When calling SG_GET_REQUEST_TABLE ioctl only a half-filled table is
+returned; the remaining part will then contain stale kernel memory
+information.  This patch zeroes out the entire table to avoid this
+issue.
+
+Signed-off-by: Hannes Reinecke <hare@suse.com>
+Reviewed-by: Bart Van Assche <bart.vanassche@wdc.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>"
+CVE-2017-8807,176f8a075a963ffbfa56f1c460c15f6a1a6af5a7,"Avoid buffer read overflow on vcl_error and -sfile
+
+The file stevedore may return a buffer larger than asked for when
+requesting storage. Due to lack of check for this condition, the code
+to copy the synthetic error memory buffer from vcl_error would overrun
+the buffer.
+
+Patch by @shamger
+
+Fixes: #2429"
+CVE-2018-6560,52346bf187b5a7f1c0fe9075b328b7ad6abe78f6,"Fix vulnerability in dbus proxy
+
+During the authentication all client data is directly forwarded
+to the dbus daemon as is, until we detect the BEGIN command after
+which we start filtering the binary dbus protocol.
+
+Unfortunately the detection of the BEGIN command in the proxy
+did not exactly match the detection in the dbus daemon. A BEGIN
+followed by a space or tab was considered ok in the daemon but
+not by the proxy. This could be exploited to send arbitrary
+dbus messages to the host, which can be used to break out of
+the sandbox.
+
+This was noticed by Gabriel Campana of The Google Security Team.
+
+This fix makes the detection of the authentication phase end
+match the dbus code. In addition we duplicate the authentication
+line validation from dbus, which includes ensuring all data is
+ASCII, and limiting the size of a line to 16k. In fact, we add
+some extra stringent checks, disallowing ASCII control chars and
+requiring that auth lines start with a capital letter."
+CVE-2018-8099,58a6fe94cb851f71214dbefac3f9bffee437d6fe,"index: convert `read_entry` to return entry size via an out-param
+
+The function `read_entry` does not conform to our usual coding style of
+returning stuff via the out parameter and to use the return value for
+reporting errors. Due to most of our code conforming to that pattern, it
+has become quite natural for us to actually return `-1` in case there is
+any error, which has also slipped in with commit 5625d86b9 (index:
+support index v4, 2016-05-17). As the function returns an `size_t` only,
+though, the return value is wrapped around, causing the caller of
+`read_tree` to continue with an invalid index entry. Ultimately, this
+can lead to a double-free.
+
+Improve code and fix the bug by converting the function to return the
+index entry size via an out parameter and only using the return value to
+indicate errors.
+
+Reported-by: Krishna Ram Prakash R <krp@gtux.in>
+Reported-by: Vivek Parikh <viv0411.parikh@gmail.com>"
+CVE-2018-8098,3207ddb0103543da8ad2139ec6539f590f9900c1,"index: fix out-of-bounds read with invalid index entry prefix length
+
+The index format in version 4 has prefix-compressed entries, where every
+index entry can compress its path by using a path prefix of the previous
+entry. Since implmenting support for this index format version in commit
+5625d86b9 (index: support index v4, 2016-05-17), though, we do not
+correctly verify that the prefix length that we want to reuse is
+actually smaller or equal to the amount of characters than the length of
+the previous index entry's path. This can lead to a an integer underflow
+and subsequently to an out-of-bounds read.
+
+Fix this by verifying that the prefix is actually smaller than the
+previous entry's path length.
+
+Reported-by: Krishna Ram Prakash R <krp@gtux.in>
+Reported-by: Vivek Parikh <viv0411.parikh@gmail.com>"
+CVE-2018-8098,3db1af1f370295ad5355b8f64b865a2a357bcac0,"index: error out on unreasonable prefix-compressed path lengths
+
+When computing the complete path length from the encoded
+prefix-compressed path, we end up just allocating the complete path
+without ever checking what the encoded path length actually is. This can
+easily lead to a denial of service by just encoding an unreasonable long
+path name inside of the index. Git already enforces a maximum path
+length of 4096 bytes. As we also have that enforcement ready in some
+places, just make sure that the resulting path is smaller than
+GIT_PATH_MAX.
+
+Reported-by: Krishna Ram Prakash R <krp@gtux.in>
+Reported-by: Vivek Parikh <viv0411.parikh@gmail.com>"
+CVE-2018-7648,cc3824767bde397fedb8a1ae4786a222ba860c8d,"opj_mj2_extract: Check provided output prefix for length
+
+This uses snprintf() with correct buffer length instead of sprintf(), which
+prevents a buffer overflow when providing a long output prefix. Furthermore
+the program exits with an error when the provided output prefix is too long.
+
+Fixes #1088."
+CVE-2018-9336,1394192b210cb3c6624a7419bcf3ff966742e79b,"Fix potential double-free() in Interactive Service (CVE-2018-9336)
+
+Malformed input data on the service pipe towards the OpenVPN interactive
+service (normally used by the OpenVPN GUI to request openvpn instances
+from the service) can result in a double free() in the error handling code.
+
+This usually only leads to a process crash (DoS by an unprivileged local
+account) but since it could possibly lead to memory corruption if
+happening while multiple other threads are active at the same time,
+CVE-2018-9336 has been assigned to acknowledge this risk.
+
+Fix by ensuring that sud->directory is set to NULL in GetStartUpData()
+for all error cases (thus not being free()ed in FreeStartupData()).
+
+Rewrite control flow to use explicit error label for error exit.
+
+Discovered and reported by Jacob Baines <jbaines@tenable.com>.
+
+CVE: 2018-9336
+
+Signed-off-by: Gert Doering <gert@greenie.muc.de>
+Acked-by: Selva Nair <selva.nair@gmail.com>
+Message-Id: <20180414072617.25075-1-gert@greenie.muc.de>
+URL: https://www.mail-archive.com/search?l=mid&q=20180414072617.25075-1-gert@greenie.muc.de
+
+Signed-off-by: Gert Doering <gert@greenie.muc.de>"
+CVE-2017-2630,2563c9c6b8670400c48e562034b321a7cf3d9a85,"nbd/client: fix drop_sync [CVE-2017-2630]
+
+Comparison symbol is misused. It may lead to memory corruption.
+Introduced in commit 7d3123e.
+
+Signed-off-by: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+Message-Id: <20170203154757.36140-6-vsementsov@virtuozzo.com>
+[eblake: add CVE details, update conditional]
+Signed-off-by: Eric Blake <eblake@redhat.com>
+Reviewed-by: Marc-AndrÃ© Lureau <marcandre.lureau@redhat.com>
+Message-Id: <20170307151627.27212-1-eblake@redhat.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>"
+CVE-2018-14354,95e80bf9ff10f68cb6443f760b85df4117cb15eb,Quote path in imap_subscribe
+CVE-2018-14360,6296f7153f0c9d5e5cd3aaf08f9731e56621bdd3,"Set length modifiers for group and desc
+
+nntp_add_group parses a line controlled by the connected nntp server.
+Restrict the maximum lengths read into the stack buffers group, and
+desc."
+CVE-2018-10887,c1577110467b701dcbcf9439ac225ea851b47d22,"delta: fix overflow when computing limit
+
+When checking whether a delta base offset and length fit into the base
+we have in memory already, we can trigger an overflow which breaks the
+check. This would subsequently result in us reading memory from out of
+bounds of the base.
+
+The issue is easily fixed by checking for overflow when adding `off` and
+`len`, thus guaranteeting that we are never indexing beyond `base_len`.
+This corresponds to the git patch 8960844a7 (check patch_delta bounds
+more carefully, 2006-04-07), which adds these overflow checks.
+
+Reported-by: Riccardo Schirone <rschiron@redhat.com>"
+CVE-2018-10887,3f461902dc1072acb8b7607ee65d0a0458ffac2a,"delta: fix sign-extension of big left-shift
+
+Our delta code was originally adapted from JGit, which itself adapted it
+from git itself. Due to this heritage, we inherited a bug from git.git
+in how we compute the delta offset, which was fixed upstream in
+48fb7deb5 (Fix big left-shifts of unsigned char, 2009-06-17). As
+explained by Linus:
+
+    Shifting 'unsigned char' or 'unsigned short' left can result in sign
+    extension errors, since the C integer promotion rules means that the
+    unsigned char/short will get implicitly promoted to a signed 'int' due to
+    the shift (or due to other operations).
+
+    This normally doesn't matter, but if you shift things up sufficiently, it
+    will now set the sign bit in 'int', and a subsequent cast to a bigger type
+    (eg 'long' or 'unsigned long') will now sign-extend the value despite the
+    original expression being unsigned.
+
+    One example of this would be something like
+
+            unsigned long size;
+            unsigned char c;
+
+            size += c << 24;
+
+    where despite all the variables being unsigned, 'c << 24' ends up being a
+    signed entity, and will get sign-extended when then doing the addition in
+    an 'unsigned long' type.
+
+    Since git uses 'unsigned char' pointers extensively, we actually have this
+    bug in a couple of places.
+
+In our delta code, we inherited such a bogus shift when computing the
+offset at which the delta base is to be found. Due to the sign extension
+we can end up with an offset where all the bits are set. This can allow
+an arbitrary memory read, as the addition in `base_len < off + len` can
+now overflow if `off` has all its bits set.
+
+Fix the issue by casting the result of `*delta++ << 24UL` to an unsigned
+integer again. Add a test with a crafted delta that would actually
+succeed with an out-of-bounds read in case where the cast wouldn't
+exist.
+
+Reported-by: Riccardo Schirone <rschiron@redhat.com>
+Test-provided-by: Riccardo Schirone <rschiron@redhat.com>"
+CVE-2018-13094,bb3d48dcf86a97dc25fe9fc2c11938e19cb4399a,"xfs: don't call xfs_da_shrink_inode with NULL bp
+
+xfs_attr3_leaf_create may have errored out before instantiating a buffer,
+for example if the blkno is out of range.  In that case there is no work
+to do to remove it, and in fact xfs_da_shrink_inode will lead to an oops
+if we try.
+
+This also seems to fix a flaw where the original error from
+xfs_attr3_leaf_create gets overwritten in the cleanup case, and it
+removes a pointless assignment to bp which isn't used after this.
+
+Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=199969
+Reported-by: Xu, Wen <wen.xu@gatech.edu>
+Tested-by: Xu, Wen <wen.xu@gatech.edu>
+Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+Reviewed-by: Darrick J. Wong <darrick.wong@oracle.com>
+Signed-off-by: Darrick J. Wong <darrick.wong@oracle.com>"
+CVE-2018-16276,f1e255d60ae66a9f672ff9a207ee6cd8e33d2679,"USB: yurex: fix out-of-bounds uaccess in read handler
+
+In general, accessing userspace memory beyond the length of the supplied
+buffer in VFS read/write handlers can lead to both kernel memory corruption
+(via kernel_read()/kernel_write(), which can e.g. be triggered via
+sys_splice()) and privilege escalation inside userspace.
+
+Fix it by using simple_read_from_buffer() instead of custom logic.
+
+Fixes: 6bc235a2e24a (""USB: add driver for Meywa-Denki & Kayac YUREX"")
+Signed-off-by: Jann Horn <jannh@google.com>
+Cc: stable <stable@vger.kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>"
+CVE-2018-15501,1f9a8510e1d2f20ed7334eeeddb92c4dd8e7c649,"smart_pkt: fix potential OOB-read when processing ng packet
+
+OSS-fuzz has reported a potential out-of-bounds read when processing a
+""ng"" smart packet:
+
+==1==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6310000249c0 at pc 0x000000493a92 bp 0x7ffddc882cd0 sp 0x7ffddc882480
+	READ of size 65529 at 0x6310000249c0 thread T0
+	SCARINESS: 26 (multi-byte-read-heap-buffer-overflow)
+	#0 0x493a91 in __interceptor_strchr.part.35 /src/llvm/projects/compiler-rt/lib/sanitizer_common/sanitizer_common_interceptors.inc:673
+	#1 0x813960 in ng_pkt libgit2/src/transports/smart_pkt.c:320:14
+	#2 0x810f79 in git_pkt_parse_line libgit2/src/transports/smart_pkt.c:478:9
+	#3 0x82c3c9 in git_smart__store_refs libgit2/src/transports/smart_protocol.c:47:12
+	#4 0x6373a2 in git_smart__connect libgit2/src/transports/smart.c:251:15
+	#5 0x57688f in git_remote_connect libgit2/src/remote.c:708:15
+	#6 0x52e59b in LLVMFuzzerTestOneInput /src/download_refs_fuzzer.cc:145:9
+	#7 0x52ef3f in ExecuteFilesOnyByOne(int, char**) /src/libfuzzer/afl/afl_driver.cpp:301:5
+	#8 0x52f4ee in main /src/libfuzzer/afl/afl_driver.cpp:339:12
+	#9 0x7f6c910db82f in __libc_start_main /build/glibc-Cl5G7W/glibc-2.23/csu/libc-start.c:291
+	#10 0x41d518 in _start
+
+When parsing an ""ng"" packet, we keep track of both the current position
+as well as the remaining length of the packet itself. But instead of
+taking care not to exceed the length, we pass the current pointer's
+position to `strchr`, which will search for a certain character until
+hitting NUL. It is thus possible to create a crafted packet which
+doesn't contain a NUL byte to trigger an out-of-bounds read.
+
+Fix the issue by instead using `memchr`, passing the remaining length as
+restriction. Furthermore, verify that we actually have enough bytes left
+to produce a match at all.
+
+OSS-Fuzz-Issue: 9406"
+CVE-2018-16422,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16420,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16419,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16421,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16418,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16391,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16392,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16393,360e95d45ac4123255a4c796db96337f332160ad,"fixed out of bounds writes
+
+Thanks to Eric Sesterhenn from X41 D-SEC GmbH
+for reporting the problems."
+CVE-2018-16839,f3a24d7916b9173c69a3e0ee790102993833d6c5,"Curl_auth_create_plain_message: fix too-large-input-check
+
+CVE-2018-16839
+Reported-by: Harry Sintonen
+Bug: https://curl.haxx.se/docs/CVE-2018-16839.html"
+CVE-2018-8786,445a5a42c500ceb80f8fa7f2c11f3682538033f3,"Fixed CVE-2018-8786
+
+Thanks to Eyal Itkin from Check Point Software Technologies."
+CVE-2018-8784,17c363a5162fd4dc77b1df54e48d7bd9bf6b3be7,"Fixed CVE-2018-8784
+
+Thanks to Eyal Itkin from Check Point Software Technologies."
+CVE-2018-19044,04f2d32871bb3b11d7dc024039952f2fe2750306,"When opening files for write, ensure they aren't symbolic links
+
+Issue #1048 identified that if, for example, a non privileged user
+created a symbolic link from /etc/keepalvied.data to /etc/passwd,
+writing to /etc/keepalived.data (which could be invoked via DBus)
+would cause /etc/passwd to be overwritten.
+
+This commit stops keepalived writing to pathnames where the ultimate
+component is a symbolic link, by setting O_NOFOLLOW whenever opening
+a file for writing.
+
+This might break some setups, where, for example, /etc/keepalived.data
+was a symbolic link to /home/fred/keepalived.data. If this was the case,
+instead create a symbolic link from /home/fred/keepalived.data to
+/tmp/keepalived.data, so that the file is still accessible via
+/home/fred/keepalived.data.
+
+There doesn't appear to be a way around this backward incompatibility,
+since even checking if the pathname is a symbolic link prior to opening
+for writing would create a race condition.
+
+Signed-off-by: Quentin Armitage <quentin@armitage.org.uk>"
+CVE-2018-20457,e5c14c167b0dcf0a53d76bd50bacbbcc0dfc1ae7,Fix #12417/#12418 (arm assembler heap overflows)
+CVE-2018-20459,e5c14c167b0dcf0a53d76bd50bacbbcc0dfc1ae7,Fix #12417/#12418 (arm assembler heap overflows)
+CVE-2018-20763,1c449a34fe0b50aaffb881bfb9d7c5ab0bb18cdd,add some boundary checks on gf_text_get_utf8_line (#1188)
+CVE-2019-3817,e3a5d056633677959ad924a51758876d415e7046,"Fix UAF in comps_objmrtree_unite function
+
+The added field is not used at all in many places and it is probably the
+left-over of some copy-paste."
+CVE-2019-9718,23ccf3cabb4baf6e8af4b1af3fcc59c904736f21,"avcodec/htmlsubtitles: Fixes denial of service due to use of sscanf in inner loop for tag scaning
+
+Fixes: [Semmle Security Reports #19438]
+Fixes: dos_sscanf1.mkv
+
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>
+(cherry picked from commit 1f00c97bc3475c477f3c468cf2d924d5761d0982)
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2019-11411,da632ca08f240590d2dec786722ed08486ce1be6,"Bug 700938: Fix stack overflow in numtostr as used by Number#toFixed().
+
+32 is not enough to fit sprintf(""%.20f"", 1e20).
+We need at least 43 bytes to fit that format.
+Bump the static buffer size."
+CVE-2019-11222,f3698bb1bce62402805c3fda96551a23101a32f9,"fix buffer overrun in gf_bin128_parse
+
+closes #1204
+closes #1205"
+CVE-2019-12973,8ee335227bbcaf1614124046aa25e53d67b11ec3,"convertbmp: detect invalid file dimensions early
+
+width/length dimensions read from bmp headers are not necessarily
+valid. For instance they may have been maliciously set to very large
+values with the intention to cause DoS (large memory allocation, stack
+overflow). In these cases we want to detect the invalid size as early
+as possible.
+
+This commit introduces a counter which verifies that the number of
+written bytes corresponds to the advertized width/length.
+
+Fixes #1059 (CVE-2018-6616)."
+CVE-2019-12210,18b1914e32b74ff52000f10e97067e841e5fff62,"Do not leak file descriptor when doing exec
+
+When opening a custom debug file, the descriptor would stay
+open when calling exec and leak to the child process.
+
+Make sure all files are opened with close-on-exec.
+
+This fixes CVE-2019-12210.
+
+Thanks to Matthias Gerstner of the SUSE Security Team for reporting
+the issue."
+CVE-2019-12730,ed188f6dcdf0935c939ed813cf8745d50742014b,"avformat/aadec: Check for scanf() failure
+
+Fixes: use of uninitialized variables
+Fixes: blank.aa
+
+Found-by: Chamal De Silva <chamal.desilva@gmail.com>
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2019-14323,ce04b1f29a137198182f60bbb628d5ceb8171765,"Fix #1: Ensure recv buf is always NUL terminated
+
+Signed-off-by: Joachim Nilsson <troglobit@gmail.com>"
+CVE-2019-1010294,7e768f8a473409215fe3fff8f6e31f8a3a0103c6,"core: clear the entire TA area
+
+Previously we cleared (memset to zero) the size corresponding to code
+and data segments, however the allocation for the TA is made on the
+granularity of the memory pool, meaning that we did not clear all memory
+and because of that we could potentially leak code and data of a
+previous loaded TA.
+
+Fixes: OP-TEE-2018-0006: ""Potential disclosure of previously loaded TA
+code and data""
+
+Signed-off-by: Joakim Bech <joakim.bech@linaro.org>
+Tested-by: Joakim Bech <joakim.bech@linaro.org> (QEMU v7, v8)
+Suggested-by: Jens Wiklander <jens.wiklander@linaro.org>
+Reviewed-by: Jens Wiklander <jens.wiklander@linaro.org>
+Reported-by: Riscure <inforequest@riscure.com>
+Reported-by: Alyssa Milburn <a.a.milburn@vu.nl>
+Acked-by: Etienne Carriere <etienne.carriere@linaro.org>"
+CVE-2019-1010319,33a0025d1d63ccd05d9dbaa6923d52b1446a62fe,issue #68: clear WaveHeader at start to prevent uninitialized read
+CVE-2019-15026,554b56687a19300a75ec24184746b5512580c819,"fix strncpy call to avoid ASAN violation
+
+Ensure we're only reading to the size of the smallest buffer, since
+they're both on the stack and could potentially overlap. Overlapping is
+defined as ... undefined behavior. I've looked through all available
+implementations of strncpy and they still only copy from the first \0
+found.
+
+We'll also never read past the end of sun_path since we _supply_
+sun_path with a proper null terminator."
+CVE-2019-15090,c09581a52765a85f19fc35340127396d5e3379cc,"scsi: qedi: remove memset/memcpy to nfunc and use func instead
+
+KASAN reports this:
+
+BUG: KASAN: global-out-of-bounds in qedi_dbg_err+0xda/0x330 [qedi]
+Read of size 31 at addr ffffffffc12b0ae0 by task syz-executor.0/2429
+
+CPU: 0 PID: 2429 Comm: syz-executor.0 Not tainted 5.0.0-rc7+ #45
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1ubuntu1 04/01/2014
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0xfa/0x1ce lib/dump_stack.c:113
+ print_address_description+0x1c4/0x270 mm/kasan/report.c:187
+ kasan_report+0x149/0x18d mm/kasan/report.c:317
+ memcpy+0x1f/0x50 mm/kasan/common.c:130
+ qedi_dbg_err+0xda/0x330 [qedi]
+ ? 0xffffffffc12d0000
+ qedi_init+0x118/0x1000 [qedi]
+ ? 0xffffffffc12d0000
+ ? 0xffffffffc12d0000
+ ? 0xffffffffc12d0000
+ do_one_initcall+0xfa/0x5ca init/main.c:887
+ do_init_module+0x204/0x5f6 kernel/module.c:3460
+ load_module+0x66b2/0x8570 kernel/module.c:3808
+ __do_sys_finit_module+0x238/0x2a0 kernel/module.c:3902
+ do_syscall_64+0x147/0x600 arch/x86/entry/common.c:290
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+RIP: 0033:0x462e99
+Code: f7 d8 64 89 02 b8 ff ff ff ff c3 66 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 bc ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2d57e55c58 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 000000000073bfa0 RCX: 0000000000462e99
+RDX: 0000000000000000 RSI: 00000000200003c0 RDI: 0000000000000003
+RBP: 00007f2d57e55c70 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f2d57e566bc
+R13: 00000000004bcefb R14: 00000000006f7030 R15: 0000000000000004
+
+The buggy address belongs to the variable:
+ __func__.67584+0x0/0xffffffffffffd520 [qedi]
+
+Memory state around the buggy address:
+ ffffffffc12b0980: fa fa fa fa 00 04 fa fa fa fa fa fa 00 00 05 fa
+ ffffffffc12b0a00: fa fa fa fa 00 00 04 fa fa fa fa fa 00 05 fa fa
+> ffffffffc12b0a80: fa fa fa fa 00 06 fa fa fa fa fa fa 00 02 fa fa
+                                                          ^
+ ffffffffc12b0b00: fa fa fa fa 00 00 04 fa fa fa fa fa 00 00 03 fa
+ ffffffffc12b0b80: fa fa fa fa 00 00 02 fa fa fa fa fa 00 00 04 fa
+
+Currently the qedi_dbg_* family of functions can overrun the end of the
+source string if it is less than the destination buffer length because of
+the use of a fixed sized memcpy. Remove the memset/memcpy calls to nfunc
+and just use func instead as it is always a null terminated string.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: ace7f46ba5fd (""scsi: qedi: Add QLogic FastLinQ offload iSCSI driver framework."")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>"
+CVE-2019-14934,0c4120fffa3dffe97b95c486a120eded82afe8a6,"Zero and sanity check all dynamic allocs.
+
+This addresses the memory issues in Issue #6 expressed in
+calloc_some.pdf and malloc_some.pdf"
+CVE-2019-14763,c91815b596245fd7da349ecc43c8def670d2269e,"usb: dwc3: gadget: never call ->complete() from ->ep_queue()
+
+This is a requirement which has always existed but, somehow, wasn't
+reflected in the documentation and problems weren't found until now
+when Tuba Yavuz found a possible deadlock happening between dwc3 and
+f_hid. She described the situation as follows:
+
+spin_lock_irqsave(&hidg->write_spinlock, flags); // first acquire
+/* we our function has been disabled by host */
+if (!hidg->req) {
+	free_ep_req(hidg->in_ep, hidg->req);
+	goto try_again;
+}
+
+[...]
+
+status = usb_ep_queue(hidg->in_ep, hidg->req, GFP_ATOMIC);
+=>
+	[...]
+	=> usb_gadget_giveback_request
+		=>
+		f_hidg_req_complete
+			=>
+			spin_lock_irqsave(&hidg->write_spinlock, flags); // second acquire
+
+Note that this happens because dwc3 would call ->complete() on a
+failed usb_ep_queue() due to failed Start Transfer command. This is,
+anyway, a theoretical situation because dwc3 currently uses ""No
+Response Update Transfer"" command for Bulk and Interrupt endpoints.
+
+It's still good to make this case impossible to happen even if the ""No
+Reponse Update Transfer"" command is changed.
+
+Reported-by: Tuba Yavuz <tuba@ece.ufl.edu>
+Signed-off-by: Felipe Balbi <felipe.balbi@linux.intel.com>
+Cc: stable <stable@vger.kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>"
+CVE-2019-14763,072684e8c58d17e853f8e8b9f6d9ce2e58d2b036,"USB: gadget: f_hid: fix deadlock in f_hidg_write()
+
+In f_hidg_write() the write_spinlock is acquired before calling
+usb_ep_queue() which causes a deadlock when dummy_hcd is being used.
+This is because dummy_queue() callbacks into f_hidg_req_complete() which
+tries to acquire the same spinlock. This is (part of) the backtrace when
+the deadlock occurs:
+
+  0xffffffffc06b1410 in f_hidg_req_complete
+  0xffffffffc06a590a in usb_gadget_giveback_request
+  0xffffffffc06cfff2 in dummy_queue
+  0xffffffffc06a4b96 in usb_ep_queue
+  0xffffffffc06b1eb6 in f_hidg_write
+  0xffffffff8127730b in __vfs_write
+  0xffffffff812774d1 in vfs_write
+  0xffffffff81277725 in SYSC_write
+
+Fix this by releasing the write_spinlock before calling usb_ep_queue()
+
+Reviewed-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+Tested-by: James Bottomley <James.Bottomley@HansenPartnership.com>
+Cc: stable@vger.kernel.org # 4.11+
+Fixes: 749494b6bdbb (""usb: gadget: f_hid: fix: Move IN request allocation to set_alt()"")
+Signed-off-by: Radoslav Gerganov <rgerganov@vmware.com>
+Signed-off-by: Felipe Balbi <felipe.balbi@linux.intel.com>"
+CVE-2019-14814,7caac62ed598a196d6ddf8d9c121e12e082cac3a,"mwifiex: Fix three heap overflow at parsing element in cfg80211_ap_settings
+
+mwifiex_update_vs_ie(),mwifiex_set_uap_rates() and
+mwifiex_set_wmm_params() call memcpy() without checking
+the destination size.Since the source is given from
+user-space, this may trigger a heap buffer overflow.
+
+Fix them by putting the length check before performing memcpy().
+
+This fix addresses CVE-2019-14814,CVE-2019-14815,CVE-2019-14816.
+
+Signed-off-by: Wen Huang <huangwenabc@gmail.com>
+Acked-by: Ganapathi Bhat <gbhat@marvell.comg>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>"
+CVE-2019-14816,7caac62ed598a196d6ddf8d9c121e12e082cac3a,"mwifiex: Fix three heap overflow at parsing element in cfg80211_ap_settings
+
+mwifiex_update_vs_ie(),mwifiex_set_uap_rates() and
+mwifiex_set_wmm_params() call memcpy() without checking
+the destination size.Since the source is given from
+user-space, this may trigger a heap buffer overflow.
+
+Fix them by putting the length check before performing memcpy().
+
+This fix addresses CVE-2019-14814,CVE-2019-14815,CVE-2019-14816.
+
+Signed-off-by: Wen Huang <huangwenabc@gmail.com>
+Acked-by: Ganapathi Bhat <gbhat@marvell.comg>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>"
+CVE-2019-16058,d150b60e1e14c261b113f55681419ad1dfa8a76c,"Use EVP_PKEY_size() to allocate correct size of signature buffer. (#18)
+
+Do not use fixed buffer size for signature, EVP_SignFinal() requires
+buffer for signature at least  EVP_PKEY_size(pkey) bytes in size.
+
+Fixes crash when using 4K RSA signatures (https://github.com/OpenSC/pam_p11/issues/16, https://github.com/OpenSC/pam_p11/issues/15)"
+CVE-2019-18224,e4d1558aa2c1c04a05066ee8600f37603890ba8c,idn2_to_ascii_4i(): Restrict output length to 63
+CVE-2019-14815,7caac62ed598a196d6ddf8d9c121e12e082cac3a,"mwifiex: Fix three heap overflow at parsing element in cfg80211_ap_settings
+
+mwifiex_update_vs_ie(),mwifiex_set_uap_rates() and
+mwifiex_set_wmm_params() call memcpy() without checking
+the destination size.Since the source is given from
+user-space, this may trigger a heap buffer overflow.
+
+Fix them by putting the length check before performing memcpy().
+
+This fix addresses CVE-2019-14814,CVE-2019-14815,CVE-2019-14816.
+
+Signed-off-by: Wen Huang <huangwenabc@gmail.com>
+Acked-by: Ganapathi Bhat <gbhat@marvell.comg>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>"
+CVE-2019-18808,128c66429247add5128c03dc1e144ca56f05a4e2,"crypto: ccp - Release all allocated memory if sha type is invalid
+
+Release all allocated memory if sha type is invalid:
+In ccp_run_sha_cmd, if the type of sha is invalid, the allocated
+hmac_buf should be released.
+
+v2: fix the goto.
+
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+Acked-by: Gary R Hook <gary.hook@amd.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>"
+CVE-2019-19638,e17c0765ed708186865f0f8badfed44181063776,fix issue that the width and the deps miss checks
+CVE-2019-18672,769714fcb569e7a4faff9530a2d9ac1f9d6e5680,firmware: stronger recovery state machine checks
+CVE-2019-19333,f6d684ade99dd37b21babaa8a856f64faa1e2e0d,"parser BUGFIX long identity name buffer overflow
+
+STRING_OVERFLOW (CWE-120)"
+CVE-2019-19334,6980afae2ff9fcd6d67508b0a3f694d75fd059d6,"parser BUGFIX long identityref default value buffer overflow
+
+STRING_OVERFLOW (CWE-120)"
+CVE-2020-5221,455b47d3756aed162d2d0ef7f40b549f3b5b30fe,"FTP/TFTP: Fix directory traversal regression, reported by Aaron Esau
+
+Signed-off-by: Joachim Nilsson <troglobit@gmail.com>"
+CVE-2014-9630,204291467724867b79735c0ee3aeb0dbc2200f97,"stream_out: rtp: don't use VLA for user controlled data
+
+It should fix a possible invalid memory access
+
+When streaming ogg-files via rtp, an ogg-file can trigger an invalid
+write access using an overly long 'configuration' string.
+
+The original code attemps to allocate space to hold the string on the stack
+and hence, cannot verify if allocation succeeds. Instead, we now allocate the
+buffer on the heap and return if allocation fails.
+
+In detail, rtp_packetize_xiph_config allocates a buffer on the stack at (1) where
+the size depends on the local variable 'len'. The variable 'len' is
+calculated at (0) to be the length of a string contained in a specially
+crafted Ogg Vorbis file, and therefore, it is attacker-controlled.
+
+Signed-off-by: Jean-Baptiste Kempf <jb@videolan.org>"
+CVE-2020-5204,0fb2c031ce0ace07cc19cd2cb2143c4b5a63c9dd,"FTP: Fix buffer overflow in PORT parser, reported by Aaron Esau
+
+Signed-off-by: Joachim Nilsson <troglobit@gmail.com>"
+CVE-2015-3151,c796c76341ee846cfb897ed645bac211d7d0a932,"daemon: use libreport's function checking file name
+
+Move the functions to libreport because we need the same functionality
+there too.
+
+Related: #1214451
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3151,7a47f57975be0d285a2f20758e4572dca6d9cdd3,"dbus: validate parameters of all calls
+
+SetElement and DeleteElement were missing check for valid dump directory
+path.
+
+FindProblemByElementInTimeRange was not reporting invalid element names.
+
+Related: #1214451
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3151,f3c2a6af3455b2882e28570e8a04f1c2d4500d5b,"dbus: report invalid element names
+
+Return D-Bus error in case of invalid problem element name.
+
+Related: #1214451
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3151,54ecf8d017580b495d6501e53ca54e453a73a364,"lib: add a function checking file names
+
+Move the code from ABRT and extend it a bit:
+* allow only 64 characters
+* allow '.' in names (vmcore_dmesg.txt)
+* forbid '/'
+* forbid "".""
+* forbid ""..""
+
+Related: #1214451
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3151,239c4f7d1f47265526b39ad70106767d00805277,"dd: harden functions against directory traversal issues
+
+Test correctness of all accessed dump dir files in all dd* functions.
+Before this commit, the callers were allowed to pass strings like
+""../../etc/shadow"" in the filename argument of all dd* functions.
+
+Related: #1214457
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3150,6e811d78e2719988ae291181f5b133af32ce62d8,"dbus: process only valid sub-directories of the dump location
+
+Must have correct rights and must be a direct sub-directory of the dump
+location.
+
+This issue was discovered by Florian Weimer of Red Hat Product Security.
+
+Related: #1214451
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3150,1951e7282043dfe1268d492aea056b554baedb75,"lib: fix races in dump directory handling code
+
+Florian Weimer <fweimer@redhat.com>:
+
+    dd_opendir() should keep a file handle (opened with O_DIRECTORY) and
+    use openat() and similar functions to access files in it.
+
+    ...
+
+    The file system manipulation functions should guard against hard
+    links (check that link count is <= 1, just as in the user coredump
+    code in abrt-hook-ccpp), possibly after opening the file
+    with O_PATH first to avoid side effects on open/close.
+
+Related: #1214745
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3150,b7f8bd20b7fb5b72f003ae3fa647c1d75f4218b7,"lib: add functions validating dump dir
+
+Move the code from abrt-server to shared library and fix the condition
+validating dump dir's path.
+
+As of now, abrt is allowed to process only direct sub-directories of the
+dump locations.
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2015-3150,7814554e0827ece778ca88fd90832bd4d05520b1,"dbus: avoid race-conditions in tests for dum dir availability
+
+Florian Weimer <fweimer@redhat.com>
+
+    dump_dir_accessible_by_uid() is fundamentally insecure because it
+    opens up a classic time-of-check-time-of-use race between this
+    function and and dd_opendir().
+
+Related: #1214745
+
+Signed-off-by: Jakub Filak <jfilak@redhat.com>"
+CVE-2020-7042,9eee997d599a89492281fc7ffdd79d88cd61afc3,"supply proper input buffer to X509_check_host
+
+CVE-2020-7042 use of uninitialized memory in X509_check_host is fixed with
+this commit
+
+the uninitialized buffer common_name was passed as argument to X509_check_host
+which prevented proper host name validation when openssl >= 1.0.2 was in use.
+This came in with #282 which went into openfortivpn 1.7.1.
+Unfortunately, this problem has stayed unnoticed because the return value
+was not properly checked either (which is a separate issue, with CVE-2020-7041,
+and which has been fixed by the previous commit)"
+CVE-2020-7042,cd9368c6a1b4ef91d77bb3fdbe2e5bc34aa6f4c4,openfortivpn version 1.12.0
+CVE-2020-9365,bf6fcd4935e95128cf22af5924cdc8fe5c0579da,"pure_strcmp(): len(s2) can be > len(s1)
+
+Reported by Antonio Morales from GitHub Security Labs, thanks!"
+CVE-2020-9365,36c6d268cb190282a2c17106acfd31863121b58e,"pure_strcmp(): len(s2) can be > len(s1)
+
+Reported by Antonio Morales from GitHub Security Labs, thanks!"
+CVE-2015-9542,01173ec2426627dbb1e0d96c06c3ffa0b14d36d0,"Use ""length"", which has been limited in size"
+CVE-2020-11939,7ce478a58b4dd29a8d1e6f4e9df2f778613d9202,"ssh: fixing unsigned overflow leading to heap overflow
+
+cf GHSL-2020-051"
+CVE-2020-11087,8241ab42fdf0cc89cf69fc574bf6360c9977a0d4,Fixed oob read in ntlm_read_AuthenticateMessage
+CVE-2020-13396,48361c411e50826cb602c7aab773a8a20e1da6bc,"Fixed GHSL-2020-100: oob read in ntlm_read_ChallengeMessage
+
+* Added length checks for data read from stream
+* Unified function resource cleanup
+
+(cherry picked from commit 8357dedbbf7213b7d0d18f1026145b9a5b92235a)"
+CVE-2020-13396,8fb6336a4072abcee8ce5bd6ae91104628c7bb69,"Updated changelog for 2.1.1
+
+(cherry picked from commit 470b21d32dd9c6b4673209c8be1e896882581a2c)"
+CVE-2020-13398,8305349a943c68b1bc8c158f431dc607655aadea,"Fixed  GHSL-2020-102 heap overflow
+
+(cherry picked from commit 197b16cc15a12813c2e4fa2d6ae9cd9c4a57e581)"
+CVE-2020-13398,8fb6336a4072abcee8ce5bd6ae91104628c7bb69,"Updated changelog for 2.1.1
+
+(cherry picked from commit 470b21d32dd9c6b4673209c8be1e896882581a2c)"
+CVE-2020-13114,e6a38a1a23ba94d139b1fa2cd4519fdcfe3c9bab,"Add a failsafe on the maximum number of Canon MakerNote subtags.
+
+A malicious file could be crafted to cause extremely large values in some
+tags without tripping any buffer range checks.  This is bad with the libexif
+representation of Canon MakerNotes because some arrays are turned into
+individual tags that the application must loop around.
+
+The largest value I've seen for failsafe_size in a (very small) sample of valid
+Canon files is <5000.  The limit is set two orders of magnitude larger to avoid
+tripping up falsely in case some models use much larger values.
+
+Patch from Google.
+
+CVE-2020-13114"
+CVE-2020-11042,6b2bc41935e53b0034fe5948aeeab4f32e80f30f,Fix #6010: Check length in read_icon_info
+CVE-2017-18922,aac95a9dcf4bbba87b76c72706c3221a842ca433,"fix overflow and refactor websockets decode (Hybi)
+
+fix critical heap-based buffer overflow which allowed easy modification
+of a return address via an overwritten function pointer
+
+fix bug causing connections to fail due a ""one websocket frame = one
+ws_read"" assumption, which failed with LibVNCServer-0.9.11
+
+refactor websocket Hybi decode to use a simple state machine for
+decoding of websocket frames"
+CVE-2019-20839,3fd03977c9b35800d73a865f167338cb4d05b0c1,"libvncclient: bail out if unix socket name would overflow
+
+Closes #291"
+CVE-2020-14396,33441d90a506d5f3ae9388f2752901227e430553,"libvncclient/tls_openssl: do not deref a NULL pointer
+
+Happens in anonTLS mode where cred is NULL.
+
+re #347"
+CVE-2020-12654,3a9b153c5591548612c3955c9600a98150c81875,"mwifiex: Fix possible buffer overflows in mwifiex_ret_wmm_get_status()
+
+mwifiex_ret_wmm_get_status() calls memcpy() without checking the
+destination size.Since the source is given from remote AP which
+contains illegal wmm elements , this may trigger a heap buffer
+overflow.
+Fix it by putting the length check before calling memcpy().
+
+Signed-off-by: Qing Xu <m1s5p6688@gmail.com>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>"
+CVE-2020-13904,6959358683c7533f586c07a766acc5fe9544d8b2,"avformat/hls: check segment duration value of EXTINF
+
+fix ticket: 8673
+set the default EXTINF duration to 1ms if duration is smaller than 1ms
+
+Signed-off-by: Steven Liu <lq@chinaffmpeg.org>
+(cherry picked from commit 9dfb19baeb86a8bb02c53a441682c6e9a6e104cc)"
+CVE-2020-15474,23594f036536468072198a57c59b6e9d63caf6ce,"Fixed stack overflow caused by missing length check
+
+Signed-off-by: Toni Uhlig <matzeton@googlemail.com>"
+CVE-2020-12135,1a1f5e26a4309480d88598913f9eebf9e9cba8ca,don't mix up int and size_t (first pass to fix that)
+CVE-2020-27678,1d276e0b382cf066dae93640746d8b4c54d15452,"13242 parse_user_name in PAM is sloppy
+Reviewed by: Alex Wilson <alex@cooperi.net>
+Approved by: Gordon Ross <gordon.w.ross@gmail.com>"
+CVE-2020-26572,9d294de90d1cc66956389856e60b6944b27b4817,"prevent out of bounds write
+
+fixes https://oss-fuzz.com/testcase-detail/5226571123392512"
+CVE-2020-20739,2ab5aa7bf515135c2b02d42e9a72e4c98e17031a,"fix a used-before-set error in im_vips2dz
+
+we were reading an uninited string in a vips7 compatibility wrapper, thanks
+yifengchen-cc
+
+see https://github.com/libvips/libvips/issues/1419"
+CVE-2020-20276,0fb2c031ce0ace07cc19cd2cb2143c4b5a63c9dd,"FTP: Fix buffer overflow in PORT parser, reported by Aaron Esau
+
+Signed-off-by: Joachim Nilsson <troglobit@gmail.com>"
+CVE-2020-20277,455b47d3756aed162d2d0ef7f40b549f3b5b30fe,"FTP/TFTP: Fix directory traversal regression, reported by Aaron Esau
+
+Signed-off-by: Joachim Nilsson <troglobit@gmail.com>"
+CVE-2020-27780,30fdfb90d9864bcc254a62760aaa149d373fd4eb,"Second blank check with root for non-existent users must never return 1
+
+The commit af0faf66 (""pam_unix: avoid determining if user exists"") introduced
+a regression where the blank check could return 1 if root had an empty
+password hash because in the second case the password hash of root was
+used. We now always return 0 in this case.
+
+The issue was found by Johannes Löthberg.
+
+Fixes #284
+
+* modules/pam_unix/support.c (_unix_blankpasswd): Make the loop
+to cover the complete blank check so both existing and non existing
+cases are identical except for the possible return value."
+CVE-2020-29361,5307a1d21a50cacd06f471a873a018d23ba4b963,Check for arithmetic overflows before allocating
+CVE-2019-25016,d5acd52e2a15c36a8e06f9103d35622933aa422d,"correctly reset path for rules without specific command
+
+This is a fixup for commit 01c658f8c45cb92a343be5f32aa6da70b2032168
+where the behaviour was changed to not inherit the PATH variable
+by default."
+CVE-2019-25016,01c658f8c45cb92a343be5f32aa6da70b2032168,"redo the environment inheritance to not inherit. it was intended to make life easier, but it can be surprising or even unsafe. instead, reset just about everything to the target user's values. ok deraadt martijn Thanks to Sander Bos in particular for pointing out some nasty edge cases."
+CVE-2020-28374,2896c93811e39d63a4d9b63ccf12a8fbc226e5e4,"scsi: target: Fix XCOPY NAA identifier lookup
+
+When attempting to match EXTENDED COPY CSCD descriptors with corresponding
+se_devices, target_xcopy_locate_se_dev_e4() currently iterates over LIO's
+global devices list which includes all configured backstores.
+
+This change ensures that only initiator-accessible backstores are
+considered during CSCD descriptor lookup, according to the session's
+se_node_acl LUN list.
+
+To avoid LUN removal race conditions, device pinning is changed from being
+configfs based to instead using the se_node_acl lun_ref.
+
+Reference: CVE-2020-28374
+Fixes: cbf031f425fd (""target: Add support for EXTENDED_COPY copy offload emulation"")
+Reviewed-by: Lee Duncan <lduncan@suse.com>
+Signed-off-by: David Disseldorp <ddiss@suse.de>
+Signed-off-by: Mike Christie <michael.christie@oracle.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>"
+CVE-2020-36158,5c455c5ab332773464d02ba17015acdca198f03d,"mwifiex: Fix possible buffer overflows in mwifiex_cmd_802_11_ad_hoc_start
+
+mwifiex_cmd_802_11_ad_hoc_start() calls memcpy() without checking
+the destination size may trigger a buffer overflower,
+which a local user could use to cause denial of service
+or the execution of arbitrary code.
+Fix it by putting the length check before calling memcpy().
+
+Signed-off-by: Zhang Xiaohui <ruc_zhangxiaohui@163.com>
+Signed-off-by: Kalle Valo <kvalo@codeaurora.org>
+Link: https://lore.kernel.org/r/20201206084801.26479-1-ruc_zhangxiaohui@163.com"
+CVE-2020-35965,3e5959b3457f7f1856d997261e6ac672bba49e8b,"avcodec/exr: Check ymin vs. h
+
+Fixes: out of array access
+Fixes: 26532/clusterfuzz-testcase-minimized-ffmpeg_AV_CODEC_ID_EXR_fuzzer-5613925708857344
+Fixes: 27443/clusterfuzz-testcase-minimized-ffmpeg_AV_CODEC_ID_EXR_fuzzer-5631239813595136
+
+Found-by: continuous fuzzing process https://github.com/google/oss-fuzz/tree/master/projects/ffmpeg
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2020-35965,b0a8b40294ea212c1938348ff112ef1b9bf16bb3,"avcodec/exr: skip bottom clearing loop when its outside the image
+
+Fixes: signed integer overflow: 1633771809 * 32960 cannot be represented in type 'int'
+Fixes: 26532/clusterfuzz-testcase-minimized-ffmpeg_AV_CODEC_ID_EXR_fuzzer-5613925708857344
+
+Found-by: continuous fuzzing process https://github.com/google/oss-fuzz/tree/master/projects/ffmpeg
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>"
+CVE-2020-25690,048a91e2682c1a8936ae34dbc7bd70291ec05410,"Fix for #4084 Use-after-free (heap) in the SFD_GetFontMetaData() function
+Fix for #4086 NULL pointer dereference in the SFDGetSpiros() function
+Fix for #4088 NULL pointer dereference in the SFD_AssignLookups() function
+Add empty sf->fontname string if it isn't set, fixing #4089 #4090 and many
+  other potential issues (many downstream calls to strlen() on the value)."
+CVE-2020-25690,b96273acc691ac8a36c6a8dd4de8e6edd7eaae59,"Fix crash on exit introduced in previous commit
+
+When the number of layers is greater than 2, as in Chomsky.sfd and most
+of my other fonts, FontForge will crash on exiting.
+
+This is just a simple mistake @skef made."
+CVE-2021-27138,79af75f7776fc20b0d7eb6afe1e27c00fdb4b9b4,"fit: Don't allow verification of images with @ nodes
+
+When searching for a node called 'fred', any unit address appended to the
+name is ignored by libfdt, meaning that 'fred' can match 'fred@1'. This
+means that we cannot be sure that the node originally intended is the one
+that is used.
+
+Disallow use of nodes with unit addresses.
+
+Update the forge test also, since it uses @ addresses.
+
+CVE-2021-27138
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reported-by: Bruce Monroe <bruce.monroe@intel.com>
+Reported-by: Arie Haenel <arie.haenel@intel.com>
+Reported-by: Julien Lenoir <julien.lenoir@intel.com>"
+CVE-2021-27138,b6f4c757959f8850e1299a77c8e5713da78e8ec0,"Merge branch '2021-02-15-fix-CVE-2021-27097-CVE-2021-27138'
+
+Fix CVE-2021-27097 and CVE-2021-27138.  For more details see
+http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27097 and
+http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27138"
+CVE-2021-27138,3f04db891a353f4b127ed57279279f851c6b4917,"image: Check for unit addresses in FITs
+
+Using unit addresses in a FIT is a security risk. Add a check for this
+and disallow it.
+
+CVE-2021-27138
+
+Signed-off-by: Simon Glass <sjg@chromium.org>
+Reported-by: Bruce Monroe <bruce.monroe@intel.com>
+Reported-by: Arie Haenel <arie.haenel@intel.com>
+Reported-by: Julien Lenoir <julien.lenoir@intel.com>"
+CVE-2021-20266,8f4b3c3cab8922a2022b9e47c71f1ecf906077ef,"hdrblobInit() needs bounds checks too
+
+Users can pass untrusted data to hdrblobInit() and it must be robust
+against this."
+CVE-2021-30020,51cdb67ff7c5f1242ac58c5aa603ceaf1793b788,add safety in avc/hevc/vvc sps/pps/vps ID check - cf #1720 #1721 #1722
+CVE-2021-30022,51cdb67ff7c5f1242ac58c5aa603ceaf1793b788,add safety in avc/hevc/vvc sps/pps/vps ID check - cf #1720 #1721 #1722
+CVE-2021-30014,51cdb67ff7c5f1242ac58c5aa603ceaf1793b788,add safety in avc/hevc/vvc sps/pps/vps ID check - cf #1720 #1721 #1722
+CVE-2021-3517,bf22713507fe1fc3a2c4b525cf0a88c2dc87a3a2,"Validate UTF8 in xmlEncodeEntities
+
+Code is currently assuming UTF-8 without validating. Truncated UTF-8
+input can cause out-of-bounds array access.
+
+Adds further checks to partial fix in 50f06b3e.
+
+Fixes #178"
+CVE-2021-30145,cb3fa04bcb2ba9e0d25788480359157208c13e0b,"demux_mf: improve format string processing
+
+Before this commit, the user could specify a printf format string
+which wasn't verified, and could result in:
+- Undefined behavior due to missing or non-matching arguments.
+- Buffer overflow due to untested result length.
+
+The offending code was added at commit 103a9609 (2002, mplayer svn):
+git-svn-id: svn://svn.mplayerhq.hu/mplayer/trunk@4566 b3059339-0415-0410-9bf9-f77b7e298cf2
+
+It moved around but was not modified meaningfully until now.
+
+Now we reject all conversion specifiers at the format except %%
+and a simple subset of the valid specifiers. Also, we now use
+snprintf to avoid buffer overflow.
+
+The format string is provided by the user as part of mf:// URI.
+
+Report and initial patch by Stefan Schiller.
+Patch reviewed by @jeeb, @sfan5, Stefan Schiller."
+CVE-2021-30145,d0c530919d8cd4d7a774e38ab064e0fabdae34e6,"demux_mf: improve format string processing
+
+Before this commit, the user could specify a printf format string
+which wasn't verified, and could result in:
+- Undefined behavior due to missing or non-matching arguments.
+- Buffer overflow due to untested result length.
+
+The offending code was added at commit 103a9609 (2002, mplayer svn):
+git-svn-id: svn://svn.mplayerhq.hu/mplayer/trunk@4566 b3059339-0415-0410-9bf9-f77b7e298cf2
+
+It moved around but was not modified meaningfully until now.
+
+Now we reject all conversion specifiers at the format except %%
+and a simple subset of the valid specifiers. Also, we now use
+snprintf to avoid buffer overflow.
+
+The format string is provided by the user as part of mf:// URI.
+
+Report and initial patch by Stefan Schiller.
+Patch reviewed by @jeeb, @sfan5, Stefan Schiller."
+CVE-2021-3565,c069e4f179d5e6653a84fb236816c375dca82515,"tpm2_import: fix fixed AES key CVE-2021-3565
+
+tpm2_import used a fixed AES key for the inner wrapper, which means that
+a MITM attack would be able to unwrap the imported key. Even the
+use of an encrypted session will not prevent this. The TPM only
+encrypts the first parameter which is the fixed symmetric key.
+
+To fix this, ensure the key size is 16 bytes or bigger and use
+OpenSSL to generate a secure random AES key.
+
+Fixes: #2738
+
+Signed-off-by: William Roberts <william.c.roberts@intel.com>"
+CVE-2021-38383,246d8ae0cef27377e5dfe9ee3ad87e864d6b6266,"[misc] Fix use-after-free in net_bind()
+
+Thanks to Ba Jinsheng for reporting this bug"
+CVE-2020-21050,7808a06b88c11dbc502318cdd51fa374f8cd47ee,gif loader: check LZW code size (Issue #75)
+CVE-2021-40818,0efd112bb62f566877750ad62ee828bff579b4e2,Fix fido2 signature validation bug
+CVE-2021-32672,6ac3c0b7abd35f37201ed2d6298ecef4ea1ae1dd,"Fix protocol parsing on 'ldbReplParseCommand' (CVE-2021-32672)
+
+The protocol parsing on 'ldbReplParseCommand' (LUA debugging)
+Assumed protocol correctness. This means that if the following
+is given:
+*1
+$100
+test
+The parser will try to read additional 94 unallocated bytes after
+the client buffer.
+This commit fixes this issue by validating that there are actually enough
+bytes to read. It also limits the amount of data that can be sent by
+the debugger client to 1M so the client will not be able to explode
+the memory."
+CVE-2021-43814,aa6917772d2f32e5a7daab25a46c72df0b5ea406,Fix oob write for dwarf with abbrev with count 0 (Fix #2083) (#2086)
+CVE-2021-44512,1c020d1f5ca462f5b150b46a027aaa1bbe3c9596,"Harden /tmp/tmate directory
+
+Suggested by Matthias Gerstner"
+CVE-2022-0546,77616082f44da5258faf9ec0d53618c721b88c62,"Fix T89542: Crash when loading certain .hdr files
+
+The direct cause of the bug in question was passing in the raw memory
+buffer to sscanf. It should be called with a null-terminated buffer;
+which isn't guaranteed when blindly trusting the file data.
+
+When attempting to fuzz this code path, a variety of other crashes were
+discovered and fixed.
+
+Differential Revision: https://developer.blender.org/D11952"
+CVE-2022-0545,82858ca3f4e6dc6f840af9306c350900abd491fc,"Fix T94629: The IMB_flip API would fail with large images
+
+Fix IMB_flip[xy] to handle cases where integer overflow might occur when
+given sufficiently large image dimensions.
+
+All of these fixes were of a similar class where the intermediate
+sub-expression would overflow silently. Widen the types as necessary.
+
+Differential Revision: https://developer.blender.org/D13744"
+CVE-2022-25643,7cffe0797fdb17a9c08922339465b1b187394335,"seatd-launch: Remove socket path command line arg
+
+This should not need to be configured, so remove the argument. If
+downstream prefers a different folder, the location can be made
+compile-time configurable like for seatd itself."
+CVE-2022-25643,10658dc5439db429af0088295a051c53925a4416,"seatd-launch: Remove socket path command line arg
+
+This should not need to be configured, so remove the argument. If
+downstream prefers a different folder, the location can be made
+compile-time configurable like for seatd itself."
+CVE-2022-25643,615c10c75d2cc4696141b333515fec9161fb2330,"seatd-launch: Use snprintf for socket path
+
+We also reduce the size of the buffer from 256 bytes to a much more
+reasonable 32 bytes."
+CVE-2022-0417,652dee448618589de5528a9e9a36995803f5557a,"patch 8.2.4245: "":retab 0"" may cause illegal memory access
+
+Problem:    "":retab 0"" may cause illegal memory access.
+Solution:   Limit the value of 'tabstop' to 10000."
+CVE-2022-27240,4c5597c155bfbaf6491cf6b83479d241ae66940a,Fix possible buffer overflow
+CVE-2022-26490,4fbcc1a4cb20fe26ad0225679c536c80f1648221,"nfc: st21nfca: Fix potential buffer overflows in EVT_TRANSACTION
+
+It appears that there are some buffer overflows in EVT_TRANSACTION.
+This happens because the length parameters that are passed to memcpy
+come directly from skb->data and are not guarded in any way.
+
+Signed-off-by: Jordy Zomer <jordy@pwning.systems>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2022-29967,e3f7245c33897bf9b3a75acfcdb8b7b93974bf11,"Fix file access check for directory traversal, and fix call for callback_static_file_uncompressed if header not set"
+CVE-2022-29859,4b73f58f32914d0081d79a79e53a3215c8c1ea56,[dhcps] update dhcps
+CVE-2022-1341,9774f23bf78a6e6d3ae4cfe3d73bad34f2fdcd17,Fix https://github.com/vgropp/bwm-ng/issues/26
+CVE-2022-31001,a99804b336d0e16d26ab7119d56184d2d7110a36,"Merge pull request from GHSA-79jq-hh82-cv9g
+
+Fix Out-of-bound read in sip_method_d"
+CVE-2022-29242,7df766124f87768b43b9e8947c5a01e17545772c,"Fix buffer overrun in creating key transport blob according to RFC 9189, 4.2.4.2
+
+Resolves: CVE-2022-29242"
+CVE-2022-29242,b2b4d629f100eaee9f5942a106b1ccefe85b8808,"On unpacking key blob output buffer size should be fixed
+
+Related: CVE-2022-29242"
+CVE-2022-29242,c6655a0b620a3e31f085cc906f8073fe81b2fad3,"Fix buffer overrun in creating key transport blob according to RFC 9189, 4.2.4.1
+
+Resolves: CVE-2022-29242"
+CVE-2022-30767,5d14ee4e53a81055d34ba280cb8fd90330f22a96,"CVE-2019-14196: nfs: fix unbounded memcpy with a failed length check at nfs_lookup_reply
+
+This patch adds a check to rpc_pkt.u.reply.data at nfs_lookup_reply.
+
+Signed-off-by: Cheng Liu <liucheng32@huawei.com>
+Reported-by: Fermín Serna <fermin@semmle.com>
+Acked-by: Joe Hershberger <joe.hershberger@ni.com>"
+CVE-2022-1714,3ecdbf8e21186a9c5a4d3cfa3b1e9fd27045340e,"Fix 4 byte oobread in msp430 disassembler ##crash
+
+* Only crashes with asan builds
+* Add missing =SN register
+* Reported by cnitlrt via huntrdev
+* BountyID: 1c22055b-b015-47a8-a57b-4982978751d0"
+CVE-2022-34299,7ef09e1fc9ba07653dd078edb2408631c7969162,"Fixes old bug(which could result in Denial of Service)
+due to a missing check before reading the 8 bytes of a DW_FORM_ref_sig8.
+DW202206-001
+	modified:   src/lib/libdwarf/dwarf_form.c"
+CVE-2022-32200,8151575a6ace77d005ca5bb5d71c1bfdba3f7069,"Fixes vulnerability DW202205-001
+Reports error instead of crashing the when reading
+a specially crafted (corrupted) .debug_pubnames
+or .debug_pubtypes section.
+	modified:   src/lib/libdwarf/dwarf_global.c"
+CVE-2021-3995,f3db9bd609494099f0c1b95231c5dfe383346929,"libmount: fix UID check for FUSE umount [CVE-2021-3995]
+
+Improper UID check allows an unprivileged user to unmount FUSE
+filesystems of users with similar UID.
+
+Signed-off-by: Karel Zak <kzak@redhat.com>"
+CVE-2021-3995,57202f5713afa2af20ffbb6ab5331481d0396f8d,"libmount: fix UID check for FUSE umount [CVE-2021-3995]
+
+Improper UID check allows an unprivileged user to unmount FUSE
+filesystems of users with similar UID.
+
+Signed-off-by: Karel Zak <kzak@redhat.com>"
+CVE-2022-2652,e4cd225557486c420f6a34411f98c575effd43dd,"add explicit format specifier to printf() invocations
+
+CWE-134"
+CVE-2022-36039,1524f85211445e41506f98180f8f69f7bf115406,fix #2969 - oob write (1 byte) in dex.c
+CVE-2022-25308,cffa3047a0db9f4cd391d68bf98ce7b7425be245,"Merge pull request #184 from tagoh/issues/181
+
+Fix the stack buffer overflow issue"
+CVE-2022-0699,c75b9281a5b9452d92e1682bdfe6019a13ed819f,"Remove double free() in contrib/shpsrt, issue #39
+
+This fixes issue #39"
+CVE-2018-11593,bed844f109b6c222816740555068de2e101e8018,"remove strncpy usage as it's effectively useless, replace with an assertion since fn is only used internally (fix #1426)"
+CVE-2018-7247,c1079bb8e77cdd426759e466729917ca37a3ed9f,"prog/htmlviewer: Catch unbound memory access (CID 1386222)
+
+rootname can have any size, so limit the amount of copied bytes.
+
+Signed-off-by: Stefan Weil <sw@weilnetz.de>"
+CVE-2011-4087,f8e9881c2aef1e982e5abc25c046820cd0b7cf64,"bridge: reset IPCB in br_parse_ip_options
+
+Commit 462fb2af9788a82 (bridge : Sanitize skb before it enters the IP
+stack), missed one IPCB init before calling ip_options_compile()
+
+Thanks to Scot Doyle for his tests and bug reports.
+
+Reported-by: Scot Doyle <lkml@scotdoyle.com>
+Signed-off-by: Eric Dumazet <eric.dumazet@gmail.com>
+Cc: Hiroaki SHIMODA <shimoda.hiroaki@gmail.com>
+Acked-by: Bandan Das <bandan.das@stratus.com>
+Acked-by: Stephen Hemminger <shemminger@vyatta.com>
+Cc: Jan Lübbe <jluebbe@debian.org>
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2011-1180,d370af0ef7951188daeb15bae75db7ba57c67846,"irda: validate peer name and attribute lengths
+
+Length fields provided by a peer for names and attributes may be longer
+than the destination array sizes.  Validate lengths to prevent stack
+buffer overflows.
+
+Signed-off-by: Dan Rosenberg <drosenberg@vsecurity.com>
+Cc: stable@kernel.org
+Signed-off-by: David S. Miller <davem@davemloft.net>"
+CVE-2022-42896,711f8c3fb3db61897080468586b970c87c61d9e4,"Bluetooth: L2CAP: Fix accepting connection request for invalid SPSM
+
+The Bluetooth spec states that the valid range for SPSM is from
+0x0001-0x00ff so it is invalid to accept values outside of this range:
+
+  BLUETOOTH CORE SPECIFICATION Version 5.3 | Vol 3, Part A
+  page 1059:
+  Table 4.15: L2CAP_LE_CREDIT_BASED_CONNECTION_REQ SPSM ranges
+
+CVE: CVE-2022-42896
+CC: stable@vger.kernel.org
+Reported-by: Tamás Koczka <poprdi@google.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Reviewed-by: Tedd Ho-Jeong An <tedd.an@intel.com>"
+CVE-2022-39347,027424c2c6c0991cb9c22f9511478229c9b17e5d,"Fixed path validation in drive channel
+
+Check that canonical path is a subpath of the shared directory
+
+(cherry picked from commit 844c94e6d0438fa7bd8ff8d5513c3f69c3018b85)"
+CVE-2022-39316,e865c24efc40ebc52e75979c94cdd4ee2c1495b0,"Added missing length checks in zgfx_decompress_segment
+
+(cherry picked from commit 64716b335858109d14f27b51acc4c4d71a92a816)"
+CVE-2022-3786,c42165b5706e42f67ef8ef4c351a9a4c5d21639a,"Fix CVE-2022-3786 in punycode decoder.
+
+Fixed the ossl_a2ulabel() function which also contained a potential
+buffer overflow, albeit without control of the contents.
+This overflow could result in a crash (causing a denial of service).
+
+The function also did not NUL-terminate the output in some cases.
+
+The two issues fixed here were dentified and reported
+by Viktor Dukhovni while researching CVE-2022-3602.
+
+Reviewed-by: Matt Caswell <matt@openssl.org>
+Reviewed-by: Tomas Mraz <tomas@openssl.org>"
+CVE-2022-4843,842f809d4ec6a12af2906f948657281c9ebc8a24,"Fix null deref in io.bank ##crash
+
+* BountyID: 075b2760-66a0-4d38-b3b5-e9934956ab7f
+* Reported by @coolkingcole
+* Reproducer `POCbank`"
+CVE-2022-47520,cd21d99e595ec1d8721e1058dcdd4f1f7de1d793,"wifi: wilc1000: validate pairwise and authentication suite offsets
+
+There is no validation of 'offset' which can trigger an out-of-bounds
+read when extracting RSN capabilities.
+
+Signed-off-by: Phil Turnbull <philipturnbull@github.com>
+Tested-by: Ajay Kathat <ajay.kathat@microchip.com>
+Acked-by: Ajay Kathat <ajay.kathat@microchip.com>
+Signed-off-by: Kalle Valo <kvalo@kernel.org>
+Link: https://lore.kernel.org/r/20221123153543.8568-2-philipturnbull@github.com"
+CVE-2022-47518,0cdfa9e6f0915e3d243e2393bfa8a22e12d553b0,"wifi: wilc1000: validate number of channels
+
+There is no validation of 'e->no_of_channels' which can trigger an
+out-of-bounds write in the following 'memset' call. Validate that the
+number of channels does not extends beyond the size of the channel list
+element.
+
+Signed-off-by: Phil Turnbull <philipturnbull@github.com>
+Tested-by: Ajay Kathat <ajay.kathat@microchip.com>
+Acked-by: Ajay Kathat <ajay.kathat@microchip.com>
+Signed-off-by: Kalle Valo <kvalo@kernel.org>
+Link: https://lore.kernel.org/r/20221123153543.8568-5-philipturnbull@github.com"
+CVE-2023-0266,becf9e5d553c2389d857a3c178ce80fdb34a02e1,"ALSA: control: code refactoring for ELEM_READ/ELEM_WRITE operations
+
+ALSA control core handles ELEM_READ/ELEM_WRITE requests within lock
+acquisition of a counting semaphore. The lock is acquired in helper
+functions in the end of call path before calling implementations of each
+driver.
+
+ioctl(2) with SNDRV_CTL_ELEM_READ
+...
+->snd_ctl_ioctl()
+  ->snd_ctl_elem_read_user()
+    ->snd_ctl_elem_read()
+      ->down_read(controls_rwsem)
+      ->snd_ctl_find_id()
+      ->struct snd_kcontrol.get()
+      ->up_read(controls_rwsem)
+
+ioctl(2) with SNDRV_CTL_ELEM_WRITE
+...
+->snd_ctl_ioctl()
+  ->snd_ctl_elem_write_user()
+    ->snd_ctl_elem_write()
+      ->down_read(controls_rwsem)
+      ->snd_ctl_find_id()
+      ->struct snd_kcontrol.put()
+      ->up_read(controls_rwsem)
+
+This commit moves the lock acquisition to middle of the call graph to
+simplify the helper functions. As a result:
+
+ioctl(2) with SNDRV_CTL_ELEM_READ
+...
+->snd_ctl_ioctl()
+  ->snd_ctl_elem_read_user()
+    ->down_read(controls_rwsem)
+    ->snd_ctl_elem_read()
+      ->snd_ctl_find_id()
+      ->struct snd_kcontrol.get()
+    ->up_read(controls_rwsem)
+
+ioctl(2) with SNDRV_CTL_ELEM_WRITE
+...
+->snd_ctl_ioctl()
+  ->snd_ctl_elem_write_user()
+    ->down_read(controls_rwsem)
+    ->snd_ctl_elem_write()
+      ->snd_ctl_find_id()
+      ->struct snd_kcontrol.put()
+    ->up_read(controls_rwsem)
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>"
+CVE-2023-0266,56b88b50565cd8b946a2d00b0c83927b7ebb055e,"ALSA: pcm: Move rwsem lock inside snd_ctl_elem_read to prevent UAF
+
+Takes rwsem lock inside snd_ctl_elem_read instead of snd_ctl_elem_read_user
+like it was done for write in commit 1fa4445f9adf1 (""ALSA: control - introduce
+snd_ctl_notify_one() helper""). Doing this way we are also fixing the following
+locking issue happening in the compat path which can be easily triggered and
+turned into an use-after-free.
+
+64-bits:
+snd_ctl_ioctl
+  snd_ctl_elem_read_user
+    [takes controls_rwsem]
+    snd_ctl_elem_read [lock properly held, all good]
+    [drops controls_rwsem]
+
+32-bits:
+snd_ctl_ioctl_compat
+  snd_ctl_elem_write_read_compat
+    ctl_elem_write_read
+      snd_ctl_elem_read [missing lock, not good]
+
+CVE-2023-0266 was assigned for this issue.
+
+Cc: stable@kernel.org # 5.13+
+Signed-off-by: Clement Lecigne <clecigne@google.com>
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Link: https://lore.kernel.org/r/20230113120745.25464-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>"
+CVE-2023-0240,1e6fa5216a0e59ef02e8b6b40d553238a3b81d49,"io_uring: COW io_identity on mismatch
+
+If the io_identity doesn't completely match the task, then create a
+copy of it and use that. The existing copy remains valid until the last
+user of it has gone away.
+
+This also changes the personality lookup to be indexed by io_identity,
+instead of creds directly.
+
+Signed-off-by: Jens Axboe <axboe@kernel.dk>"
+CVE-2022-47021,0a4cd796df5b030cb866f3f4a5e41a4b92caddf5,"Propagate allocation failure from ogg_sync_buffer.
+
+Instead of segfault, report OP_EFAULT if ogg_sync_buffer returns
+a null pointer. This allows more graceful recovery by the caller
+in the unlikely event of a fallible ogg_malloc call.
+
+We do check the return value elsewhere in the code, so the new
+checks make the code more consistent.
+
+Thanks to https://github.com/xiph/opusfile/issues/36 for reporting.
+
+Signed-off-by: Timothy B. Terriberry <tterribe@xiph.org>
+Signed-off-by: Mark Harris <mark.hsj@gmail.com>"
+CVE-2023-22745,306490c8d848c367faa2d9df81f5e69dab46ffb5,"tss2_rc: ensure layer number is in bounds
+
+The layer handler array was defined as 255, the max number of uint8,
+which is the size of the layer field, however valid values are 0-255
+allowing for 256 possibilities and thus the array was off by one and
+needed to be sized to 256 entries. Update the size and add tests.
+
+Note: previous implementations incorrectly dropped bits on unknown error
+output, ie TSS2_RC of 0xFFFFFF should yeild a string of 255:0xFFFFFF,
+but earlier implementations returned 255:0xFFFF, dropping the middle
+bits, this patch fixes that.
+
+Fixes: CVE-2023-22745
+
+Signed-off-by: William Roberts <william.c.roberts@intel.com>"
+CVE-2019-25104,f2cd18bc2e1cbca8c4b78bee9c392272bd5f42ac,"fixed exploit where server crash by spamming team command
+
+********************
+ERROR: G_Alloc: failed on allocation of 27248 bytes
+********************
+----- Server Shutdown (Server crashed: G_Alloc: failed on allocation of 27248 bytes) -----
+
+replaced G_Alloc -> trap_Alloc
+
+anyway POOLSIZE for G_Alloc will fill up quickly just changing team in game menu"
+CVE-2021-32845,41272a980197917df8e58ff90642d14dec8fe948,"Fix vtrnd pci_vtrnd_notify uninitialized memory use (GHSL-2021-056)
+
+Signed-off-by: Frederic Dalleau <frederic.dalleau@docker.com>"
+CVE-2023-25566,8660fb16474054e692a596e9c79670cd4d3954f4,"GHSL-2023-010: Memory leak when parsing usernames
+
+Memory leak when parsing usernames (GHSL-2023-010)
+
+Fixes defect GHSL-2023-010 found by the GitHub Security Lab team via
+oss-fuzz.
+
+The domain portion may be overridden causing an allocated memory area
+the size of the domain name to be lost. This could be used to mount a
+DoS by depleeting the server memory.
+
+Signed-off-by: Simo Sorce <simo@redhat.com>"
+CVE-2022-4744,158b515f703e75e7d68289bf4d98c664e1d632df,"tun: avoid double free in tun_free_netdev
+
+Avoid double free in tun_free_netdev() by moving the
+dev->tstats and tun->security allocs to a new ndo_init routine
+(tun_net_init()) that will be called by register_netdevice().
+ndo_init is paired with the desctructor (tun_free_netdev()),
+so if there's an error in register_netdevice() the destructor
+will handle the frees.
+
+BUG: KASAN: double-free or invalid-free in selinux_tun_dev_free_security+0x1a/0x20 security/selinux/hooks.c:5605
+
+CPU: 0 PID: 25750 Comm: syz-executor416 Not tainted 5.16.0-rc2-syzk #1
+Hardware name: Red Hat KVM, BIOS
+Call Trace:
+<TASK>
+__dump_stack lib/dump_stack.c:88 [inline]
+dump_stack_lvl+0x89/0xb5 lib/dump_stack.c:106
+print_address_description.constprop.9+0x28/0x160 mm/kasan/report.c:247
+kasan_report_invalid_free+0x55/0x80 mm/kasan/report.c:372
+____kasan_slab_free mm/kasan/common.c:346 [inline]
+__kasan_slab_free+0x107/0x120 mm/kasan/common.c:374
+kasan_slab_free include/linux/kasan.h:235 [inline]
+slab_free_hook mm/slub.c:1723 [inline]
+slab_free_freelist_hook mm/slub.c:1749 [inline]
+slab_free mm/slub.c:3513 [inline]
+kfree+0xac/0x2d0 mm/slub.c:4561
+selinux_tun_dev_free_security+0x1a/0x20 security/selinux/hooks.c:5605
+security_tun_dev_free_security+0x4f/0x90 security/security.c:2342
+tun_free_netdev+0xe6/0x150 drivers/net/tun.c:2215
+netdev_run_todo+0x4df/0x840 net/core/dev.c:10627
+rtnl_unlock+0x13/0x20 net/core/rtnetlink.c:112
+__tun_chr_ioctl+0x80c/0x2870 drivers/net/tun.c:3302
+tun_chr_ioctl+0x2f/0x40 drivers/net/tun.c:3311
+vfs_ioctl fs/ioctl.c:51 [inline]
+__do_sys_ioctl fs/ioctl.c:874 [inline]
+__se_sys_ioctl fs/ioctl.c:860 [inline]
+__x64_sys_ioctl+0x19d/0x220 fs/ioctl.c:860
+do_syscall_x64 arch/x86/entry/common.c:50 [inline]
+do_syscall_64+0x3a/0x80 arch/x86/entry/common.c:80
+entry_SYSCALL_64_after_hwframe+0x44/0xae
+
+Reported-by: syzkaller <syzkaller@googlegroups.com>
+Signed-off-by: George Kennedy <george.kennedy@oracle.com>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/r/1639679132-19884-1-git-send-email-george.kennedy@oracle.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>"
+CVE-2023-1655,e7f96c2d3774e4ea25f952bcdf55af1dd6e919f4,fixed #2425
+CVE-2023-1513,2c10b61421a28e95a46ab489fd56c0f442ff6952,"kvm: initialize all of the kvm_debugregs structure before sending it to userspace
+
+When calling the KVM_GET_DEBUGREGS ioctl, on some configurations, there
+might be some unitialized portions of the kvm_debugregs structure that
+could be copied to userspace.  Prevent this as is done in the other kvm
+ioctls, by setting the whole structure to 0 before copying anything into
+it.
+
+Bonus is that this reduces the lines of code as the explicit flag
+setting and reserved space zeroing out can be removed.
+
+Cc: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: <x86@kernel.org>
+Cc: ""H. Peter Anvin"" <hpa@zytor.com>
+Cc: stable <stable@kernel.org>
+Reported-by: Xingyuan Mo <hdthky0@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Message-Id: <20230214103304.3689213-1-gregkh@linuxfoundation.org>
+Tested-by: Xingyuan Mo <hdthky0@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>"
+CVE-2015-10088,40e04680018614a7d2b68566b261b061a0597046,"Fix format string vulnerability
+
+Reported by Kapil Anand on ayttm-users:
+https://sourceforge.net/p/ayttm/mailman/message/34397158/
+
+This patch does the following two things:
+
+1. Makes sure debug_print is only used in DEBUG mode and not in non-DEBUG mode
+2. Since debug_print is basically printf, we don't really need to first
+   snprintf into a buffer and then print the buffer.
+3. We no longer need debug_buff"
+CVE-2022-36021,dcbfcb916ca1a269b3feef86ee86835294758f84,"String pattern matching had exponential time complexity on pathological patterns (CVE-2022-36021) (#11858)
+
+Authenticated users can use string matching commands with a
+specially crafted pattern to trigger a denial-of-service attack on Redis,
+causing it to hang and consume 100% CPU time.
+
+Co-authored-by: Tom Levy <tomlevy93@gmail.com>"
+CVE-2023-29007,528290f8c61222433a8cf02fb7cfffa8438432b4,"Merge branch 'tb/config-copy-or-rename-in-file-injection'
+
+Avoids issues with renaming or deleting sections with long lines, where
+configuration values may be interpreted as sections, leading to
+configuration injection. Addresses CVE-2023-29007.
+
+* tb/config-copy-or-rename-in-file-injection:
+  config.c: disallow overly-long lines in `copy_or_rename_section_in_file()`
+  config.c: avoid integer truncation in `copy_or_rename_section_in_file()`
+  config: avoid fixed-sized buffer when renaming/deleting a section
+  t1300: demonstrate failure when renaming sections with long lines
+
+Signed-off-by: Taylor Blau <me@ttaylorr.com>"
+CVE-2023-29323,f748277ed1fc7065ae8998d61ed78b9ab1e55fae,"smtpd(8) could abort due to a connection from a local, scoped ipv6 address.
+
+avoid using inet_pton(3) which doesn't support scoped ipv6 address, and use
+getaddrinfo(3) instead of.
+
+ok millert@ florian@ kn@"
+CVE-2023-29323,41d0eae481f538956b1f1fbadfb535043454061f,bump version to 7.0.0
+CVE-2023-30775,afd7086090dafd3949afd172822cbcec4ed17d56,"tiffcrop subroutines require a larger buffer (fixes #271, #381, #386, #388, #389, #435)"
+CVE-2023-34475,1061db7f80fdc9ef572ac60b55f408f7bab6e1b0,"carefully crafted image files (TIM2, JPEG) no longer overflow buffer nor use heap after free (thanks to Juzhi Lu, Zhen Zhou, Likang Luo of NSFOCUS Security Team)"
+CVE-2023-34095,f181bd1f14757c2ae0f17cc76dc20421a40f30b7,"Merge pull request from GHSA-25j7-9gfc-f46x
+
+cpdb-libs uses the fscanf() and scanf() functions to parse command
+lines and configuration files, dropping the read string components
+into fixed-length buffers, but does not limit the length of the
+strings to be read by fscanf() and scanf() causing buffer overflows
+when a string is longer than 1023 characters.
+
+As all buffers have a length of 1024 characters we limit the maximum string
+length to be read to 1023 by replaceing all occurences of ""%s"" by ""%1023s""
+in all calls of the fscanf() and scanf() functions.
+
+Simply done by
+
+perl -p -i -e 's/(scanf\(.*?"".*?)%s/\1%1023s/' cpdb/cpdb-frontend.c tools/cpdb-text-frontend.c
+
+and verifying with
+
+grep scanf */*.c"
+CVE-2023-3247,ac4254ad764c70cb1f05c9270d8d12689fc3aeb6,"Fix missing randomness check and insufficient random bytes for SOAP HTTP Digest
+
+If php_random_bytes_throw fails, the nonce will be uninitialized, but
+still sent to the server. The client nonce is intended to protect
+against a malicious server. See section 5.10 and 5.12 of RFC 7616 [1],
+and bullet point 2 below.
+
+Tim pointed out that even though it's the MD5 of the nonce that gets sent,
+enumerating 31 bits is trivial. So we have still a stack information leak
+of 31 bits.
+
+Furthermore, Tim found the following issues:
+* The small size of cnonce might cause the server to erroneously reject
+  a request due to a repeated (cnonce, nc) pair. As per the birthday
+  problem 31 bits of randomness will return a duplication with 50%
+  chance after less than 55000 requests and nc always starts counting at 1.
+* The cnonce is intended to protect the client and password against a
+  malicious server that returns a constant server nonce where the server
+  precomputed a rainbow table between passwords and correct client response.
+  As storage is fairly cheap, a server could precompute the client responses
+  for (a subset of) client nonces and still have a chance of reversing the
+  client response with the same probability as the cnonce duplication.
+
+  Precomputing the rainbow table for all 2^31 cnonces increases the rainbow
+  table size by factor 2 billion, which is infeasible. But precomputing it
+  for 2^14 cnonces only increases the table size by factor 16k and the server
+  would still have a 10% chance of successfully reversing a password with a
+  single client request.
+
+This patch fixes the issues by increasing the nonce size, and checking
+the return value of php_random_bytes_throw(). In the process we also get
+rid of the MD5 hashing of the nonce.
+
+[1] RFC 7616: https://www.rfc-editor.org/rfc/rfc7616
+
+Co-authored-by: Tim Düsterhus <timwolla@php.net>"
+CVE-2023-1672,8dbbed10870378f1b2c3cf3df2ea7edca7617096,"Fix race condition when creating/rotating keys (#123)
+
+When we create/rotate keys using either the tangd-keygen and
+tangd-rotate-keys helpers, there is a small window between the
+keys being created and then the proper ownership permissions being
+set. This also happens when there are no keys and tang creates a
+pair of keys itself.
+
+In certain situations, such as the keys directory having wide open
+permissions, a user with local access could exploit this race
+condition and read the keys before they are set to more restrictive
+permissions.
+
+To prevent this issue, we now set the default umask to 0337 before
+creating the files, so that they are already created with restrictive
+permissions; afterwards, we set the proper ownership as usual.
+
+Issue reported by Brian McDermott of CENSUS labs.
+
+Fixes CVE-2023-1672
+
+
+Reviewed-by: Sergio Arroutbi <sarroutb@redhat.com>
+Signed-off-by: Sergio Correia <scorreia@redhat.com>"
+CVE-2023-3523,64201a26476c12a7dbd7ffb5757743af6954db96,fixed #2520
+CVE-2023-3824,80316123f3e9dcce8ac419bd9dd43546e2ccb5ef,"Fix buffer mismanagement in phar_dir_read()
+
+Fixes GHSA-jqcx-ccgc-xwhv."
+CVE-2023-25588,d12f8998d2d086f0a6606589e5aedb7147e6f2f1,"PR29677, Field `the_bfd` of `asymbol` is uninitialised
+
+Besides not initialising the_bfd of synthetic symbols, counting
+symbols when sizing didn't match symbols created if there were any
+dynsyms named """".  We don't want synthetic symbols without names
+anyway, so get rid of them.  Also, simplify and correct sanity checks.
+
+	PR 29677
+	* mach-o.c (bfd_mach_o_get_synthetic_symtab): Rewrite."
+CVE-2023-25584,77c225bdeb410cf60da804879ad41622f5f1aa44,"Lack of bounds checking in vms-alpha.c parse_module
+
+	PR 29873
+	PR 29874
+	PR 29875
+	PR 29876
+	PR 29877
+	PR 29878
+	PR 29879
+	PR 29880
+	PR 29881
+	PR 29882
+	PR 29883
+	PR 29884
+	PR 29885
+	PR 29886
+	PR 29887
+	PR 29888
+	PR 29889
+	PR 29890
+	PR 29891
+	* vms-alpha.c (parse_module): Make length param bfd_size_type.
+	Delete length == -1 checks.  Sanity check record_length.
+	Sanity check DST__K_MODBEG, DST__K_RTNBEG, DST__K_RTNEND lengths.
+	Sanity check DST__K_SOURCE and DST__K_LINE_NUM elements
+	before accessing.
+	(build_module_list): Pass dst_section size to parse_module."
+CVE-2023-45897,ec78688e5fb5a70e13df82b4c0da1e6228d3ccdf,"fsck: fix out-of-bounds write in read_file_dentry_set
+
+if SecondaryCount is greater than (2 + the max number
+of File Name entries), writing to memory outside
+the node->name could happen.
+
+Reported-by: Maxim Suhanov <dfirblog@gmail.com>
+Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>"
+CVE-2023-45897,22d0e43e8d24119cbfc6efafabb0dec6517a86c4,"fsck: fix out-of-bounds memory access
+
+The size of utf16_name is ENTRY_NAME_MAX, we should pass
+ENTRY_NAME_MAX to exfat_utf16_len(), not ENTRY_NAME_MAX*2.
+
+exfat_utf16_enc() returns the length of the utf16-encoded
+filename, it is not needed to call exfat_utf16_len().
+
+Signed-off-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>"
+CVE-2023-45897,4abc55e976573991e6a1117bb2b3711e59da07ae,"exfat2img: fix out-of-bounds write in read_file_dentry_set
+
+if SecondaryCount is greater than (2 + the max number
+of File Name entries), writing to memory outside
+the node->name could happen.
+
+Reported-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
+Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>"
+CVE-2023-5686,1bdda93e348c160c84e30da3637acef26d0348de,"Fix oobread in the java disassembler ##asan
+
+* Causes UB when performing analysis, not exploitable
+* https://huntr.com/bounties/bbfe1f76-8fa1-4a8c-909d-65b16e970be0/
+* Reported by @gandalf4a"
+CVE-2023-45145,03345ddc7faf7af079485f2cbe5d17a1611cbce1,"Fix issue of listen before chmod on Unix sockets (CVE-2023-45145) (#12671)
+
+Before this commit, Unix socket setup performed chmod(2) on the socket
+file after calling listen(2). Depending on what umask is used, this
+could leave the file with the wrong permissions for a short period of
+time. As a result, another process could exploit this race condition and
+establish a connection that would otherwise not be possible.
+
+We now make sure the socket permissions are set up prior to calling
+listen(2).
+
+(cherry picked from commit 1119ecae6fd8796fa337df2212f09173ab6c7b0a)
+
+Co-authored-by: Yossi Gottlieb <yossigo@gmail.com>"
+CVE-2023-49208,f9d8c06aae8dfe17e761b18b577ff169e059e812,Check key length before parsing it in FIDO2 attestation registration
+CVE-2023-4535,f1993dc4e0b33050b8f72a3558ee88b24c4063b2,"myeid: fixed CID 380538  Out-of-bounds read (OVERRUN)
+
+also fixes output buffer size checking"
+CVE-2012-6697,58c893e834ff20495d007709220881a3ff13f423,Fixed infinite loop cauesd by invalid dns packets
+CVE-2017-14642,22192de5367fa0cee985917f092be4060b7c00b0,fix for #185
+CVE-2017-14639,03d1222ab9c2ce779cdf01bdb96cdd69cbdcfeda,fix for #190
+CVE-2018-17293,31d670b6489e6d708c3b04b911cdf14ac43d846d,Fix dereferencing null pointer when running wavm with WebAssembly main function that takes command-line arguments but no Emscripten memory to write them to
+CVE-2015-10065,ee2eef34a83644f286c9adcaf30437f92e9c48f1,fixed overflow vulnerability
+CVE-2021-32142,bc3aaf4223fdb70d52d470dae65c5a7923ea2a49,check for input buffer size on datastream::gets
+CVE-2018-6331,8c5500981812564877bd122c0f8fab48d3528ddf,"Prevent deserialization of random objects
+
+Summary:
+Fixed security issue with buck parser-cache command.
+This diff prevent deserialization of random objects.
+
+Reviewed By: jtorkkola
+
+fbshipit-source-id: 24e8221"
+CVE-2018-20433,2eb0ea97f745740b18dd45e4a909112d4685f87b,Repair XXE vulnerability at initialization
+CVE-2019-5312,8ec61d1328f50e23cd14285a950ca57a088b32b2,#903 disable DOCTYPE to fix XXE Vulnerability
+CVE-2020-26234,4225bf90af74557deaf8fb6b80b0705c9621acfc,"Re-Enable Hostname Verification
+
+This patch is a minimal change to re-enable HTTPS hostname verification
+of Opencast's HTTP client used for a large portion its HTTP requests.
+
+Hostname verification is an important part when using HTTPS to ensure
+that the presented certificate is valid for the host. Disabling it can
+allow for man-in-the-middle attacks."
+CVE-2021-32651,4440f0c57e440488d7e653417b2547eaae8ad19c,"Fix issue #304 - Potential information leak via Ldap injection when ldap
+authenticator is enabled"
+CVE-2021-3869,5d83f1e8482ca304db8be726cad89554c88f136a,Attempt to prevent external document attacks by wrapping DocumentBuilderFactory with a bunch of attribute changes
+CVE-2021-41110,f6066f09edb70033a2ce80200e9fa9e70a5c29de,Use Yaml SafeConstructor (#355)
+CVE-2021-3836,4debf8f25184b7283681ed3fb5e9e887d9d4fe22,dbeaver/dbeaver-ee#1166 prevent XXE
+CVE-2022-0219,d22db30166e7cb369d72be41382bb63ac8b81c52,fix: use secure xml parser for process manifest
+CVE-2022-23612,db8454bf19a092a78d53ee4dba2af628b730a6e7,Fix bug
+CVE-2022-0265,4d6b666cd0291abd618c3b95cdbb51aa4208e748,Add helper method to XmlUtil to enable XXE protection in the SAXParserFactory and XMLInputFactory (#20407)
+CVE-2021-23792,da4efe98bf09e1cce91b7633cb251958a200fc80,Avoid fetching external resources in XMPReader.
+CVE-2022-31194,7569c6374aefeafb996e202cf8d631020eda5f24,[DS-4132] Fix JSPUI resumable upload path traversal
+CVE-2022-31194,d1dd7d23329ef055069759df15cfa200c8e32e54,[DS-4132] JPSUI resumable upload dir validation
+CVE-2022-31193,5f72424a478f59061dcc516b866dcc687bc3f9de,[DS-4133] Improve URL handling in Controlled Vocab JSPUI servlet
+CVE-2022-31193,f7758457b7ec3489d525e39aa753cc70809d9ad9,[DS-4133] Improve URL handling in Controlled Vocab JSPUI servlet
+CVE-2022-31192,28eb8158210d41168a62ed5f9e044f754513bc37,[DS-4383] Request Item Servlet escape HTML
+CVE-2022-31192,f7758457b7ec3489d525e39aa753cc70809d9ad9,[DS-4133] Improve URL handling in Controlled Vocab JSPUI servlet
+CVE-2022-4818,95590db2ad6a582c371273ceab1a73ad6ed47853,TMDM-15304 [CVE] - Fix XXE Vulnerabilities In MDM (#1598)
+CVE-2022-4725,c3e6d69422e1f0c80fe53f2d757b8df97619af2b,"fix(core): added fix for xml parser (#3100)
+
+* added fix for xml parser vulnerability
+
+* added fix for xml parser vulnerability
+
+Co-authored-by: Banji Jolaoso <banjij@amazon.com>"
+CVE-2015-10061,f59ac954625d0a4f6d34f069a2e26686a7a20aeb,"ClienteDAO - alterados statements para utilizar o metodo setString do PreparedStatement para evitar SQL Injection
+- alterados statements para utilizar ilike ao inves de like para pesquisar sem case sensitivity
+BancoDeDados - colocado ponto e virgula apos todas as queries."
+CVE-2015-10047,1cf7e01b878aee923f2b22cc2535c71a680e4c30,fuck sql injection
+CVE-2021-4311,31d442b9fb1d518128fd18f6e4d54e06c3d67793,"TMDM-15182 Improper Restriction of XML External Entity Reference (#1420)
+
+* TMDM-15182 Improper Restriction of XML External Entity Reference"
+CVE-2016-15011,ec4238349691ec66dd30b416ec6eaab02d722302,5342: fix XML external entity injection
+CVE-2021-33950,ce1d82329615aea6aa9f2cc6508c1fe7891e34b5,"XXE injection security vulnerability
+
+Fix #287"
+CVE-2023-27480,e3527b98fdd8dc8179c24dc55e662b2c55199434,XWIKI-20320: Disallow DOCTYPE in the XAR descriptor
+CVE-2023-46502,ce7a71db0bb34ecbcb0e822d40598e410a48b399,fixes XML eXternal Entity injection (XXE)
+CVE-2023-42809,fe6a2571801656ff1599ef87bdee20f519a5d1fe,Feature - allowedClasses setting added to SerializationCodec https://github.com/redisson/redisson/security/code-scanning/4
+CVE-2023-4218,f243cf0a28785b89b7c50bf4e1cce48a917d89bd,Refactor XML handling
+CVE-2023-4218,c7169b3186d2fef20f97467c3e2ad78e2943ed1b,Refactor XML file handling
+CVE-2023-4218,13675b1f8a74f47de4da89ed0ded6af7c21dfbec,"Merge pull request from GHSA-q6xr-9x9x-g7w2
+
+Co-authored-by: Jörg Kubitz <jkubitz-eclipse@gmx.de>"
+CVE-2023-4218,bf71db5ddcb967c0863dad4745367b54f49e06ba,Refactor XML parsing
+CVE-2023-4218,38dd2a878f45cdb3d8d52090f1d6d1b532fd4c4d,Refactor XML parsing
+CVE-2011-3211,46795ae451ca6ede55a0edeb726978aef4684b53,Backported unescaped shell command fixes from master branch
+CVE-2011-3211,f4a35efec1b6a1e54d61cf1b8bfc83dd1d89eef7,fixed security bugs with unescaped input to the shell
+CVE-2012-3366,a524967e8d5c4c22e49cd619aed20c87a316c0be,fixed major security flaw in Trigger plugin
+CVE-2013-6044,ec67af0bd609c412b76eaa4cc89968a2a8e5ad6a,"Fixed is_safe_url() to reject URLs that use a scheme other than HTTP/S.
+
+This is a security fix; disclosure to follow shortly."
+CVE-2013-6044,ae3535169af804352517b7fea94a42a1c9c4b762,"Fixed is_safe_url() to reject URLs that use a scheme other than HTTP/S.
+
+This is a security fix; disclosure to follow shortly."
+CVE-2013-6044,1a274ccd6bc1afbdac80344c9b6e5810c1162b5f,"Fixed is_safe_url() to reject URLs that use a scheme other than HTTP/S.
+
+This is a security fix; disclosure to follow shortly."
+CVE-2013-4249,90363e388c61874add3f3557ee654a996ec75d78,"Apply autoescaping to AdminURLFieldWidget.
+
+This is a security fix; disclosure to follow shortly."
+CVE-2013-4249,cbe6d5568f4f5053ed7228ca3c3d0cce77cf9560,"Apply autoescaping to AdminURLFieldWidget.
+
+This is a security fix; disclosure to follow shortly."
+CVE-2015-6938,3ab41641cf6fce3860c73d5cf4645aa12e1e5892,"Fix XSS reported on Security list
+
+No CVE-ID yet
+
+August 18, 2015
+-----
+Reported to Quantopian by Juan Broullón <thebrowfc@gmail.com>...
+
+If you create a new folder in the iPython file browser and set
+Javascript code as its name the code injected will be executed. So, if I
+create a folder called ""><img src=x onerror=alert(document.cookie)> and
+then I access to it, the cookies will be prompted.
+
+The XSS code is also executed if you access a link pointing directly at
+the folder.
+
+  jik
+------"
+CVE-2015-6938,dd9876381f0ef09873d8c5f6f2063269172331e3,"Fix XSS reported on Security list
+
+No CVE-ID yet
+
+August 18, 2015
+-----
+Reported to Quantopian by Juan Broullón <thebrowfc@gmail.com>...
+
+If you create a new folder in the iPython file browser and set
+Javascript code as its name the code injected will be executed. So, if I
+create a folder called ""><img src=x onerror=alert(document.cookie)> and
+then I access to it, the cookies will be prompted.
+
+The XSS code is also executed if you access a link pointing directly at
+the folder.
+
+  jik
+------"
+CVE-2015-6938,35f32dd2da804d108a3a3585b69ec3295b2677ed,"Fix XSS reported on Security list
+
+No CVE-ID yet
+
+August 18, 2015
+-----
+Reported to Quantopian by Juan Broullón <thebrowfc@gmail.com>...
+
+If you create a new folder in the iPython file browser and set
+Javascript code as its name the code injected will be executed. So, if I
+create a folder called ""><img src=x onerror=alert(document.cookie)> and
+then I access to it, the cookies will be prompted.
+
+The XSS code is also executed if you access a link pointing directly at
+the folder.
+
+  jik
+------"
+CVE-2018-20332,a846b7664eda3a4c51a452e00638cf7337dc2013,move utilities library and actually use it
+CVE-2021-21236,cfc9175e590531d90384aa88845052de53d94bf3,"Merge pull request from GHSA-hq37-853p-g5cf
+
+Don’t use overlapping groups for regular expressions"
+CVE-2021-21386,a966e781499ff6fd4eea66876d7532301b13a382,Escapes decompiling arguments
+CVE-2021-41078,19f326ed0a7a599c073cb4966c997cab59fb0458,"Safe yaml (#722)
+
+* convert to using safe yaml parsing
+
+* can't safely support lookups in yaml
+
+* better use of patch.dict
+
+* prevent unsupported recursive env var lookups
+
+switching to safe loading changes the behaviour of the default regex
+parser when you give it a config that contains (unsupported) recursive
+environment variables.
+
+rather than update the tests to assert a different broken behaviour,
+we now raise a configuration error. this will alert the user that their
+config file will likely not be parsed correctly, or they're missing
+the optional library.
+
+* skip tests when regex is installed
+
+also change description from ""recursive"" to ""nested""
+
+* no cover for when skipped"
+CVE-2021-45470,c621f9f0693a728b93ff3b964f948a1d25917207,Merge pull request #629 from jorgectf/fix-regex-injection
+CVE-2022-24303,427221ef5f19157001bf8b1ad7cfe0b905ca8c26,"In show_file, use os.remove to remove temporary images"
+CVE-2022-1813,8277cec0f008a0451371a92e7e0bf082ab3f0c34,Fix command injection issue on detect cms
+CVE-2022-2054,09647745d7cbb6ff32f9fa948f19d5558b32bcad,"Cleanup, avoid using ""eval"" where ""ast.literal_eval"" can be used."
+CVE-2019-10800,2a80aa434f74feb31242b6f213b75ce63ae97902,CE-1380_sanitize_args
+CVE-2022-0718,6e17ae1f7959c64dfd20a5f67edf422e702426aa,"Fix regex used to mask password
+
+Some use cases are poorly handled by the regex used
+to mask password. Indeed when the password contains
+quotes or double quotes in the middle such as `pass""word`,
+the mask_password method will return `***""word`.
+
+For more details please see
+https://bugs.launchpad.net/oslo.utils/+bug/1949623
+
+Closes-Bug: #1949623
+Change-Id: I941750b4d49d2d75f0831b24d6dd17f4040f70a2"
+CVE-2022-3607,3cca3a43f3d085e9bbe5a5840c8255bb1b5d052e,"🔒️ Close a sanity check hole in language packs
+
+A language pack containing a directory traversing
+symlink could be uploaded. Upon backup creation, the
+symlink would then lead to inclusion of whatever it
+was pointing to in the resulting backup. This could
+be used by an attacker with admin permissions to extract
+information from the server."
+CVE-2018-7889,aeb5b036a0bf657951756688b3c72bd68b6e4a7d,"E-book viewer: Change the file format used to import/export bookmarks to use JSON. This prevents malicious bookmarks files from causing code execution.
+
+Also more work on the EM page for the server."
+CVE-2022-41905,e9606ab0f42f4c1a6611bc3c52de299b0aba7726,Merge pull request from GHSA-xx6g-jj35-pxjv
+CVE-2022-4860,959dfb6b05991e30b0fa972a1ecdcaae8e1dae6d,fixed sql update to avoid sql injection
+CVE-2022-46151,88a7f10495bf5ed1a556ade51a2f2794e403c063,"Merge pull request from GHSA-mrrw-9wf7-xq6w
+
+Co-authored-by: Lena <meowcodes@gmail.com>"
+CVE-2021-4315,47787e15cecd66f2aa87687bf852ae0194a4335f,"Fix SSTI vulnerability in ad and consent pages (#517)
+
+* Fix SSTI vulnerability in ad and consent pages
+
+Fixed an issue where users could pass arbitrary Python code to be executed on the server to the mode HTTP arg
+
+More information about this type of vulnerability: https://secure-cookie.io/attacks/ssti/"
+CVE-2015-10060,829a027aca7c17f5a7ec1addca8dd5d5542f86ac,Get rid of SQL injection possibility on /router http url
+CVE-2013-10009,9d8adbc07c384ba51c2583ce0819c9abb77dc648,fix sql injections
+CVE-2015-10026,5e112b68c6faad1d4699d02c1ebbb7daf48ef8fb,"Alteracoes nas queries para evitar sql injection
+
+Signed-off-by: tiredtyrant <tiredtyrant@gmail.com>"
+CVE-2023-22475,fb612906f2217bbb8863199694891d16e20bad3e,"Use an autoescaped env for history page (#170)
+
+This fixes a recently reported XSS in the canarytokens history page."
+CVE-2023-36826,e932b15435bf36239431eaa3790a6bcfa47046a9,"Restrict file downloads to Project (#49680)
+
+The `debug_files` and `artifact_lookup` endpoint are now restricting
+file downloads to the specific project according to the route
+parameters."
+CVE-2018-25088,7cd8d016edc74a78af0d81c948bfafbcc93c937c,"Harden the database creation against SQL injections
+
+If using the PostgreSQL backend, database creation was previously vulnerable to SQL injections. This commit fixes these.
+
+There are two tests which no longer behave as expected and have been disabled for now. They use usernames that previously broke the SQL statement but have now become valid. We might want to think about restricting the possible username somewhat again."
+CVE-2020-27544,9b619ae64443997948a36dda01b420578de1af77,Use PYONDecoder instead of eval()
+CVE-2023-39523,07ec0de1964b14bf085a1c9a27ece2b61ab6105c,"Merge pull request from GHSA-2ggp-cmvm-f62f
+
+- Regex that validates docker_reference variable
+- Securing against possible command injection"
+CVE-2023-45158,936e2260b0c34c44e2f3674a893e96d2a7fad0a3,fixed vulnerability JVN#80476432
+CVE-2023-47627,d5c12ba890557a575c313bb3017910d7616fce3d,"[PR #7661/85713a48 backport][3.8] Update Python parser for RFCs 9110/9112 (#7662)
+
+**This is a backport of PR #7661 as merged into 3.9
+(85713a4894610e848490915e5871ad71199348e2).**
+
+None
+
+Co-authored-by: Sam Bull <git@sambull.org>"

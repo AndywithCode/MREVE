@@ -1,0 +1,24 @@
+// You are an automated vulnerability repair tool.
+
+// Generate a step-by-step reasoning process to analyze and fix the vulnerability in the given {language} function, following these three steps:
+Step 1: Vulnerability Localization
+Identify the specific lines or code regions containing the vulnerability.
+Step 2: Root Cause Analysis
+Analyze the root cause of the vulnerability and describe the conditions under which it may be exploited.
+Step 3: Repair and Refactoring
+Propose and implement a fix that eliminates the vulnerability, preserves original functionality, and follows secure coding best practices.
+Output: Reasoning path and the code diff between the vulnerable and fixed functions.
+
+//Vul-fix Context
+{contextCode}
+
+// CVE Description
+{cveDescription}
+
+// CWE Name and Description
+{cweName}: {cweDescription}
+
+// Commit Message
+{commitMessage}
+
+Let's think step by step.
