@@ -213,7 +213,11 @@ def explanation_structure_reward(cot: str) -> float:
     Reward explanation completeness and structure.
     Range: [0, 1]
     """
-    if cot is None or len(cot.strip()) == 0:
+    if cot is None:
+        return 0.0
+    if not isinstance(cot, list):
+        cot = str(cot)
+    if len(cot.strip()) == 0:
         return 0.0
 
     cot_lower = cot.lower()

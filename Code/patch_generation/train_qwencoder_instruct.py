@@ -6,7 +6,7 @@ import torch
 from tqdm import tqdm
 from datetime import datetime
 from torch.utils.data import Dataset, DataLoader
-
+import numpy as np
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
@@ -523,7 +523,6 @@ def train_ppo(args):
         torch_dtype=torch.bfloat16,
         device_map="auto",
         trust_remote_code=True,
-        # load_in_4bit=True, 
         quantization_config=bnb_config,
     )
     policy_model.config.use_cache = False
@@ -566,11 +565,14 @@ def train_ppo(args):
     test_loader = DataLoader(test_dataset, batch_size=1, shuffle=False)
 
     ppo_config = PPOConfig(
-        learning_rate=2e-6,
+        learning_rate=5e-7,
         batch_size=1,
         mini_batch_size=1,
         ppo_epochs=args.ppo_epoch,
-        target_kl=0.08,
+        # gradient_accumulation_steps = 4,
+        target_kl=0.05,
+        init_kl_coef=0.2,
+        adap_kl_ctrl=True,
     )
 
     ppo_trainer = PPOTrainer(
@@ -607,8 +609,8 @@ def train_ppo(args):
                     attention_mask=batch["attention_mask"].cuda(),
                     max_new_tokens=args.max_new_tokens,
                     do_sample=True,
-                    top_p=0.9,
-                    temperature=0.8, 
+                    top_p=0.85,
+                    temperature=0.6, 
                     eos_token_id=[tokenizer.eos_token_id, tokenizer.convert_tokens_to_ids("<|im_end|>"), tokenizer.convert_tokens_to_ids("<|endoftext|>")],
                     pad_token_id=tokenizer.eos_token_id,
                     bad_words_ids=bad_words_ids
@@ -641,25 +643,25 @@ def train_ppo(args):
                     ground_patch=batch["ground_patch"][i],
                     buggy_lines=batch["location"][i].tolist()
                 )
+                if np.isnan(r) or np.isinf(r):
+                    r = 0.0
                 # responses.append(response[i][input_ids.shape[1]:])
                 responses.append(resp_ids)
                 rewards.append(r)
 
-            # rewards = torch.tensor(rewards).cuda()
+            rewards = torch.tensor(rewards).cuda()
+            # ===== NaN / Inf 检查 =====
+            if torch.isnan(rewards).any() or torch.isinf(rewards).any():
+                print("❌ NaN/Inf detected in rewards:", rewards)
+                continue
 
             query_tensors = [q for q in input_ids]
             response_tensors = responses
             stats = ppo_trainer.step(
                 queries=query_tensors,
                 responses=response_tensors,
-                # scores=[rewards],
-                scores=rewards.detach().cpu().tolist()
+                scores=[rewards],
             )
-            # stats = ppo_trainer.step(
-            #     queries=[input_ids[0]],
-            #     responses=[response[0]],
-            #     scores=[rewards[0]],
-            # )
 
             logger.writerow([
                 epoch, step, 
@@ -678,13 +680,12 @@ def train_ppo(args):
         print(f"Epoch {epoch} evaluation...")
         evaluate(args, policy_model, tokenizer, test_loader, os.path.join(log_path, f"test_epoch_{epoch}.jsonl"))
         print(f"Epoch {epoch} finished")
+        
+        save_dir = os.path.join(args.save_dir, os.path.join(f"qwencoder_instruct_ppo_{now}", f"epoch_{epoch}"))
+        os.makedirs(save_dir, exist_ok=True)
+        ppo_trainer.save_pretrained(save_dir)
 
     log_file.close()
-
-    now = datetime.now().strftime("%Y_%m_%d_%H_%M")
-    save_dir = os.path.join(args.save_dir, f"qwencoder_instruct_ppo_{now}")
-    os.makedirs(save_dir, exist_ok=True)
-    ppo_trainer.save_pretrained(save_dir)
 
     # ===== Final dump after PPO training =====
     print("📦 Dumping final train/test generations after PPO...")
@@ -737,8 +738,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    sft_dir = run_sft(args)
-    args.sft_save_dir = sft_dir
+    # sft_dir = run_sft(args)
+    # args.sft_save_dir = sft_dir
+    args.sft_save_dir = "/media/wyx/saved_models/qwencoder_instruct_sft/qwencoder_instruct_sft_2026_03_13_16_48"
 
     # dump_by_stage(args, stage="base")
     # dump_by_stage(args, stage="sft")
