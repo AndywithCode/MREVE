@@ -12,8 +12,8 @@ MODEL_CONFIGS = {
         "model": "doubao-seed-2.0-pro"
     },
     "gpt-5.4": {
-        "api_key": "sk-88cc79b3fe547f95f19990115bc9e3d388c0320c0c95edababdf706fb6653dcc",
-        "base_url": "https://www.ananapi.com/",
+        "api_key": "sk-70e924fa69410befe4bad7d42a7fc18f8b07936d1a5edae43ee68bcb62985b4c",
+        "base_url": "https://codex.sakurapy.de/v1/",
         "model": "gpt-5.4"
     }
 }
@@ -81,25 +81,50 @@ def main():
         for line in f:
             samples.append(json.loads(line))
 
-    # 处理每个样本
-    results = []
-    for sample in tqdm(samples, desc="处理样本中"):
+    # 断点续传：检查输出文件是否存在，读取已处理的样本
+    processed_samples = []
+    processed_prompts = set()
+    if os.path.exists(args.output):
+        with open(args.output, 'r', encoding='utf-8') as f:
+            for line in f:
+                sample = json.loads(line)
+                processed_samples.append(sample)
+                if "prompt" in sample:
+                    processed_prompts.add(sample["prompt"])
+        print(f"🔍 发现已有输出文件，已处理 {len(processed_samples)} 个样本，将从断点继续")
+
+    # 过滤出未处理的样本
+    unprocessed_samples = []
+    for sample in samples:
         prompt = sample.get("prompt", "")
         if not prompt:
             print("样本缺少prompt字段，跳过")
             continue
-        llm_output = call_llm(prompt)
-        if llm_output:
-            sample["llm_output"] = llm_output
-            results.append(sample)
+        if prompt not in processed_prompts:
+            unprocessed_samples.append(sample)
 
-    # 保存结果
+    print(f"📋 总样本数: {len(samples)}, 已处理: {len(processed_samples)}, 待处理: {len(unprocessed_samples)}")
+
+    # 确保输出目录存在
     os.makedirs(os.path.dirname(args.output), exist_ok=True)
-    with open(args.output, 'w', encoding='utf-8') as f:
-        for res in results:
-            f.write(json.dumps(res, ensure_ascii=False) + "\n")
 
-    print(f"处理完成，结果已保存到 {args.output}，共处理 {len(results)} 个样本")
+    # 处理每个样本，边处理边写入（避免中途丢失结果）
+    new_processed_count = 0
+    with open(args.output, 'a', encoding='utf-8') as f:
+        for sample in tqdm(unprocessed_samples, desc="处理样本中"):
+            prompt = sample["prompt"]
+            llm_output = call_llm(prompt)
+            if llm_output:
+                sample["llm_output"] = llm_output
+                f.write(json.dumps(sample, ensure_ascii=False) + "\n")
+                f.flush()  # 立即写入磁盘，避免缓存丢失
+                new_processed_count += 1
+
+    total_processed = len(processed_samples) + new_processed_count
+    print(f"✅ 处理完成，结果已保存到 {args.output}")
+    print(f"📊 本次新处理: {new_processed_count} 个样本，累计处理: {total_processed} 个样本")
+    if total_processed == len(samples):
+        print("🎉 所有样本已全部处理完成！")
 
 if __name__ == "__main__":
     main()
