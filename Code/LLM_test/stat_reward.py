@@ -1,10 +1,14 @@
 import json
 import numpy as np
 from tqdm import tqdm
+import matplotlib.pyplot as plt
+import os
 
 # 输入路径
 INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/llm_output_with_reward.jsonl"
 OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_stat_result.txt"
+HISTOGRAM_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_histogram.png"
+BOXPLOT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_boxplot.png"
 
 def main():
     # 读取所有样本
@@ -76,6 +80,49 @@ def main():
         f.write(result_text)
 
     print(f"统计结果已保存到 {OUTPUT_PATH}")
+
+    # 生成Reward直方图
+    plt.figure(figsize=(10, 6))
+    plt.hist(rewards, bins=20, edgecolor='black', alpha=0.7)
+    plt.title('Reward Distribution Histogram', fontsize=14)
+    plt.xlabel('Reward Score', fontsize=12)
+    plt.ylabel('Frequency', fontsize=12)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.axvline(rewards.mean(), color='red', linestyle='dashed', linewidth=1, label=f'Mean: {rewards.mean():.4f}')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(HISTOGRAM_PATH, dpi=300)
+    print(f"Reward直方图已保存到 {HISTOGRAM_PATH}")
+
+    # 生成箱线图
+    plt.figure(figsize=(12, 6))
+    box_data = [rewards, r_formats, r_analyses, r_repairs, r_locations]
+    labels = ['Total Reward', 'Format', 'Analysis', 'Repair', 'Location']
+    box = plt.boxplot(box_data, patch_artist=True, labels=labels, medianprops={'color': 'red'})
+
+    # 设置颜色
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+    for patch, color in zip(box['boxes'], colors):
+        patch.set_facecolor(color)
+        patch.set_alpha(0.7)
+
+    plt.title('Reward Components Boxplot', fontsize=14)
+    plt.ylabel('Score', fontsize=12)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # 添加统计值标注
+    for i, (data, label) in enumerate(zip(box_data, labels)):
+        median = np.median(data)
+        q1 = np.percentile(data, 25)
+        q3 = np.percentile(data, 75)
+        min_val = np.min(data)
+        max_val = np.max(data)
+        plt.text(i+1, max_val + 0.02, f'Max: {max_val:.2f}\nQ3: {q3:.2f}\nMedian: {median:.2f}\nQ1: {q1:.2f}\nMin: {min_val:.2f}',
+                ha='center', va='bottom', fontsize=8, bbox=dict(facecolor='white', alpha=0.8))
+
+    plt.tight_layout()
+    plt.savefig(BOXPLOT_PATH, dpi=300)
+    print(f"Reward箱线图已保存到 {BOXPLOT_PATH}")
 
 if __name__ == "__main__":
     main()

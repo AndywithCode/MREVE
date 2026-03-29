@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 # 配置模型信息
 API_KEY = "685308fe-2bc0-4e32-9483-20ea7354e845"
-BASE_URL = "https://aquasearch.bytedance.net/api/v3"
+BASE_URL = "https://ark.cn-beijing.volces.com/api/coding/v3"
 MODEL_NAME = "doubao-seed-2.0-pro"
 
 # 初始化客户端
