@@ -3,28 +3,41 @@ import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import os
-
-# 输入路径
-INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/llm_output_with_reward.jsonl"
-OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_stat_result.txt"
-HISTOGRAM_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_histogram.png"
-BOXPLOT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/reward_boxplot.png"
+import argparse
 
 def main():
+    parser = argparse.ArgumentParser(description="统计LLM输出的reward得分并生成图表")
+    parser.add_argument("--input", "-i", required=True, help="输入jsonl文件路径")
+    parser.add_argument("--output-dir", "-o", default="/home/wyx/KitPatch-63E8/Code/LLM_test", help="输出结果目录")
+    parser.add_argument("--prefix", "-p", default="", help="输出文件前缀，用于区分不同模型结果")
+    args = parser.parse_args()
+
+    # 构造输出路径
+    os.makedirs(args.output_dir, exist_ok=True)
+    if args.prefix:
+        prefix = f"{args.prefix}_"
+    else:
+        prefix = ""
+    OUTPUT_PATH = os.path.join(args.output_dir, f"{prefix}reward_stat_result.txt")
+    HISTOGRAM_PATH = os.path.join(args.output_dir, f"{prefix}reward_histogram.png")
+    BOXPLOT_PATH = os.path.join(args.output_dir, f"{prefix}reward_boxplot.png")
+
     # 读取所有样本
     rewards = []
     r_formats = []
-    r_analyses = []
+    r_structures = []
     r_repairs = []
     r_locations = []
     b_jsons = []
 
-    with open(INPUT_PATH, 'r', encoding='utf-8') as f:
+    with open(args.input, 'r', encoding='utf-8') as f:
         for line in tqdm(f, desc="读取样本中"):
             sample = json.loads(line)
             rewards.append(sample.get("reward", 0.0))
             r_formats.append(sample.get("r_format", 0.0))
-            r_analyses.append(sample.get("r_analysis", 0.0))
+            # 兼容r_analysis和r_structure两个字段
+            r_analysis = sample.get("r_analysis", sample.get("r_structure", 0.0))
+            r_structures.append(r_analysis)
             r_repairs.append(sample.get("r_repair", 0.0))
             r_locations.append(sample.get("r_location", 0.0))
             b_jsons.append(1 if sample.get("b_json", False) else 0)
@@ -32,7 +45,7 @@ def main():
     # 转换为numpy数组
     rewards = np.array(rewards)
     r_formats = np.array(r_formats)
-    r_analyses = np.array(r_analyses)
+    r_structures = np.array(r_structures)
     r_repairs = np.array(r_repairs)
     r_locations = np.array(r_locations)
     b_jsons = np.array(b_jsons)
@@ -51,7 +64,7 @@ def main():
         "total_samples": len(rewards),
         "reward": calc_stat(rewards),
         "r_format": calc_stat(r_formats),
-        "r_analysis": calc_stat(r_analyses),
+        "r_structure": calc_stat(r_structures),
         "r_repair": calc_stat(r_repairs),
         "r_location": calc_stat(r_locations),
         "json_success_rate": float(b_jsons.mean())
@@ -63,7 +76,7 @@ def main():
     result_text += f"总样本数: {stats['total_samples']}\n"
     result_text += f"JSON格式成功率: {stats['json_success_rate']:.2%}\n\n"
 
-    for key in ["reward", "r_format", "r_analysis", "r_repair", "r_location"]:
+    for key in ["reward", "r_format", "r_structure", "r_repair", "r_location"]:
         stat = stats[key]
         result_text += f"{key}:\n"
         result_text += f"  均值: {stat['mean']:.4f}\n"
@@ -96,8 +109,8 @@ def main():
 
     # 生成箱线图
     plt.figure(figsize=(12, 6))
-    box_data = [rewards, r_formats, r_analyses, r_repairs, r_locations]
-    labels = ['Total Reward', 'Format', 'Analysis', 'Repair', 'Location']
+    box_data = [rewards, r_formats, r_structures, r_repairs, r_locations]
+    labels = ['Total Reward', 'Format', 'Structure', 'Repair', 'Location']
     box = plt.boxplot(box_data, patch_artist=True, labels=labels, medianprops={'color': 'red'})
 
     # 设置颜色
