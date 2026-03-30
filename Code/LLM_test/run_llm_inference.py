@@ -11,10 +11,20 @@ MODEL_CONFIGS = {
         "base_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
         "model": "doubao-seed-2.0-pro"
     },
+    "doubao-seed-2.0-code": {
+        "api_key": "685308fe-2bc0-4e32-9483-20ea7354e845",
+        "base_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
+        "model": "doubao-seed-2.0-code"
+    },
     "gpt-5.4": {
         "api_key": "sk-70e924fa69410befe4bad7d42a7fc18f8b07936d1a5edae43ee68bcb62985b4c",
         "base_url": "https://codex.sakurapy.de/v1/",
         "model": "gpt-5.4"
+    }, 
+    "deepseek-v3.2": {
+        "api_key": "sk-7a1c889ae2b04cfd8db07d74c8201cb9",
+        "base_url": "https://api.deepseek.com",
+        "model": "deepseek-chat"
     }
 }
 
