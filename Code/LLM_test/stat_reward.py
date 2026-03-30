@@ -21,6 +21,8 @@ def main():
     OUTPUT_PATH = os.path.join(args.output_dir, f"{prefix}reward_stat_result.txt")
     HISTOGRAM_PATH = os.path.join(args.output_dir, f"{prefix}reward_histogram.png")
     BOXPLOT_PATH = os.path.join(args.output_dir, f"{prefix}reward_boxplot.png")
+    R_STRUCTURE_HISTOGRAM_PATH = os.path.join(args.output_dir, f"{prefix}r_structure_histogram.png")
+    R_STRUCTURE_BOXPLOT_PATH = os.path.join(args.output_dir, f"{prefix}r_structure_boxplot.png")
 
     # 读取所有样本
     rewards = []
@@ -136,6 +138,44 @@ def main():
     plt.tight_layout()
     plt.savefig(BOXPLOT_PATH, dpi=300)
     print(f"Reward箱线图已保存到 {BOXPLOT_PATH}")
+
+    # 生成r_structure单独直方图
+    plt.figure(figsize=(10, 6))
+    plt.hist(r_structures, bins=20, edgecolor='black', alpha=0.7, color='#2ca02c')
+    plt.title('R_Structure Distribution Histogram', fontsize=14)
+    plt.xlabel('R_Structure Score', fontsize=12)
+    plt.ylabel('Frequency', fontsize=12)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.axvline(r_structures.mean(), color='red', linestyle='dashed', linewidth=1, label=f'Mean: {r_structures.mean():.4f}')
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(R_STRUCTURE_HISTOGRAM_PATH, dpi=300)
+    print(f"R_Structure直方图已保存到 {R_STRUCTURE_HISTOGRAM_PATH}")
+
+    # 生成r_structure单独箱线图
+    plt.figure(figsize=(8, 6))
+    box = plt.boxplot(r_structures, patch_artist=True, labels=['R_Structure'], medianprops={'color': 'red'})
+
+    # 设置颜色
+    box['boxes'][0].set_facecolor('#2ca02c')
+    box['boxes'][0].set_alpha(0.7)
+
+    plt.title('R_Structure Boxplot', fontsize=14)
+    plt.ylabel('Score', fontsize=12)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+    # 添加统计值标注
+    median = np.median(r_structures)
+    q1 = np.percentile(r_structures, 25)
+    q3 = np.percentile(r_structures, 75)
+    min_val = np.min(r_structures)
+    max_val = np.max(r_structures)
+    plt.text(1, max_val + 0.02, f'Max: {max_val:.2f}\nQ3: {q3:.2f}\nMedian: {median:.2f}\nQ1: {q1:.2f}\nMin: {min_val:.2f}',
+            ha='center', va='bottom', fontsize=8, bbox=dict(facecolor='white', alpha=0.8))
+
+    plt.tight_layout()
+    plt.savefig(R_STRUCTURE_BOXPLOT_PATH, dpi=300)
+    print(f"R_Structure箱线图已保存到 {R_STRUCTURE_BOXPLOT_PATH}")
 
 if __name__ == "__main__":
     main()
