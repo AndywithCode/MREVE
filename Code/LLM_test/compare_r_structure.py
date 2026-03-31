@@ -9,7 +9,8 @@ MODELS = [
     {"name": "Ground Truth", "file": "groundtruth_with_reward.jsonl", "color": "#1f77b4"},
     {"name": "GPT-5.4", "file": "gpt-5.4_output_with_reward.jsonl", "color": "#ff7f0e"},
     {"name": "DeepSeek V3.2", "file": "deepseek-v3.2_output_with_reward.jsonl", "color": "#2ca02c"},
-    {"name": "Doubao Seed 2.0 Pro", "file": "doubao-seed-2.0-pro_output_with_reward.jsonl", "color": "#d62728"}
+    {"name": "Doubao Seed 2.0 Pro", "file": "doubao-seed-2.0-pro_output_with_reward.jsonl", "color": "#d62728"},
+    {"name": "Doubao Seed 2.0 Code", "file": "doubao-seed-2.0-code_output_with_reward.jsonl", "color": "#9467bd"}
 ]
 
 OUTPUT_DIR = "/home/wyx/KitPatch-63E8/Code/LLM_test"

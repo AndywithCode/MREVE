@@ -8,8 +8,8 @@ sys.path.append("/home/wyx/KitPatch-63E8/Code/patch_generation")
 from reward import compute_reward
 
 # 输入输出路径
-INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/deepseek-v3.2_output_deduplicated.jsonl"
-OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/deepseek-v3.2_output_with_reward.jsonl"
+INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/doubao-seed-2.0-code_output_deduplicated.jsonl"
+OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/doubao-seed-2.0-code_output_with_reward.jsonl"
 
 def main():
     # 读取所有样本
