@@ -16,6 +16,11 @@ MODEL_CONFIGS = {
         "base_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
         "model": "doubao-seed-2.0-code"
     },
+    "kimi-k2.5": {
+        "api_key": "685308fe-2bc0-4e32-9483-20ea7354e845",
+        "base_url": "https://ark.cn-beijing.volces.com/api/coding/v3",
+        "model": "kimi-k2.5"
+    },
     "gpt-5.4": {
         "api_key": "sk-70e924fa69410befe4bad7d42a7fc18f8b07936d1a5edae43ee68bcb62985b4c",
         "base_url": "https://codex.sakurapy.de/v1/",
@@ -25,6 +30,11 @@ MODEL_CONFIGS = {
         "api_key": "sk-7a1c889ae2b04cfd8db07d74c8201cb9",
         "base_url": "https://api.deepseek.com",
         "model": "deepseek-chat"
+    },
+    "claude-sonnet-4.6": {
+        "api_key": "sk-1pC2G9tUaAYrVzvomglnuOcrD5FDJBTdeEWk48o90vusFeN9",
+        "base_url": "https://api.nih.cc/v1",
+        "model": "anthropic/claude-sonnet-4.6"
     }
 }
 
@@ -72,18 +82,41 @@ def main():
         base_url=base_url
     )
 
-    def call_llm(prompt):
-        try:
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=args.temperature,
-                max_tokens=args.max_tokens
-            )
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            print(f"调用LLM出错: {e}")
-            return None
+    def call_llm(prompt, max_retries=15):
+        import time
+        # 每个请求前先等待3秒，严格控制请求速率
+        time.sleep(3)
+
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = client.chat.completions.create(
+                    model=model_name,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=args.temperature,
+                    max_tokens=args.max_tokens
+                )
+                return response.choices[0].message.content.strip()
+            except Exception as e:
+                error_msg = str(e)
+                print(f"调用LLM出错 (第{attempt}/{max_retries}次): {e}")
+
+                # 针对不同错误类型调整等待时间
+                if "429" in error_msg or "Rate limit exceeded" in error_msg:
+                    # 速率限制错误，等待更长时间
+                    wait_time = 60 * attempt
+                    print(f"检测到速率限制，等待 {wait_time} 秒后重试...")
+                    time.sleep(wait_time)
+                elif "500" in error_msg or "Cursor API" in error_msg:
+                    # 服务端错误，等待更长时间
+                    wait_time = 45 * attempt
+                    print(f"检测到服务端错误，等待 {wait_time} 秒后重试...")
+                    time.sleep(wait_time)
+                elif attempt < max_retries:
+                    # 其他错误，按指数退避
+                    wait_time = 10 * attempt
+                    time.sleep(wait_time)
+        print("已达最大重试次数，跳过该样本")
+        return None
 
     # 读取所有样本
     samples = []
@@ -91,32 +124,37 @@ def main():
         for line in f:
             samples.append(json.loads(line))
 
-    # 断点续传：检查输出文件是否存在，读取已处理的样本
-    processed_samples = []
-    processed_prompts = set()
+    # 断点续传：按 generated_explanation 字段逐项对比，找出缺失样本
+    processed_keys = set()
     if os.path.exists(args.output):
         with open(args.output, 'r', encoding='utf-8') as f:
             for line in f:
-                sample = json.loads(line)
-                processed_samples.append(sample)
-                if "prompt" in sample:
-                    processed_prompts.add(sample["prompt"])
-        print(f"🔍 发现已有输出文件，已处理 {len(processed_samples)} 个样本，将从断点继续")
+                try:
+                    sample = json.loads(line)
+                    key = sample.get("generated_explanation", "")
+                    if key:
+                        processed_keys.add(key)
+                except json.JSONDecodeError:
+                    continue
+        print(f"🔍 发现已有输出文件，已处理 {len(processed_keys)} 个样本（按generated_explanation匹配），将补全缺失样本")
 
-    # 过滤出未处理的样本
+    # 按 generated_explanation 找出缺失样本
     unprocessed_samples = []
     for sample in samples:
+        key = sample.get("generated_explanation", "")
         prompt = sample.get("prompt", "")
         if not prompt:
             print("样本缺少prompt字段，跳过")
             continue
-        if prompt not in processed_prompts:
+        if not key or key not in processed_keys:
             unprocessed_samples.append(sample)
 
-    print(f"📋 总样本数: {len(samples)}, 已处理: {len(processed_samples)}, 待处理: {len(unprocessed_samples)}")
+    print(f"📋 总样本数: {len(samples)}, 已处理: {len(processed_keys)}, 待处理: {len(unprocessed_samples)}")
 
     # 确保输出目录存在
-    os.makedirs(os.path.dirname(args.output), exist_ok=True)
+    output_dir = os.path.dirname(args.output)
+    if output_dir:  # 只有当输出路径包含目录时才创建目录
+        os.makedirs(output_dir, exist_ok=True)
 
     # 处理每个样本，边处理边写入（避免中途丢失结果）
     new_processed_count = 0
@@ -130,7 +168,7 @@ def main():
                 f.flush()  # 立即写入磁盘，避免缓存丢失
                 new_processed_count += 1
 
-    total_processed = len(processed_samples) + new_processed_count
+    total_processed = len(processed_keys) + new_processed_count
     print(f"✅ 处理完成，结果已保存到 {args.output}")
     print(f"📊 本次新处理: {new_processed_count} 个样本，累计处理: {total_processed} 个样本")
     if total_processed == len(samples):

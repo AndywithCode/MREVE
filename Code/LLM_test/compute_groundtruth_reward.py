@@ -9,7 +9,7 @@ from reward import compute_reward
 
 # 输入输出路径
 INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/test_after_sft3.jsonl"
-OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/groundtruth_with_reward.jsonl"
+OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/result/groundtruth_with_reward.jsonl"
 
 def main():
     # 读取所有样本

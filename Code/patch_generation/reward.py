@@ -108,7 +108,7 @@ def _extract_json(text):
     except:
         return None
 
-def compute_reward(text, ref_analysis, ground_patch, buggy_lines, have_loc=False):
+def compute_reward(text, ref_analysis, ground_patch, buggy_lines, have_loc=True):
     data = _extract_json(text)
 
     # ========= JSON 成功 ==============
@@ -291,13 +291,13 @@ def edit_similarity(output, ground_patch):
 def localization_reward(pred_lines, gold_lines):
     if not isinstance(pred_lines, list):
         return 0.0
-    if not gold_lines:
-        return 0.0
 
     pred = set(pred_lines)
     gold = set(gold_lines)
 
     if not pred:
+        return 1.0 if not gold else 0.0
+    if not gold:
         return 0.0
 
     precision = len(pred & gold) / len(pred)
@@ -308,7 +308,7 @@ def localization_reward(pred_lines, gold_lines):
 
     return 2 * precision * recall / (precision + recall)
 
-def length_penalty(text, min_len=1000, max_len=3500):
+def length_penalty(text, min_len=150, max_len=500):
     n = len(text.split())
 
     if n < min_len:

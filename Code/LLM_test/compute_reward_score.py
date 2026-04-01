@@ -1,17 +1,23 @@
 import json
 import sys
 import os
+import argparse
 from tqdm import tqdm
 
 # 添加reward模块所在的目录到sys.path
 sys.path.append("/home/wyx/KitPatch-63E8/Code/patch_generation")
 from reward import compute_reward
 
-# 输入输出路径
-INPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/doubao-seed-2.0-code_output_deduplicated.jsonl"
-OUTPUT_PATH = "/home/wyx/KitPatch-63E8/Code/LLM_test/doubao-seed-2.0-code_output_with_reward.jsonl"
-
 def main():
+    parser = argparse.ArgumentParser(description="计算LLM输出的reward分项得分")
+    parser.add_argument("--input", "-i", required=True, help="输入去重后的模型输出jsonl路径")
+    parser.add_argument("--output", "-o", required=True, help="输出带reward的jsonl路径")
+    args = parser.parse_args()
+
+    # 输入输出路径
+    INPUT_PATH = args.input
+    OUTPUT_PATH = args.output
+
     # 读取所有样本
     samples = []
     with open(INPUT_PATH, 'r', encoding='utf-8') as f:
