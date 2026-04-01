@@ -518,6 +518,24 @@ def train_ppo(args):
         task_type="CAUSAL_LM"
     )
 
+    # 查找最新的checkpoint
+    latest_ckpt_path, start_epoch, start_step = find_latest_checkpoint(args.save_dir)
+    run_id = None
+
+    # 如果有最新checkpoint，先尝试从checkpoint加载run_id
+    if latest_ckpt_path is not None:
+        # 从checkpoint路径中提取run_id (qwencoder_instruct_ppo_{now})
+        run_id_parts = latest_ckpt_path.split(os.sep)
+        for part in run_id_parts:
+            if part.startswith("qwencoder_instruct_ppo_"):
+                run_id = part
+                break
+
+    # 如果没有找到run_id，说明是新训练
+    if run_id is None:
+        run_id = f"qwencoder_instruct_ppo_{datetime.now().strftime('%Y_%m_%d_%H_%M')}"
+
+    # 初始化模型
     policy_model = AutoModelForCausalLMWithValueHead.from_pretrained(
         args.base_model_path,
         torch_dtype=torch.bfloat16,
@@ -532,16 +550,13 @@ def train_ppo(args):
     )
     policy_model.pretrained_model.gradient_checkpointing_enable()
     policy_model.pretrained_model = get_peft_model(policy_model.pretrained_model, lora_cfg)
-    policy_model.pretrained_model.load_adapter(args.sft_save_dir, adapter_name="default")
-    policy_model.train()
 
     ref_model = AutoModelForCausalLMWithValueHead.from_pretrained(
         args.base_model_path,
         torch_dtype=torch.bfloat16,
         device_map="auto",
         trust_remote_code=True,
-        # load_in_4bit=True, 
-        quantization_config=bnb_config, 
+        quantization_config=bnb_config,
     )
     ref_model.config.use_cache = False
     ref_model.pretrained_model.config.use_cache = False
@@ -549,10 +564,25 @@ def train_ppo(args):
         ref_model.pretrained_model
     )
     ref_model.pretrained_model = get_peft_model(ref_model.pretrained_model, lora_cfg)
-    ref_model.pretrained_model.load_adapter(args.sft_save_dir, adapter_name="default")
     for p in ref_model.parameters():
         p.requires_grad = False
     ref_model.eval()
+
+    # 加载checkpoint（如果存在）
+    if latest_ckpt_path is not None:
+        print(f"🔄 Loading latest checkpoint from {latest_ckpt_path}")
+        print(f"  Resuming from epoch {start_epoch}, step {start_step}")
+        # 加载policy模型
+        policy_model.pretrained_model.load_adapter(latest_ckpt_path, adapter_name="default")
+        # 加载ref模型（保持和policy一致）
+        ref_model.pretrained_model.load_adapter(latest_ckpt_path, adapter_name="default")
+    else:
+        # 新训练加载SFT权重
+        print("🚀 Starting new PPO training from SFT checkpoint")
+        policy_model.pretrained_model.load_adapter(args.sft_save_dir, adapter_name="default")
+        ref_model.pretrained_model.load_adapter(args.sft_save_dir, adapter_name="default")
+
+    policy_model.train()
 
     with open("/home/wyx/KitPatch-63E8/Datasets/prompt/explain_prompt.txt") as f:
         generate_prompt = f.read()
@@ -569,7 +599,6 @@ def train_ppo(args):
         batch_size=1,
         mini_batch_size=1,
         ppo_epochs=args.ppo_epoch,
-        # gradient_accumulation_steps = 4,
         target_kl=0.05,
         init_kl_coef=0.2,
         adap_kl_ctrl=True,
@@ -582,12 +611,15 @@ def train_ppo(args):
         tokenizer=tokenizer,
     )
 
-    now = datetime.now().strftime("%Y_%m_%d_%H_%M")
-    log_path = f"/home/wyx/KitPatch-63E8/Results/logs/qwencoder_instruct/log_{now}"
+    # 日志路径复用同一个run_id，避免每次训练生成新目录
+    log_path = f"/home/wyx/KitPatch-63E8/Results/logs/qwencoder_instruct/log_{run_id.split('_')[-1]}"
     os.makedirs(log_path, exist_ok=True)
-    log_file = open(os.path.join(log_path, "train_log.csv"), "w", newline="")
+    log_file_path = os.path.join(log_path, "train_log.csv")
+    file_exists = os.path.exists(log_file_path)
+    log_file = open(log_file_path, "a" if file_exists else "w", newline="")
     logger = csv.writer(log_file)
-    logger.writerow(["epoch", "step", "mean_scores", "policykl", "loss_total", "loss_policy", "loss_value", "entropy"])
+    if not file_exists:
+        logger.writerow(["epoch", "step", "mean_scores", "policykl", "loss_total", "loss_policy", "loss_value", "entropy"])
 
     print("🚀 Start PPO Training...")
 
@@ -596,8 +628,11 @@ def train_ppo(args):
 
     bad_words = ["<|fim_prefix|>", "<|fim_middle|>", "<|fim_suffix|>"]
     bad_words_ids = tokenizer(bad_words, add_special_tokens=False).input_ids
-    for epoch in range(args.ppo_epoch):
+    for epoch in range(start_epoch, args.ppo_epoch):
         for step, batch in enumerate(tqdm(train_loader)):
+            # 跳过已经训练过的step（仅当前是start_epoch的时候需要跳过）
+            if epoch == start_epoch and step < start_step:
+                continue
 
             input_ids = batch["input_ids"].cuda()
 
@@ -675,13 +710,17 @@ def train_ppo(args):
 
             if step % 20 == 0:
                 print(f"Epoch {epoch} Step {step} Reward {rewards.mean().item():.3f}")
-        
+            if step % 100 == 0:
+                ckpt_dir = os.path.join(args.save_dir, run_id, f"ppo_checkpoint_epoch_{epoch}_step_{step}")
+                os.makedirs(ckpt_dir, exist_ok=True)
+                ppo_trainer.save_pretrained(ckpt_dir)
+
         # ====== evaluation each epoch =====
         print(f"Epoch {epoch} evaluation...")
         evaluate(args, policy_model, tokenizer, test_loader, os.path.join(log_path, f"test_epoch_{epoch}.jsonl"))
         print(f"Epoch {epoch} finished")
-        
-        save_dir = os.path.join(args.save_dir, os.path.join(f"qwencoder_instruct_ppo_{now}", f"epoch_{epoch}"))
+
+        save_dir = os.path.join(args.save_dir, run_id, f"epoch_{epoch}")
         os.makedirs(save_dir, exist_ok=True)
         ppo_trainer.save_pretrained(save_dir)
 
@@ -690,7 +729,7 @@ def train_ppo(args):
     # ===== Final dump after PPO training =====
     print("📦 Dumping final train/test generations after PPO...")
 
-    final_dump_dir = os.path.join(save_dir, "final_generations")
+    final_dump_dir = os.path.join(args.save_dir, run_id, "final_generations")
     os.makedirs(final_dump_dir, exist_ok=True)
 
     dump_generation_to_json(
@@ -700,6 +739,47 @@ def train_ppo(args):
     )
 
     print("✅ Final generation dump finished.")
+
+def find_latest_checkpoint(save_dir):
+    """找到最新的PPO checkpoint，返回(checkpoint_path, epoch, step)，如果没有则返回(None, 0, 0)"""
+    if not os.path.exists(save_dir):
+        return None, 0, 0
+
+    # 查找所有ppo_checkpoint和epoch开头的目录
+    checkpoints = []
+    for root, dirs, files in os.walk(save_dir):
+        for d in dirs:
+            # 匹配step checkpoint: ppo_checkpoint_epoch_{epoch}_step_{step}
+            if d.startswith("ppo_checkpoint_epoch_"):
+                parts = d.split("_")
+                if len(parts) >= 6:
+                    try:
+                        epoch = int(parts[3])
+                        step = int(parts[5])
+                        checkpoints.append((epoch, step, os.path.join(root, d)))
+                    except:
+                        continue
+            # 匹配epoch checkpoint: epoch_{epoch}
+            elif d.startswith("epoch_"):
+                try:
+                    epoch = int(d.split("_")[1])
+                    step = float("inf")  # epoch结束的checkpoint比同epoch的所有step都新
+                    checkpoints.append((epoch, step, os.path.join(root, d)))
+                except:
+                    continue
+
+    if not checkpoints:
+        return None, 0, 0
+
+    # 按epoch降序，step降序排序，取第一个
+    checkpoints.sort(key=lambda x: (x[0], x[1]), reverse=True)
+    latest_epoch, latest_step, latest_path = checkpoints[0]
+    # 如果是epoch结束的checkpoint，step设为0，下一个epoch从step 0开始
+    if latest_step == float("inf"):
+        latest_step = 0
+        latest_epoch += 1
+    return latest_path, latest_epoch, latest_step
+
 
 def truncate_response(resp_ids, tokenizer):
 
