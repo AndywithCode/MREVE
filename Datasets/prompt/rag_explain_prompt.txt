@@ -46,21 +46,11 @@ Only use it as background knowledge to improve your analysis of the TARGET code.
 
 === Output Format (STRICT JSON) ===
 
-{
-  "localization": {
-    "lines": [<int>],
-    "code_elements": ["<variable/function/statement>"],
-    "description": "<short natural language description>"
-  },
-  "root_cause": {
-    "summary": "<one-sentence root cause>",
-    "detailed_analysis": "<multi-sentence explanation including triggering conditions>"
-  },
-  "repair": {
-    "diff": "<unified diff patch>",
-    "fix_strategy": "<short description of how the fix mitigates the root cause>"
-  }
-}
+{{
+  "analysis": "full step-by-step vulnerability reasoning",
+  "localization": [int, ...],
+  "repair": "unified diff patch"
+}} 
 
 Do not include any text outside the JSON object.
 
@@ -78,3 +68,5 @@ Do not include any text outside the JSON object.
 
 === Commit Message ===
 {commitMessage}
+
+=== OUTPUT JSON ===
