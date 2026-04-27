@@ -250,8 +250,8 @@ def explanation_structure_reward(cot: str) -> float:
     return min(score, 1.0)
 
 def token_overlap(text1, text2):
-    t1 = set(re.findall(r"[a-zA-Z_][a-zA-Z0-9_]*", text1))
-    t2 = set(re.findall(r"[a-zA-Z_][a-zA-Z0-9_]*", text2))
+    t1 = set(re.findall(r"[a-zA-Z_][a-zA-Z0-9_]*", str(text1)))
+    t2 = set(re.findall(r"[a-zA-Z_][a-zA-Z0-9_]*", str(text2)))
     if not t1 or not t2:
         return 0.0
     return len(t1 & t2) / len(t2)
